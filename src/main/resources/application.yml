@@ -1,0 +1,17 @@
+spring:
+  thymeleaf:
+    encoding: utf-8
+
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    username: postgres
+    url: jdbc:postgresql://localhost:5432/rest
+    password: 12345
+    security:
+      user:
+        name: 1
+        password: 1
+    jpa:
+      database-platform: org.hibernate.dialect.PostgreSQL9Dialect
+server:
+  port: 8081
