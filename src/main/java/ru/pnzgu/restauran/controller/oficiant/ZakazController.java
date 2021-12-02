@@ -5,9 +5,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.pnzgu.restauran.dto.*;
+import ru.pnzgu.restauran.exception.NotFoundException;
 import ru.pnzgu.restauran.rest.service.*;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @Controller
@@ -30,11 +30,17 @@ public class ZakazController {
 
     @GetMapping("/{zakazId}")
     public String getCommonView(@PathVariable Long zakazId, Model model) {
+        try {
+            zakazService.get(zakazId);
+        } catch (NotFoundException e) {
+            return "redirect:/oficiant/zakaz";
+        }
         model.addAttribute("zakazList", zakazService.getAll());
-
         List<SostavZakazDTO> sostavList = sostavZakazService.getAllSostavZakazByZakazId(zakazId);
         model.addAttribute("sostavList", sostavList);
         model.addAttribute("zakazId", zakazId);
+
+
 
         return "/oficiant/zakaz/zakazView";
     }
@@ -99,33 +105,28 @@ public class ZakazController {
     @PostMapping("/sostav/create/{zakazId}")
     public String createSostav(@PathVariable Long zakazId,
                                @ModelAttribute(name = "sostav") SostavZakazDTO sostav,
-                               @ModelAttribute(name = "menuId") Long menuId) {
+                               @ModelAttribute(name = "menuDto") MenuDTO menuDTO) {
 
-        sostavZakazService.save(zakazId, menuId, sostav);
+        sostavZakazService.save(zakazId, menuDTO.getId(), sostav);
 
-        return String.format("redirect:/oficiant/%s", zakazId);
+        return String.format("redirect:/oficiant/zakaz/%s", zakazId);
     }
 
-    @PostMapping("/update/sostav/{id}")
-    public String updateSostav(@PathVariable Long id,  @ModelAttribute(name = "sostav") SostavZakazDTO sostav) {
-
-        sostavZakazService.update(id, sostav);
-        System.out.println("");
-        return String.format("redirect:/oficiant/%s", id);
-    }
-
-    @GetMapping("/delete/sostav/{id}")
+    @GetMapping("/sostav/delete/{id}")
     public String deleteSostav(@PathVariable Long id) {
+        Long zakazId = sostavZakazService.get(id).getZakaz().getId();
         sostavZakazService.delete(id);
 
-        return String.format("redirect:/oficiant/%s", zakazService.getFirstZakaz());
+        return String.format("redirect:/oficiant/zakaz/%s", zakazId);
     }
 
     @GetMapping("/delete/{id}")
     public String deleteZakaz(@PathVariable Long id) {
+        Long zakazId = zakazService.getFirstZakaz();
+
         zakazService.delete(id);
 
-        return String.format("redirect:/oficiant/%s", zakazService.getFirstZakaz());
+        return String.format("redirect:/oficiant/zakaz/%s", zakazId);
     }
 
 

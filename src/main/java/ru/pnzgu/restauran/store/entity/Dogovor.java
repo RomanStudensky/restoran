@@ -1,13 +1,16 @@
 package ru.pnzgu.restauran.store.entity;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 
 @Table(name = "dogovor")
 @Entity
-@Data
+@Getter
+@Setter
 public class Dogovor extends EntityParent {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,9 +24,6 @@ public class Dogovor extends EntityParent {
     @JoinColumn(name = "postavshik", nullable = false)
     private Postavshik postavshik;
 
-    @Lob
     @Column(name = "sostav", nullable = false)
     private String sostav;
-
-
 }

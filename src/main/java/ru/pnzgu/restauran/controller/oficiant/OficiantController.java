@@ -28,7 +28,7 @@ public class OficiantController {
         return "/oficiant/stol/stolReservView";
     }
 
-    @GetMapping("//{stolId}")
+    @GetMapping("/{stolId}")
     public String getCommonView(@PathVariable Long stolId, Model model) {
         model.addAttribute("stolList", stolService.getAllStol());
 

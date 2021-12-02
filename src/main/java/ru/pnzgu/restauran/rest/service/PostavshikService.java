@@ -15,10 +15,11 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class PostavshikService {
 
-    final PostavshikRepository postavshikRepository;
-    final SimpleMapper<PostavshikDTO, Postavshik> simpleMapper = new SimpleMapper<>(new PostavshikDTO(), new Postavshik());
+    private final PostavshikRepository postavshikRepository;
+    private final SimpleMapper<PostavshikDTO, Postavshik> simpleMapper = new SimpleMapper<>(new PostavshikDTO(), new Postavshik());
 
-    public List<PostavshikDTO> getAllPostavshik() {
+    public List<PostavshikDTO> getAll() {
+
         return postavshikRepository
                 .findAll()
                 .stream()
@@ -59,5 +60,9 @@ public class PostavshikService {
 
     public void delete(Long id) {
         postavshikRepository.deleteById(id);
+    }
+
+    public Long getFirstPostavshik() {
+        return postavshikRepository.findMinIdPostavshik().orElse(0L);
     }
 }

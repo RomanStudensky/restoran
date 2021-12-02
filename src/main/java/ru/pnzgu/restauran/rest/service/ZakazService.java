@@ -93,6 +93,6 @@ public class ZakazService {
     }
 
     public Long getFirstZakaz() {
-        return null;
+        return zakazRepository.findMinIdZakaz().orElse(0L);
     }
 }

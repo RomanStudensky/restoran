@@ -7,19 +7,21 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Table(name = "sostav_naklad")
 @Entity
 @Setter
 @Getter
-public class SostavNaklad extends EntityParent {
+public class Naklad extends EntityParent {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_naklad", nullable = false)
     private Long id;
 
     @Column(name = "date_nak", nullable = false)
-    private LocalDate dateNak;
+    private LocalDate dateNaklad;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "postavshik", nullable = false)
@@ -30,6 +32,9 @@ public class SostavNaklad extends EntityParent {
     private Dogovor dogovor;
 
     @Column(name = "summa", nullable = false, precision = 131089)
-    private BigDecimal summa;
+    private Double summa;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tovarNaklad", fetch = FetchType.LAZY)
+    private List<SostavPostav> sostav = new ArrayList<>();
 
 }

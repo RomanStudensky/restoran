@@ -4,12 +4,22 @@ import lombok.*;
 
 @Getter
 @Setter
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 @ToString
 public class SotrudnikDTO extends DtoParent {
+    public static final String[] ROLE = new String[] {
+            "Администратор",
+            "Бухгалтер",
+            "Повар",
+            "Администратор",
+            "Официант",
+            "Бармен"
+    };
+
     private String fio;
     private String role;
+    private String userName;
+    private String password;
 }

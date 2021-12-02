@@ -33,7 +33,7 @@ public class SostavZakazService {
                 .collect(Collectors.toList());
     }
 
-    public SostavZakazDTO getSostav(Long id) {
+    public SostavZakazDTO get(Long id) {
         return simpleMapper.mapEntityToDto(sostavZakazRepository
                 .findById(id)
                 .orElseThrow(() -> new NotFoundException(String.format("Состава заказа с идентификатором - %s не найден", id))));
@@ -53,26 +53,12 @@ public class SostavZakazService {
         sostavZakaz.setBludo(menu);
         sostavZakaz.setSumma(BigDecimal.valueOf(dto.getQuantity() * menu.getPrice().longValue()));
 
-        return simpleMapper
-                .mapEntityToDto(
-                        sostavZakazRepository
-                                .save(sostavZakaz)
-                );
+
+        sostavZakazRepository.save(sostavZakaz);
+
+        return simpleMapper.mapEntityToDto(sostavZakaz);
+
     }
-
-    public SostavZakazDTO update(Long id, SostavZakazDTO dto) {
-        sostavZakazRepository
-                .findById(id)
-                .orElseThrow(() -> new NotFoundException(String.format("Состава заказа с идентификатором - %s не найден", id)));
-
-        dto.setId(id);
-
-        return simpleMapper
-                .mapEntityToDto(
-                        sostavZakazRepository.save(simpleMapper.mapDtoToEntity(dto))
-                );
-    }
-
     public void delete(Long id) {
         sostavZakazRepository.deleteById(id);
     }

@@ -1,5 +1,6 @@
 package ru.pnzgu.restauran.rest.service;
 
+import org.springframework.transaction.annotation.Transactional;
 import ru.pnzgu.restauran.dto.ReservDTO;
 import ru.pnzgu.restauran.dto.StolDTO;
 import ru.pnzgu.restauran.exception.NotFoundException;
@@ -24,6 +25,7 @@ public class ReservService {
     private final SimpleMapper<ReservDTO, Reserv> simpleReservMapper = new SimpleMapper<>(new ReservDTO(), new Reserv());
     private final SimpleMapper<StolDTO, Stol> simpleStolMapper = new SimpleMapper<>(new StolDTO(), new Stol());
 
+    @Transactional(readOnly = true)
     public List<ReservDTO> getAllByStolId(Long id) {
         return reservRepository
                 .findAllReservByStolId(id)
@@ -32,6 +34,7 @@ public class ReservService {
                 .collect(Collectors.toList());
     }
 
+    @Transactional(readOnly = true)
     public ReservDTO get(Long id) {
         return simpleReservMapper.mapEntityToDto(reservRepository
                 .findById(id)
@@ -76,10 +79,10 @@ public class ReservService {
     }
 
     public void delete(Long id) {
-        reservRepository
+        Reserv reserv = reservRepository
                 .findById(id)
                 .orElseThrow(() -> new NotFoundException(String.format("Бронь с идентификатором - %s не найден", id)));
 
-        reservRepository.deleteById(id);
+        reservRepository.delete(reserv);
     }
 }

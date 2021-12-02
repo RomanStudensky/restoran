@@ -16,7 +16,7 @@ public class SostavPostav extends EntityParent {
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "tovar_naklad", nullable = false)
-    private SostavNaklad tovarNaklad;
+    private Naklad tovarNaklad;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "product", nullable = false)
@@ -29,6 +29,6 @@ public class SostavPostav extends EntityParent {
     private BigDecimal price;
 
     @Column(name = "summa", nullable = false, precision = 131089)
-    private BigDecimal summa;
+    private Double summa;
 
 }

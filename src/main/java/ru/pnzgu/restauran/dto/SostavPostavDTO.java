@@ -1,20 +1,18 @@
 package ru.pnzgu.restauran.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.math.BigDecimal;
 
-@Data
+@Getter
+@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class SostavPostavDTO extends DtoParent {
     private ProductDTO product;
     private Long quantity;
-    private BigDecimal price;
-    private SostavNakladDTO tovarNaklad;
-    private BigDecimal summa;
+    private Long price;
+    private NakladDTO tovarNaklad;
+    private Long summa;
 }
