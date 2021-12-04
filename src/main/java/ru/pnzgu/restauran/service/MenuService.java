@@ -1,9 +1,8 @@
-package ru.pnzgu.restauran.rest.service;
+package ru.pnzgu.restauran.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.pnzgu.restauran.dto.MenuDTO;
-import ru.pnzgu.restauran.dto.StolDTO;
 import ru.pnzgu.restauran.exception.NotFoundException;
 import ru.pnzgu.restauran.store.entity.Menu;
 import ru.pnzgu.restauran.store.repository.MenuRepository;

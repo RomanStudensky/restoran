@@ -1,4 +1,4 @@
-package ru.pnzgu.restauran.rest.service;
+package ru.pnzgu.restauran.service;
 
 import ru.pnzgu.restauran.dto.DogovorDTO;
 import ru.pnzgu.restauran.exception.NotFoundException;

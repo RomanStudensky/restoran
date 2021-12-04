@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" class="h-100">
 <head>
     <meta charset="UTF-8">
     <title>Изменение даты отпуска</title>
@@ -15,10 +15,10 @@
         <div class="collapse navbar-collapse" style="width: 100%;" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{/oficiant/stol}">Стол-Бронь<span class="sr-only"></span></a>
+                    <a class="nav-link" th:href="@{/barman/stol}">Стол-Бронь<span class="sr-only"></span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{/oficiant/zakaz}">Заказы<span class="sr-only"></span></a>
+                    <a class="nav-link" th:href="@{/barman/zakaz}">Заказы<span class="sr-only"></span></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link disabled" href="#">Выход</a>
@@ -29,7 +29,7 @@
 </nav>
 <div style="position: absolute; left: 50%; transform:translate(-50%, 0)">
     <div style="position: absolute; left: 50%; transform:translate(-50%, 0)">
-        <form th:method="POST" th:action="@{/oficiant/zakaz/update/{id}(id = ${zakaz.getId()})}">
+        <form th:method="POST" th:action="@{/barman/zakaz/update/{id}(id = ${zakaz.getId()})}">
             <div class="field">
                 <label for="dateZakaz">Дата заказа: </label>
                 <input type="date" th:field="*{zakaz.dateZakaz}" id="dateZakaz" />
