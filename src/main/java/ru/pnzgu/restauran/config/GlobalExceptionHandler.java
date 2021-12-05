@@ -12,20 +12,20 @@ import ru.pnzgu.restauran.exception.NotFoundException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-//@ControllerAdvice
-//@Configuration
-public class GlobalExceptionHandler {//implements HandlerExceptionResolver {
+@ControllerAdvice
+@Configuration
+public class GlobalExceptionHandler implements HandlerExceptionResolver {
 
-//    @Override
-//    public ModelAndView resolveException(HttpServletRequest request, HttpServletResponse response, Object handler,
-//                                         Exception ex) {
-//        ModelAndView mv = new ModelAndView();
-//        // Оцениваем разные типы исключений и делаем разные переходы вида
-//        if(ex instanceof NotFoundException){
-//            mv.setViewName("error");
-//        }
-//        mv.addObject("error", ex.toString());
-//
-//        return mv;
-//    }
+    @Override
+    public ModelAndView resolveException(HttpServletRequest request, HttpServletResponse response, Object handler,
+                                         Exception ex) {
+        ModelAndView mv = new ModelAndView();
+        // Оцениваем разные типы исключений и делаем разные переходы вида
+        if(ex instanceof NotFoundException){
+            mv.setViewName("error");
+        }
+        mv.addObject("error", ex.toString());
+
+        return mv;
+    }
 }
