@@ -19,6 +19,6 @@ public class NakladDTO extends DtoParent {
     private LocalDate dateNaklad = LocalDate.now();
     private PostavshikDTO postavshik;
     private DogovorDTO dogovor;
-    private Long summa;
+    private Long summa = 0L;
 
 }

@@ -1,4 +1,4 @@
-package ru.pnzgu.restauran.rest.service;
+package ru.pnzgu.restauran.service;
 
 import org.springframework.transaction.annotation.Transactional;
 import ru.pnzgu.restauran.dto.ReservDTO;
