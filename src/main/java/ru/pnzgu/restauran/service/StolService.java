@@ -1,8 +1,7 @@
-package ru.pnzgu.restauran.rest.service;
+package ru.pnzgu.restauran.service;
 
 import ru.pnzgu.restauran.dto.StolDTO;
 import ru.pnzgu.restauran.exception.NotFoundException;
-import ru.pnzgu.restauran.store.entity.Reserv;
 import ru.pnzgu.restauran.store.entity.Stol;
 import ru.pnzgu.restauran.store.repository.StolRepository;
 import ru.pnzgu.restauran.util.mapping.SimpleMapper;

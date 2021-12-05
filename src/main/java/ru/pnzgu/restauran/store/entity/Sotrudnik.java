@@ -7,7 +7,7 @@ import ru.pnzgu.restauran.store.Role;
 
 import javax.persistence.*;
 
-@Table(name = "sotrudnik")
+@Table(name = "usr")
 @Entity
 @Getter
 @Setter
@@ -23,7 +23,7 @@ public class Sotrudnik extends EntityParent {
     @Column(name = "rol", nullable = false, length = 15)
     private String role;
 
-    @Column(name = "user_name", nullable = false, length = 15)
+    @Column(name = "username", nullable = false, length = 15)
     private String userName;
 
     @Column(name = "password", nullable = false, length = 15)
