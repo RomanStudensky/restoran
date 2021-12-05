@@ -26,6 +26,7 @@ public class ZakazDTO extends DtoParent {
     private LocalTime timeZakaz = LocalTime.now();
     private StolDTO stol = new StolDTO();
     private SotrudnikDTO sotrud = new SotrudnikDTO();
-    private BigDecimal summa = BigDecimal.valueOf(0);
+    private BigDecimal summa;
     private List<SostavZakazDTO> sostav = new ArrayList<>();
+
 }

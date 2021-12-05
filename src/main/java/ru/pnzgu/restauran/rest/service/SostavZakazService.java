@@ -1,4 +1,4 @@
-package ru.pnzgu.restauran.service;
+package ru.pnzgu.restauran.rest.service;
 
 import ru.pnzgu.restauran.dto.SostavZakazDTO;
 import ru.pnzgu.restauran.exception.NotFoundException;

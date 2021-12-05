@@ -1,4 +1,4 @@
-package ru.pnzgu.restauran.service;
+package ru.pnzgu.restauran.rest.service;
 
 import ru.pnzgu.restauran.dto.ZakazDTO;
 import ru.pnzgu.restauran.exception.NotFoundException;
@@ -66,11 +66,9 @@ public class ZakazService {
 
     public ZakazDTO update(ZakazDTO zakazDTO, Long stolId, Long sotrudId, Long zakazId) {
 
-         zakazRepository
+        Zakaz zakaz = zakazRepository
                 .findById(zakazId)
                 .orElseThrow(() -> new NotFoundException(String.format("Заказ с идентификатором - %s не найден", stolId)));
-
-        Zakaz zakaz = simpleMapper.mapDtoToEntity(zakazDTO);
 
         Stol stol = stolRepository
                 .findById(stolId)

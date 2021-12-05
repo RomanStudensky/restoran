@@ -11,8 +11,8 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 public class SostavPostavDTO extends DtoParent {
     private ProductDTO product;
-    private Long quantity = 0L;
-    private Long price = 0L;
+    private Long quantity;
+    private Long price;
     private NakladDTO tovarNaklad;
-    private Long summa = 0L;
+    private Long summa;
 }

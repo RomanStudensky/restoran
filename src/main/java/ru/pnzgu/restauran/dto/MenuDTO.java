@@ -13,8 +13,8 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 public class MenuDTO extends DtoParent {
     private String bludo;
-    private Long weight = 0L;
-    private BigDecimal price = BigDecimal.valueOf(0);
+    private Long weight;
+    private BigDecimal price;
     private CategoryDTO category;
 
 }

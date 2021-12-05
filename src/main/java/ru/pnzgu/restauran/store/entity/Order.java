@@ -1,16 +1,13 @@
 package ru.pnzgu.restauran.store.entity;
 
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 
 @Table(name = "orders")
 @Entity
-@Getter
-@Setter
+@Data
 public class Order extends EntityParent {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
