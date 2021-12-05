@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface SotrudnikRepository extends JpaRepository<Sotrudnik, Long> {
+    //Optional<Sotrudnik> findById(Long id);
 }

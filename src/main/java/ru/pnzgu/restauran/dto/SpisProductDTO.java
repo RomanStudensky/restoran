@@ -10,12 +10,12 @@ import java.math.BigDecimal;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class SostavAktDTO extends DtoParent {
+public class SpisProductDTO extends DtoParent {
     private ProductDTO product;
     private String reason;
     private Integer quantity = 0;
     @JsonProperty(value = "akt")
     private AktDTO aktSpis;
-    private Double price = 0.0D;
-    private Double summa = 0.0D;
+    private BigDecimal price = BigDecimal.valueOf(0);
+    private BigDecimal summa = BigDecimal.valueOf(0);
 }
