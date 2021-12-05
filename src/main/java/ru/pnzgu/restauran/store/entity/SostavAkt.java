@@ -8,13 +8,13 @@ import lombok.ToString;
 import javax.persistence.*;
 import java.math.BigDecimal;
 
-@Table(name = "spis_product")
+@Table(name = "sostav_akt")
 @Entity
 @Getter
 @Setter
 @ToString
 @RequiredArgsConstructor
-public class SpisProduct extends EntityParent {
+public class SostavAkt extends EntityParent {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_spis", nullable = false)

@@ -36,7 +36,7 @@ public class AktSpis extends EntityParent {
 
     @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "akt")
-    private List<SpisProduct> spisProducts;
+    private List<SostavAkt> spisProducts;
 
     @Override
     public boolean equals(Object o) {
