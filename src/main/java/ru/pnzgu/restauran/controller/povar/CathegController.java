@@ -11,7 +11,7 @@ import ru.pnzgu.restauran.service.*;
 import java.util.List;
 
 @Controller
-@RequestMapping("/povar/naklad")
+@RequestMapping("/povar/catheg")
 @RequiredArgsConstructor
 public class CathegController {
 

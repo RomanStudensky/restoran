@@ -35,5 +35,5 @@ public class SostavAkt extends EntityParent {
     private Double quantity;
 
     @Column(name = "price", nullable = false, precision = 131089)
-    private BigDecimal price;
+    private Double price;
 }
