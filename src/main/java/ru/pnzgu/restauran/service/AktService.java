@@ -7,6 +7,7 @@ import ru.pnzgu.restauran.store.entity.AktSpis;
 import ru.pnzgu.restauran.store.entity.SostavAkt;
 import ru.pnzgu.restauran.store.entity.Sotrudnik;
 import ru.pnzgu.restauran.store.repository.AktRepository;
+import ru.pnzgu.restauran.store.repository.SostavAktRepository;
 import ru.pnzgu.restauran.store.repository.SotrudnikRepository;
 import ru.pnzgu.restauran.util.mapping.SimpleMapper;
 import lombok.RequiredArgsConstructor;
@@ -21,7 +22,7 @@ public class AktService {
 
     private final AktRepository aktRepository;
     private final SotrudnikRepository sotrudnikRepository;
-    private final SostavAktService sostavAktService;
+    private final SostavAktRepository sostavAktRepository;
     private final SimpleMapper<AktDTO, AktSpis> simpleMapper = new SimpleMapper<>(new AktDTO(), new AktSpis());
 
     public List<AktDTO> getAll() {
@@ -89,10 +90,10 @@ public class AktService {
     public void setSumma(Long aktId) {
         AktDTO aktDTO = get(aktId);
 
-        aktDTO.setSumma(sostavAktService
-                .getSostavByAktId(aktId)
+        aktDTO.setSumma(sostavAktRepository
+                .findSostavAktByAktSpis_Id(aktId)
                 .stream()
-                .map(SostavAktDTO::getSumma)
+                .map(sostavAkt -> sostavAkt.getQuantity() * sostavAkt.getPrice())
                 .reduce(0.0, Double::sum));
 
         aktRepository.save(simpleMapper.mapDtoToEntity(aktDTO));

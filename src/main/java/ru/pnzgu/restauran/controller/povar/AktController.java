@@ -11,14 +11,14 @@ import ru.pnzgu.restauran.service.*;
 import java.util.List;
 
 @Controller
-@RequestMapping("/povar/naklad")
+@RequestMapping("/povar/akt")
 @RequiredArgsConstructor
 public class AktController {
 
     private final String REDIRECT_URL = "redirect:/povar/akt/%s";
     private final String COMMON_VIEW =  "/povar/akt/commonView";
-    private final String CREATE_AKT_VIEW = "/povar/akt/action/naklad/create";
-    private final String UPDATE_AKT_VIEW = "/povar/akt/action/naklad/update";
+    private final String CREATE_AKT_VIEW = "/povar/akt/action/akt/create";
+    private final String UPDATE_AKT_VIEW = "/povar/akt/action/akt/update";
     private final String CREATE_SOSTAV_VIEW = "/povar/akt/action/sostav/create";
 
     private final AktService aktService;
@@ -39,7 +39,7 @@ public class AktController {
         try {
             aktService.get(aktId);
         } catch (NotFoundException e) {
-            return "redirect:/director/akt";
+            return "redirect:/povar/akt";
         }
         model.addAttribute("aktList", aktService.getAll());
 
@@ -54,7 +54,7 @@ public class AktController {
     public String getNakladCreateView(Model model) {
         model.addAttribute("akt", new AktDTO());
         model.addAttribute("sotrudnikList", sotrudnikService.getAll());
-        model.addAttribute("sotrudnik", new SotrudnikDTO());
+        model.addAttribute("sotrudnikDto", new SotrudnikDTO());
         return CREATE_AKT_VIEW;
     }
 
@@ -70,8 +70,8 @@ public class AktController {
 
     @GetMapping("/sostav/create/view/{aktId}")
     public String getSostavCreateView(@PathVariable Long aktId, Model model) {
-        model.addAttribute("sostav", new SostavPostavDTO());
-        model.addAttribute("nakladId", aktId);
+        model.addAttribute("sostav", new SostavAktDTO());
+        model.addAttribute("aktId", aktId);
         model.addAttribute("productDto", new ProductDTO());
         model.addAttribute("productList", productService.getAll());
 

@@ -18,10 +18,10 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class SostavAktService {
 
-    final SostavAktRepository sostavAktRepository;
-    final AktService aktService;
-    final ProductService productService;
-    final SimpleMapper<SostavAktDTO, SostavAkt> simpleMapper = new SimpleMapper<>(new SostavAktDTO(), new SostavAkt());
+    private final SostavAktRepository sostavAktRepository;
+    private final AktService aktService;
+    private final ProductService productService;
+    private final SimpleMapper<SostavAktDTO, SostavAkt> simpleMapper = new SimpleMapper<>(new SostavAktDTO(), new SostavAkt());
 
 
     public SostavAktDTO get(Long id) {
@@ -33,9 +33,9 @@ public class SostavAktService {
     @Transactional
     public SostavAktDTO save(Long aktId, Long productId, SostavAktDTO dto) {
 
-        ProductDTO product = productService.get(dto.getProduct().getId());
+        ProductDTO product = productService.get(productId);
 
-        AktDTO aktSpis = aktService.get(dto.getAktSpis().getId());
+        AktDTO aktSpis = aktService.get(aktId);
 
         if (product.getQuantity() < dto.getQuantity()) {
             throw new NotFoundException(String.format("Товара %s на складе недостаточно для списания. Доступное количество - %s.", product.getNameProd(), product.getQuantity()));
@@ -46,12 +46,15 @@ public class SostavAktService {
         dto.setProduct(product);
         dto.setAktSpis(aktSpis);
 
-        SostavAktDTO newSpis = simpleMapper.mapEntityToDto(sostavAktRepository.save(simpleMapper.mapDtoToEntity(dto)));
+        SostavAktDTO newSpis = simpleMapper
+                .mapEntityToDto(
+                        sostavAktRepository
+                                .save(simpleMapper
+                                        .mapDtoToEntity(dto)
+                                )
+                );
 
-        aktSpis.getSpisProducts().add(newSpis);
         aktService.setSumma(aktId);
-
-
         return newSpis;
     }
 
@@ -73,10 +76,12 @@ public class SostavAktService {
     }
 
     public List<SostavAktDTO> getSostavByAktId(Long id) {
-        return sostavAktRepository
+        List<SostavAktDTO> list = sostavAktRepository
                 .findSostavAktByAktSpis_Id(id)
                 .stream()
                 .map(simpleMapper::mapEntityToDto)
                 .collect(Collectors.toList());
+        list.forEach(dto -> dto.setSumma(dto.getPrice() * dto.getQuantity()));
+        return list;
     }
 }
