@@ -6,7 +6,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.pnzgu.restauran.dto.*;
 import ru.pnzgu.restauran.exception.NotFoundException;
-import ru.pnzgu.restauran.service.*;
+import ru.pnzgu.restauran.rest.service.*;
+import ru.pnzgu.restauran.store.entity.SostavPostav;
 
 import java.util.List;
 

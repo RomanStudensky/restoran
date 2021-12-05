@@ -6,8 +6,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.pnzgu.restauran.dto.ReservDTO;
 import ru.pnzgu.restauran.dto.StolDTO;
-import ru.pnzgu.restauran.service.ReservService;
-import ru.pnzgu.restauran.service.StolService;
+import ru.pnzgu.restauran.rest.service.ReservService;
+import ru.pnzgu.restauran.rest.service.StolService;
 
 import java.util.ArrayList;
 import java.util.List;

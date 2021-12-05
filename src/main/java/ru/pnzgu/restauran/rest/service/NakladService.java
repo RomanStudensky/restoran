@@ -1,4 +1,4 @@
-package ru.pnzgu.restauran.service;
+package ru.pnzgu.restauran.rest.service;
 
 import ru.pnzgu.restauran.dto.NakladDTO;
 import ru.pnzgu.restauran.exception.NotFoundException;
@@ -11,8 +11,11 @@ import ru.pnzgu.restauran.util.mapping.SimpleMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 @RequiredArgsConstructor

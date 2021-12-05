@@ -11,7 +11,7 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 public class SostavProdDTO extends DtoParent {
     private MenuDTO bludo;
-    private Long quantity = 0L;
-    private BigDecimal summa = BigDecimal.valueOf(0);
+    private Long quantity;
+    private BigDecimal summa;
     private ProdazaDTO prodaza;
 }

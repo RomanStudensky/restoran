@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" class="h-100">
+<html lang="en" xmlns:th="http://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Изменение даты отпуска</title>
@@ -7,7 +7,7 @@
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">Ресторан - Шеф-повар</a>
+    <a class="navbar-brand" href="#">Ресторан - Официант</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Панель управления">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -15,19 +15,10 @@
         <div class="collapse navbar-collapse" style="width: 100%;" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{/povar/naklad}">Накладная - Состав<span class="sr-only"></span></a>
+                    <a class="nav-link" th:href="@{/oficiant/stol}">Стол-Бронь<span class="sr-only"></span></a>
                 </li>
-                <li class="nav-item ">
-                    <a class="nav-link" th:href="@{/povar/order}">Заявка - Состав<span class="sr-only"></span></a>
-                </li>
-                <li class="nav-item ">
-                    <a class="nav-link" th:href="@{/povar/cathegory}">Категория - Меню - Состав блюда<span class="sr-only"></span></a>
-                </li>
-                <li class="nav-item ">
-                    <a class="nav-link" th:href="@{/povar/act}">Акт о списании продукта - Списание продукта<span class="sr-only"></span></a>
-                </li>
-                <li class="nav-item ">
-                    <a class="nav-link" th:href="@{/povar/product}">Продукты<span class="sr-only"></span></a>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/oficiant/zakaz}">Заказы<span class="sr-only"></span></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link disabled" href="#">Выход</a>
@@ -38,7 +29,7 @@
 </nav>
 <div style="position: absolute; left: 50%; transform:translate(-50%, 0)">
     <div style="position: absolute; left: 50%; transform:translate(-50%, 0)">
-        <form th:method="POST" th:action="@{/povar/naklad/update/{id}(id=${naklad.getId})}">
+        <form th:method="POST" th:action="@{/director/naklad/update/{id}(id=${naklad.getId})}">
             <div class="field">
                 <label for="dateNaklad">Дата накладной: </label>
                 <input type="date" th:field="*{naklad.dateNaklad}" id="dateNaklad" />

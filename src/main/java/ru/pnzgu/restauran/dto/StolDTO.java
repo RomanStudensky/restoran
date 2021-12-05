@@ -11,6 +11,6 @@ import java.util.List;
 @AllArgsConstructor
 @ToString
 public class StolDTO extends DtoParent {
-    private Long countPlace = 0L;
+    private Long countPlace;
     private List<ReservDTO> reservs = new ArrayList<>();
 }
