@@ -20,5 +20,5 @@ public class AktDTO extends DtoParent {
     private LocalDate dateAkt = LocalDate.now();
     private SotrudnikDTO sotrud;
     private Double summa = 0.0D;
-    private List<SostavAktDTO> spisProducts = new ArrayList<>();
+    private List<SpisProductDTO> spisProducts = new ArrayList<>();
 }
