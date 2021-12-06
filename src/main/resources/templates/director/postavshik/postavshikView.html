@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <title>Панель управления официанта</title>
     <style type="text/css">
         a {
@@ -112,6 +112,19 @@
                 </li>
                 <li class="nav-item ">
                     <a class="nav-link" th:href="@{/director/sotrudnik}">Сотрудники<span class="sr-only"></span></a>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Отчёты
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" th:href="@{/director/documents/view/postav}">Отчёт по поставкам</a>
+                            <a class="dropdown-item" th:href="@{/director/documents/spis}">Отчёт по списанным продуктам</a>
+                            <!--                        <a class="dropdown-item" th:href="#">Отчёт по продажам в баре</a>-->а
+                        </div>
+                    </div>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link disabled" href="#">Выход</a>

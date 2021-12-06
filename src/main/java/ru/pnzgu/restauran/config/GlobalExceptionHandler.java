@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ModelAndView;
+import ru.pnzgu.restauran.exception.DocumentExportException;
 import ru.pnzgu.restauran.exception.NotFoundException;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,7 +22,7 @@ public class GlobalExceptionHandler implements HandlerExceptionResolver {
                                          Exception ex) {
         ModelAndView mv = new ModelAndView();
         // Оцениваем разные типы исключений и делаем разные переходы вида
-        if(ex instanceof NotFoundException){
+        if(ex instanceof NotFoundException || ex instanceof DocumentExportException){
             mv.setViewName("error");
         }
         mv.addObject("error", ex.toString());
