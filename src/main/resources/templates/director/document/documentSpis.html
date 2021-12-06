@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <title>Изменение даты отпуска</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <script href="bootstrap.bundle.min.js / bootstrap.bundle.js"></script>
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -27,7 +26,7 @@
                     <a class="nav-link" th:href="@{/director/documents/view/postav}">Отчёт по поставкам</a>
                 </li>
 
-                <li class="nav-item ">
+                <li class="nav-item active">
                     <a class="nav-link" th:href="@{/director/documents/view/spis}">Отчёт по списанным продуктам</a>
                 </li>
 
@@ -40,27 +39,21 @@
 </nav>
 <div style="position: absolute; left: 50%; transform:translate(-50%, 0)">
     <div style="position: absolute; left: 50%; transform:translate(-50%, 0)">
-        <form th:method="POST" th:action="@{/director/postavshik/update/{id}(id=${postavshik.getId})}">
+        <form th:method="POST" th:action="@{/director/documents/spis}">
 
             <div class="field">
-                <label for="namePost">Название: </label>
-                <input type="text" th:field="*{postavshik.namePost}" id="namePost" />
-                <div style="color:red" th:if="${#fields.hasErrors('postavshik.namePost')}" th:errors="*{postavshik.namePost}">Name Error</div>
+                <label for="beginDate">Начальная дата: </label>
+                <input type="date" th:field="*{spisDto.beginDate}" id="beginDate" />
+                <div style="color:red" th:if="${#fields.hasErrors('spisDto.beginDate')}" th:errors="*{spisDto.beginDate}">Name Error</div>
             </div>
 
             <div class="field">
-                <label for="phone">Телефон в формате +7-999-999-99-99: </label>
-                <input id="phone" type="tel" name="tel" th:field="*{postavshik.phone}" pattern="\+7\s?[-]{0,1}9[0-9]{2}[-]{0,1}\s?\d{3}[-]{0,1}\d{2}[-]{0,1}\d{2}" maxlength="16">
-                <div style="color:red" th:if="${#fields.hasErrors('postavshik.phone')}" th:errors="*{postavshik.phone}">Name Error</div>
+                <label for="endDate">Конечная дата: </label>
+                <input type="date" th:field="*{spisDto.endDate}" id="endDate" />
+                <div style="color:red" th:if="${#fields.hasErrors('spisDto.endDate')}" th:errors="*{spisDto.endDate}">Name Error</div>
             </div>
 
-            <div class="field">
-                <label for="address">Адрес: </label>
-                <input type="text" th:field="*{postavshik.address}" id="address" />
-                <div style="color:red" th:if="${#fields.hasErrors('postavshik.address')}" th:errors="*{postavshik.address}">Name Error</div>
-            </div>
-
-            <input type="submit" value="Сохранить">
+            <input type="submit" value="Сформировать отчёт">
         </form>
     </div>
 </div>

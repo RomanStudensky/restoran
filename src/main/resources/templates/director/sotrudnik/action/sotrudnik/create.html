@@ -20,6 +20,16 @@
                 <li class="nav-item ">
                     <a class="nav-link" th:href="@{/director/sotrudnik}">Сотрудники<span class="sr-only"></span></a>
                 </li>
+
+
+                <li class="nav-item ">
+                    <a class="nav-link" th:href="@{/director/documents/view/postav}">Отчёт по поставкам</a>
+                </li>
+
+                <li class="nav-item ">
+                    <a class="nav-link" th:href="@{/director/documents/view/spis}">Отчёт по списанным продуктам</a>
+                </li>
+
                 <li class="nav-item">
                     <a class="nav-link disabled" href="#">Выход</a>
                 </li>
@@ -33,8 +43,8 @@
 
             <div class="field">
                 <label for="fio">ФИО: </label>
-                <input type="text" th:field="*{sotrudnik.Fio}" id="fio" />
-                <div style="color:red" th:if="${#fields.hasErrors('sotrudnik.Fio')}" th:errors="*{sotrudnik.Fio}">Name Error</div>
+                <input type="text" th:field="*{sotrudnik.fio}" id="fio" />
+                <div style="color:red" th:if="${#fields.hasErrors('sotrudnik.Fio')}" th:errors="*{sotrudnik.fio}">Name Error</div>
             </div>
 
             <div class="f">

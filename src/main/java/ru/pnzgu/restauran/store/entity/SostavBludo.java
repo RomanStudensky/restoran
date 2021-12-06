@@ -13,7 +13,7 @@ import javax.persistence.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class SostavBludo {
+public class SostavBludo extends EntityParent {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -25,7 +25,6 @@ public class SostavBludo {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_prod")
     private Product product;
-
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_menu")

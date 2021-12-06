@@ -7,6 +7,7 @@ import ru.pnzgu.restauran.util.mapping.DateOptions;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 @Setter
 @Getter
@@ -20,5 +21,5 @@ public class NakladDTO extends DtoParent {
     private PostavshikDTO postavshik;
     private DogovorDTO dogovor;
     private Long summa = 0L;
-
+    private List<SostavPostavDTO> sostav;
 }
