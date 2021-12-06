@@ -6,6 +6,7 @@ import ru.pnzgu.restauran.store.entity.Dogovor;
 import ru.pnzgu.restauran.store.entity.Postavshik;
 import ru.pnzgu.restauran.store.repository.DogovorRepository;
 import ru.pnzgu.restauran.store.repository.PostavshikRepository;
+import ru.pnzgu.restauran.util.mapping.Mappers;
 import ru.pnzgu.restauran.util.mapping.SimpleMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -25,7 +26,7 @@ public class DogovorService {
         return dogovorRepository
                 .findDogovorsByPostavshikId(id)
                 .stream()
-                .map(simpleMapper::mapEntityToDto)
+                .map(Mappers.DOGOVOR_MAPPER::mapEntityToDto)
                 .collect(Collectors.toList());
     }
 
@@ -61,15 +62,19 @@ public class DogovorService {
     }
 
     public DogovorDTO update(Long id, DogovorDTO dto) {
-        dogovorRepository
+        Postavshik postavshik = dogovorRepository
                 .findById(id)
-                .orElseThrow(() -> new NotFoundException(String.format("Договор с идентификатором - %s не найден", id)));
+                .orElseThrow(() -> new NotFoundException(String.format("Договор с идентификатором - %s не найден", id)))
+                .getPostavshik();
 
-        dto.setId(id);
+        Dogovor dogovor = Mappers.DOGOVOR_MAPPER.mapDtoToEntity(dto);
+        dogovor.setPostavshik(postavshik);
+        dogovor.setId(id);
 
         return simpleMapper
                 .mapEntityToDto(
-                        dogovorRepository.save(simpleMapper.mapDtoToEntity(dto))
+                        dogovorRepository
+                                .save(dogovor)
                 );
     }
 

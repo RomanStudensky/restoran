@@ -100,7 +100,7 @@
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">Ресторан - Директор - Бухгалтер</a>
+    <a class="navbar-brand" href="#">Ресторан -  Бухгалтер</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Панель управления">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -149,9 +149,7 @@
                     <div th:if="${sotrudnik.getId == sotrudnikId}">
                         <th style="background-color: #d8d8d8" th:text="${sotrudnik.getId()}"></th>
                         <th style="background-color: #d8d8d8" th:text="${sotrudnik.getFio()}"></th>
-                        <th style="background-color: #d8d8d8" th:text="${sotrudnik.getRole}"></th>
-                        <th style="background-color: #d8d8d8" th:text="${sotrudnik.getUserName}"></th>
-                        <th style="background-color: #d8d8d8" th:text="${sotrudnik.getPassword}"></th>
+                        <th style="background-color: #d8d8d8" th:text="${sotrudnik.getPost}"></th>
                         <th style="background-color: #d8d8d8" class="_btn-active-table"><a th:href="@{/director/sotrudnik/update/view/{id}(id=${sotrudnik.getId})}">Изменить</a></th>
                         <th style="background-color: #d8d8d8" class="_btn-active-table"><a th:href="@{/director/sotrudnik/delete/{id}(id=${sotrudnik.getId})}">Удалить</a></th>
                     </div>
@@ -159,9 +157,7 @@
                     <div th:unless="${sotrudnik.getId == sotrudnikId}">
                         <th th:text="${sotrudnik.getId()}"></th>
                         <th th:text="${sotrudnik.getFio()}"></th>
-                        <th th:text="${sotrudnik.getRole}"></th>
-                        <th th:text="${sotrudnik.getUserName}"></th>
-                        <th th:text="${sotrudnik.getPassword}"></th>
+                        <th th:text="${sotrudnik.getPost}"></th>
                         <th class="_btn-active-table"><a th:href="@{/director/sotrudnik/update/view/{id}(id=${sotrudnik.getId})}">Изменить</a></th>
                         <th class="_btn-active-table"><a th:href="@{/director/sotrudnik/delete/{id}(id=${sotrudnik.getId})}">Удалить</a></th>
                     </div>

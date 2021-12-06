@@ -19,7 +19,5 @@ public class SotrudnikDTO extends DtoParent {
     };
 
     private String fio;
-    private String role;
-    private String userName;
-    private String password;
+    private String post;
 }

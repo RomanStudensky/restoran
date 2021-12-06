@@ -20,12 +20,8 @@ public class Sotrudnik extends EntityParent {
     @Column(name = "fio", nullable = false, length = 50)
     private String fio;
 
-    @Column(name = "rol", nullable = false, length = 15)
-    private String role;
+    @Column(name = "post", nullable = false, length = 15)
+    private String post;
 
-    @Column(name = "username", nullable = false, length = 15)
-    private String userName;
 
-    @Column(name = "password", nullable = false, length = 15)
-    private String password;
 }

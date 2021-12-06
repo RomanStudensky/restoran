@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.pnzgu.restauran.dto.*;
 import ru.pnzgu.restauran.exception.NotFoundException;
 import ru.pnzgu.restauran.service.*;
+import ru.pnzgu.restauran.store.entity.Dogovor;
 
 import java.util.List;
 
@@ -20,6 +21,7 @@ public class PostavshikController {
     private final String CREATE_POSTAVSHIK_VIEW = "/director/postavshik/action/postavshik/create";
     private final String UPDATE_POSTAVSHIK_VIEW = "/director/postavshik/action/postavshik/update";
     private final String CREATE_DOGOVOR_VIEW = "/director/postavshik/action/dogovor/create";
+    private final String UPDATE_DOGOVOR_VIEW = "/director/postavshik/action/dogovor/update";
 
     private final PostavshikService postavshikService;
     private final DogovorService dogovorService;
@@ -41,7 +43,9 @@ public class PostavshikController {
         }
         model.addAttribute("postavshikList", postavshikService.getAll());
 
-        List<DogovorDTO> dogovorList = dogovorService.getAllByPostavshikId(postavshikId);
+        List<DogovorDTO> dogovorList =
+                dogovorService.getAllByPostavshikId(postavshikId);
+
         model.addAttribute("dogovorList", dogovorList);
         model.addAttribute("postavshikId", postavshikId);
 
@@ -72,6 +76,15 @@ public class PostavshikController {
         return CREATE_DOGOVOR_VIEW;
     }
 
+    @GetMapping("/dogovor/update/view/{dogovorId}")
+    public String getDogovorUpdateView(@PathVariable Long dogovorId, Model model) {
+        DogovorDTO dogovorDTO = dogovorService.get(dogovorId);
+        model.addAttribute("dogovorId", dogovorId);
+        model.addAttribute("dogovor", dogovorDTO);
+
+        return UPDATE_DOGOVOR_VIEW;
+    }
+
     // ------------- REST ------------
 
     @PostMapping("/create")
@@ -95,10 +108,18 @@ public class PostavshikController {
 
     @PostMapping("/dogovor/create/{postavshikId}")
     public String createDogovor(@PathVariable Long postavshikId,
-                               @ModelAttribute(name = "dogovor") DogovorDTO dogovor,
-                               @ModelAttribute(name = "productDto") ProductDTO productDTO) {
+                               @ModelAttribute(name = "dogovor") DogovorDTO dogovor) {
 
         dogovorService.save(postavshikId, dogovor);
+
+        return String.format(REDIRECT_URL, postavshikId);
+    }
+
+    @PostMapping("/dogovor/update/{dogovorId}")
+    public String updateeDogovor(@PathVariable Long dogovorId,
+                                @ModelAttribute(name = "dogovor") DogovorDTO dogovor) {
+
+        Long postavshikId = dogovorService.update(dogovorId, dogovor).getPostavshik().getId();
 
         return String.format(REDIRECT_URL, postavshikId);
     }
@@ -106,7 +127,7 @@ public class PostavshikController {
     @GetMapping("/dogovor/delete/{id}")
     public String deleteDogovor(@PathVariable Long id) {
         Long postavshikId = dogovorService.get(id).getPostavshik().getId();
-        postavshikService.delete(id);
+        dogovorService.delete(id);
 
         return String.format(REDIRECT_URL, postavshikId);
     }
