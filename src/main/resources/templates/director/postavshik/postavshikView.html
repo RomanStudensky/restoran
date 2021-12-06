@@ -100,7 +100,7 @@
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">Ресторан - Директор - Бухгалтер</a>
+    <a class="navbar-brand" href="#">Ресторан -  Бухгалтер</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Панель управления">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -139,7 +139,7 @@
                 <th>Наименование</th>
                 <th>Адрес</th>
                 <th>Телефонный номер</th>
-                <th class="_btn-active-table" colspan="2" style="text-align: center;"><a th:href="@{/director/postavshik/create/view}">Добавить запись</a></th>
+                <th class="_btn-active-table" colspan="3" style="text-align: center;"><a th:href="@{/director/postavshik/create/view}">Добавить запись</a></th>
             </tr>
         </thead>
         <div class="scroll-table-body">
@@ -150,6 +150,7 @@
                         <th style="background-color: #d8d8d8" th:text="${postavshik.getNamePost()}"></th>
                         <th style="background-color: #d8d8d8" th:text="${postavshik.getAddress}"></th>
                         <th style="background-color: #d8d8d8" th:text="${postavshik.getPhone}"></th>
+                        <th style="background-color: #d8d8d8" class="_btn-active-table"><a th:href="@{/director/postavshik/{id}(id=${postavshik.getId})}">Договоры</a></th>
                         <th style="background-color: #d8d8d8" class="_btn-active-table"><a th:href="@{/director/postavshik/update/view/{id}(id=${postavshik.getId})}">Изменить</a></th>
                         <th style="background-color: #d8d8d8" class="_btn-active-table"><a th:href="@{/director/postavshik/delete/{id}(id=${postavshik.getId})}">Удалить</a></th>
                     </div>
@@ -159,10 +160,37 @@
                         <th th:text="${postavshik.getNamePost()}"></th>
                         <th th:text="${postavshik.getAddress}"></th>
                         <th th:text="${postavshik.getPhone}"></th>
+                        <th class="_btn-active-table"><a th:href="@{/director/postavshik/{id}(id=${postavshik.getId})}">Договоры</a></th>
                         <th class="_btn-active-table"><a th:href="@{/director/postavshik/update/view/{id}(id=${postavshik.getId})}">Изменить</a></th>
                         <th class="_btn-active-table"><a th:href="@{/director/postavshik/delete/{id}(id=${postavshik.getId})}">Удалить</a></th>
                     </div>
                 </tr>
+            </tbody>
+        </div>
+    </table>
+</div>
+<br/>
+<div class="scroll-table">
+    <table>
+        <thead>
+        <tr>
+            <th>№ договора</th>
+            <th>Дата заключения</th>
+            <th>Содержание</th>
+            <th class="_btn-active-table" colspan="2" style="text-align: center;"><a th:href="@{/director/postavshik/dogovor/create/view/{id}(id=${postavshikId})}">Добавить запись</a></th>
+        </tr>
+        </thead>
+        <div class="scroll-table-body">
+            <tbody>
+            <tr th:each="dogovor : ${dogovorList}">
+                <div>
+                    <th th:text="${dogovor.getId()}"></th>
+                    <th th:text="${dogovor.getDateDogovor()}"></th>
+                    <th th:text="${dogovor.getSostav()}"></th>
+                    <th class="_btn-active-table"><a th:href="@{/director/postavshik/dogovor/update/view/{id}(id=${dogovor.getId})}">Изменить</a></th>
+                    <th class="_btn-active-table"><a th:href="@{/director/postavshik/dogovor/delete/{id}(id=${dogovor.getId})}">Удалить</a></th>
+                </div>
+            </tr>
             </tbody>
         </div>
     </table>

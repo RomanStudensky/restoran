@@ -39,25 +39,18 @@
 </nav>
 <div style="position: absolute; left: 50%; transform:translate(-50%, 0)">
     <div style="position: absolute; left: 50%; transform:translate(-50%, 0)">
-        <form th:method="POST" th:action="@{/director/sotrudnik/create}">
+        <form th:method="POST" th:action="@{/director/postavshik/dogovor/create/{id}(id=${postavshikId})}">
 
             <div class="field">
-                <label for="fio">ФИО: </label>
-                <input type="text" th:field="*{sotrudnik.fio}" id="fio" />
-                <div style="color:red" th:if="${#fields.hasErrors('sotrudnik.Fio')}" th:errors="*{sotrudnik.fio}">Name Error</div>
+                <label for="dateDogovor">Дата заключения: </label>
+                <input type="date" th:field="*{dogovor.dateDogovor}" id="dateDogovor" />
+                <div style="color:red" th:if="${#fields.hasErrors('dogovor.dateDogovor')}" th:errors="*{dogovor.dateDogovor}">Name Error</div>
             </div>
 
-            <div class="f">
-                <label for="role">Выберите должность</label>
-                <br/>
-                <select id="role" style="width: 300px;" th:field="*{sotrudnik.getPost}" name="role" >
-                    <option th:each="role : ${roleList}"
-                            th:value="${role}"
-                            th:text="${role}"
-                        th:selected="${role == sotrudnik.getPost} ? 'selected' : 'none'">
-                    </option>
-
-                </select>
+            <div class="field">
+                <label for="sostav">Описание: </label>
+                <input id="sostav" type="tel" name="text" th:field="*{dogovor.sostav}">
+                <div style="color:red" th:if="${#fields.hasErrors('dogovor.sostav')}" th:errors="*{dogovor.sostav}">Name Error</div>
             </div>
 
             <input type="submit" value="Сохранить">
