@@ -132,9 +132,74 @@ public class ExcelExportUtil {
 
     }
 
-
     private static void createDocumentSpis(List<AktDTO> sostavAktList, XSSFWorkbook workbook, XSSFCellStyle cellStyle) {
+        Sheet sheet = workbook.createSheet("Отчёт по списанным продуктам");
+        sheet.autoSizeColumn(1);
 
+        int rowNum = 0;
+
+        Row row = sheet.createRow(rowNum);
+        row.setHeightInPoints(30.0f);
+
+        sheet.addMergedRegion(new CellRangeAddress(rowNum, rowNum, 0, SpistProdCol.LENGTH - 1));
+        setMergedCellBorders(new CellRangeAddress(rowNum, rowNum, 0, SpistProdCol.LENGTH - 1), sheet);
+
+        createCell(cellStyle, row, sheet, 0, "Отчёт о списанных продуктах");
+
+        rowNum++;
+        row = sheet.createRow(rowNum);
+        row.setHeightInPoints(30.0f);
+
+        sheet.addMergedRegion(new CellRangeAddress(rowNum, rowNum, 0, SpistProdCol.LENGTH - 1));
+        setMergedCellBorders(new CellRangeAddress(rowNum, rowNum, 0, SpistProdCol.LENGTH - 1), sheet);
+
+        createCell(cellStyle, row, sheet, 0, String.format("Дата формирования отчёта: %s", LocalDate.now()));
+
+        // Шапка
+        rowNum++;
+        row = sheet.createRow(rowNum);
+        row.setHeightInPoints(25.0f);
+        for (int colNum = 0; colNum < SpistProdCol.LENGTH; colNum++) {
+            createCell(cellStyle, row, sheet, SpistProdCol.values()[colNum].getColNum(), SpistProdCol.values()[colNum].getColName());
+        }
+
+        for (AktDTO aktDTO : sostavAktList) {
+
+            if (aktDTO.getSpisProducts().isEmpty()) {
+                continue;
+            }
+
+            // Тело
+            for (SostavAktDTO sostavAktDTO : aktDTO.getSpisProducts()) {
+                rowNum++;
+                row = sheet.createRow(rowNum);
+                row.setHeightInPoints(18.0f);
+                createCell(cellStyle, row, sheet, SpistProdCol.COLUMN_NUMBER.getColNum(), String.valueOf(sostavAktDTO.getId()));
+                createCell(cellStyle, row, sheet, SpistProdCol.COLUMN_PROD_NAME.getColNum(), sostavAktDTO.getProduct().getNameProd());
+                createCell(cellStyle, row, sheet, SpistProdCol.COLUMN_QUANTITY.getColNum(), String.valueOf(sostavAktDTO.getQuantity()));
+                createCell(cellStyle, row, sheet, SpistProdCol.COLUMN_REASON.getColNum(), String.valueOf(sostavAktDTO.getReason()));
+                createCell(cellStyle, row, sheet, SpistProdCol.COLUMN_DATE.getColNum(), String.valueOf(aktDTO.getDateAkt()));
+                createCell(cellStyle, row, sheet, SpistProdCol.COLUMN_SUMMA.getColNum(), String.valueOf(sostavAktDTO.getSumma()));
+            }
+        }
+        rowNum++;
+        Double summ = sostavAktList
+                .stream()
+                .map(akt -> akt
+                        .getSpisProducts()
+                        .stream()
+                        .map(SostavAktDTO::getSumma)
+                        .reduce(0.0D, Double::sum))
+                .reduce(0.0D, Double::sum);
+
+        row = sheet.createRow(rowNum);
+        row.setHeightInPoints(25.0f);
+
+        sheet.addMergedRegion(new CellRangeAddress(rowNum, rowNum, 0, SpistProdCol.LENGTH - 2));
+        setMergedCellBorders(new CellRangeAddress(rowNum, rowNum, 0, SpistProdCol.LENGTH - 2), sheet);
+
+        createCell(cellStyle, row, sheet, 0, "Итого:");
+        createCell(cellStyle, row, sheet, SpistProdCol.LENGTH - 1, String.valueOf(summ));
     }
 
     private static void createDocumentProd(ProdazaDTO prodazaDTO, List<SostavProdDTO> sostavProdList, XSSFWorkbook order, XSSFCellStyle cellStyle) {

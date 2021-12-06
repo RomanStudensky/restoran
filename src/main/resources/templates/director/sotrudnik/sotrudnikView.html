@@ -108,24 +108,21 @@
         <div class="collapse navbar-collapse" style="width: 100%;" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link active" th:href="@{/director/postavshik}">Поставщик - Договор<span class="sr-only"></span></a>
+                    <a class="nav-link" th:href="@{/director/postavshik}">Поставщик - Договор<span class="sr-only"></span></a>
                 </li>
                 <li class="nav-item ">
-                    <a class="nav-link" th:href="@{/director/sotrudnik}">Сотрудники<span class="sr-only"></span></a>
+                    <a class="nav-link active" th:href="@{/director/sotrudnik}">Сотрудники<span class="sr-only"></span></a>
                 </li>
 
-                <li class="nav-item dropdown">
-                    <div class="dropdown">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Отчёты
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" th:href="@{/director/documents/view/postav}">Отчёт по поставкам</a>
-                            <a class="dropdown-item" th:href="@{/director/documents/spis}">Отчёт по списанным продуктам</a>
-                            <!--                        <a class="dropdown-item" th:href="#">Отчёт по продажам в баре</a>-->а
-                        </div>
-                    </div>
+
+                <li class="nav-item ">
+                    <a class="nav-link" th:href="@{/director/documents/view/postav}">Отчёт по поставкам</a>
                 </li>
+
+                <li class="nav-item ">
+                    <a class="nav-link" th:href="@{/director/documents/view/spis}">Отчёт по списанным продуктам</a>
+                </li>
+
                 <li class="nav-item">
                     <a class="nav-link disabled" href="#">Выход</a>
                 </li>

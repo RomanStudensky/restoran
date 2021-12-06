@@ -14,5 +14,5 @@ public interface AktRepository extends JpaRepository<AktSpis, Long> {
     @Query(value = "SELECT MIN(id_akt) FROM akt_spis", nativeQuery = true)
     Optional<Long> findMinIdAkt();
 
-    List<AktSpis> findByDateAktAfter(LocalDate dateAkt);
+    List<AktSpis> findByDateAktBetween(LocalDate dateAkt, LocalDate dateAkt2);
 }

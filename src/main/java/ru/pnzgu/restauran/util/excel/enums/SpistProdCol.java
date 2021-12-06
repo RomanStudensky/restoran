@@ -11,7 +11,7 @@ public enum SpistProdCol {
     COLUMN_QUANTITY(2, "Количество"),
     COLUMN_REASON(3, "Причина списания"),
     COLUMN_DATE(4, "Дата списания"),
-    COLUMN_PRICE(5, "Стоимость списанного продукта");
+    COLUMN_SUMMA(5, "Стоимость списанного продукта");
 
     private int colNum;
     private String colName;

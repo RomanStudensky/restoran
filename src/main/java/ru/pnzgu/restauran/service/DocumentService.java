@@ -51,11 +51,11 @@ public class DocumentService {
 
     }
 
-    public byte[] getSpisCurrentDateExelDocument() throws DocumentExportException {
-        LocalDate currentDate = LocalDate.now();
+    public byte[] getSpisCurrentDateExelDocument(LocalDate date1, LocalDate date2) throws DocumentExportException {
+
 
         List<AktDTO> aktDTOS = aktRepository
-                .findByDateAktAfter(currentDate)
+                .findByDateAktBetween(date1, date2)
                 .stream()
                 .map(Mappers.AKT_MAPPER::mapEntityToDto)
                 .collect(Collectors.toList());
