@@ -24,7 +24,7 @@ public class Menu extends EntityParent {
     private BigDecimal price;
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "categori", nullable = false)
+    @JoinColumn(name = "category", nullable = false)
     private Category category;
 
 }

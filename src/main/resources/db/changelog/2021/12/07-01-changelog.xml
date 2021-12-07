@@ -1,0 +1,393 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.5.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <changeSet id="1638867919520-95" author="roman (generated)">
+        <addColumn tableName="sostav_bludo">
+            <column name="id_menu" type="BIGINT"/>
+            <column name="id_prod" type="BIGINT"/>
+        </addColumn>
+    </changeSet>
+    <changeSet id="1638867919520-96" author="roman (generated)">
+        <addColumn tableName="sostav_bludo">
+            <column name="id_prod" type="BIGINT"/>
+        </addColumn>
+    </changeSet>
+    <changeSet id="1638867919520-97" author="roman (generated)">
+        <addForeignKeyConstraint baseColumnNames="category" baseTableName="menu" constraintName="FK_MENU_ON_CATEGORY"
+                                 referencedColumnNames="id_cat" referencedTableName="category"/>
+    </changeSet>
+    <changeSet id="1638867919520-98" author="roman (generated)">
+        <addForeignKeyConstraint baseColumnNames="dogovor" baseTableName="orders" constraintName="FK_ORDERS_ON_DOGOVOR"
+                                 referencedColumnNames="id_dogovor" referencedTableName="dogovor"/>
+    </changeSet>
+    <changeSet id="1638867919520-99" author="roman (generated)">
+        <addForeignKeyConstraint baseColumnNames="postavshik" baseTableName="orders"
+                                 constraintName="FK_ORDERS_ON_POSTAVSHIK" referencedColumnNames="id_post"
+                                 referencedTableName="postavshik"/>
+    </changeSet>
+    <changeSet id="1638867919520-100" author="roman (generated)">
+        <addForeignKeyConstraint baseColumnNames="sotrud" baseTableName="prodaza" constraintName="FK_PRODAZA_ON_SOTRUD"
+                                 referencedColumnNames="id_sotrud" referencedTableName="usr"/>
+    </changeSet>
+    <changeSet id="1638867919520-101" author="roman (generated)">
+        <addForeignKeyConstraint baseColumnNames="product" baseTableName="sostav_akt"
+                                 constraintName="FK_SOSTAV_AKT_ON_PRODUCT" referencedColumnNames="id_prod"
+                                 referencedTableName="product"/>
+    </changeSet>
+    <changeSet id="1638867919520-102" author="roman (generated)">
+        <addForeignKeyConstraint baseColumnNames="id_menu" baseTableName="sostav_bludo"
+                                 constraintName="FK_SOSTAV_BLUDO_ON_ID_MENU" referencedColumnNames="id_menu"
+                                 referencedTableName="menu"/>
+    </changeSet>
+    <changeSet id="1638867919520-103" author="roman (generated)">
+        <addForeignKeyConstraint baseColumnNames="id_prod" baseTableName="sostav_bludo"
+                                 constraintName="FK_SOSTAV_BLUDO_ON_ID_PROD" referencedColumnNames="id_prod"
+                                 referencedTableName="product"/>
+    </changeSet>
+    <changeSet id="1638867919520-104" author="roman (generated)">
+        <addForeignKeyConstraint baseColumnNames="product" baseTableName="sostav_order"
+                                 constraintName="FK_SOSTAV_ORDER_ON_PRODUCT" referencedColumnNames="id_prod"
+                                 referencedTableName="product"/>
+    </changeSet>
+    <changeSet id="1638867919520-106" author="roman (generated)">
+        <addForeignKeyConstraint baseColumnNames="sotrud" baseTableName="zakaz" constraintName="FK_ZAKAZ_ON_SOTRUD"
+                                 referencedColumnNames="id_sotrud" referencedTableName="usr"/>
+    </changeSet>
+    <changeSet id="1638867919520-107" author="roman (generated)">
+        <addForeignKeyConstraint baseColumnNames="stol" baseTableName="zakaz" constraintName="FK_ZAKAZ_ON_STOL"
+                                 referencedColumnNames="id_table" referencedTableName="stol"/>
+    </changeSet>
+    <changeSet id="1638867919520-108" author="roman (generated)">
+        <dropForeignKeyConstraint baseTableName="sostav_bludo" constraintName="sostav_bludo_menu_id_menu_fk"/>
+    </changeSet>
+    <changeSet id="1638867919520-109" author="roman (generated)">
+        <dropForeignKeyConstraint baseTableName="sostav_bludo" constraintName="sostav_bludo_product_id_prod_fk"/>
+    </changeSet>
+    <changeSet id="1638867919520-110" author="roman (generated)">
+        <dropIndex indexName="postavshik_inn_uindex" tableName="postavshik"/>
+    </changeSet>
+    <changeSet id="1638867919520-111" author="roman (generated)">
+        <dropColumn columnName="inn" tableName="postavshik"/>
+    </changeSet>
+    <changeSet id="1638867919520-112" author="roman (generated)">
+        <dropColumn columnName="menu" tableName="sostav_bludo"/>
+
+        <dropColumn columnName="product" tableName="sostav_bludo"/>
+    </changeSet>
+    <changeSet id="1638867919520-1" author="roman (generated)">
+        <setColumnRemarks columnName="address" tableName="postavshik"/>
+    </changeSet>
+    <changeSet id="1638867919520-2" author="roman (generated)">
+        <dropNotNullConstraint columnDataType="bigint" columnName="akt" tableName="sostav_akt"/>
+    </changeSet>
+    <changeSet id="1638867919520-3" author="roman (generated)">
+        <setColumnRemarks columnName="akt" tableName="sostav_akt"/>
+    </changeSet>
+    <changeSet id="1638867919520-4" author="roman (generated)">
+        <setColumnRemarks columnName="bludo" tableName="menu"/>
+    </changeSet>
+    <changeSet id="1638867919520-5" author="roman (generated)">
+        <dropColumn columnName="bludo" tableName="sostav_prod"/>
+    </changeSet>
+    <changeSet id="1638867919520-6" author="roman (generated)">
+        <addColumn tableName="sostav_prod">
+            <column name="bludo" type="BIGINT">
+                <constraints foreignKeyName="FK_SOSTAV_PROD_ON_BLUDO" nullable="false" references="menu(id_menu)"
+                             validateNullable="true"/>
+            </column>
+        </addColumn>
+    </changeSet>
+    <changeSet id="1638867919520-7" author="roman (generated)">
+        <setColumnRemarks columnName="bludo" tableName="sostav_prod"/>
+    </changeSet>
+    <changeSet id="1638867919520-8" author="roman (generated)">
+        <dropColumn columnName="bludo" tableName="sostav_zakaz"/>
+    </changeSet>
+    <changeSet id="1638867919520-9" author="roman (generated)">
+        <addColumn tableName="sostav_zakaz">
+            <column name="bludo" type="BIGINT">
+                <constraints foreignKeyName="FK_SOSTAV_ZAKAZ_ON_BLUDO" nullable="false" references="menu(id_menu)"
+                             validateNullable="true"/>
+            </column>
+        </addColumn>
+    </changeSet>
+    <changeSet id="1638867919520-10" author="roman (generated)">
+        <setColumnRemarks columnName="bludo" tableName="sostav_zakaz"/>
+    </changeSet>
+    <changeSet id="1638867919520-11" author="roman (generated)">
+        <setColumnRemarks columnName="category" tableName="menu"/>
+    </changeSet>
+    <changeSet id="1638867919520-12" author="roman (generated)">
+        <dropColumn columnName="count_people" tableName="reserv"/>
+    </changeSet>
+    <changeSet id="1638867919520-13" author="roman (generated)">
+        <addColumn tableName="reserv">
+            <column name="count_people" type="INT">
+                <constraints nullable="false" validateNullable="true"/>
+            </column>
+        </addColumn>
+    </changeSet>
+    <changeSet id="1638867919520-14" author="roman (generated)">
+        <setColumnRemarks columnName="count_people" tableName="reserv"/>
+    </changeSet>
+    <changeSet id="1638867919520-15" author="roman (generated)">
+        <setColumnRemarks columnName="count_place" tableName="stol"/>
+    </changeSet>
+    <changeSet id="1638867919520-16" author="roman (generated)">
+        <setColumnRemarks columnName="date_akt" tableName="akt_spis"/>
+    </changeSet>
+    <changeSet id="1638867919520-17" author="roman (generated)">
+        <setColumnRemarks columnName="date_dogovor" tableName="dogovor"/>
+    </changeSet>
+    <changeSet id="1638867919520-18" author="roman (generated)">
+        <setColumnRemarks columnName="date_nak" tableName="sostav_naklad"/>
+    </changeSet>
+    <changeSet id="1638867919520-19" author="roman (generated)">
+        <setColumnRemarks columnName="date_order" tableName="orders"/>
+    </changeSet>
+    <changeSet id="1638867919520-20" author="roman (generated)">
+        <setColumnRemarks columnName="date_prod" tableName="prodaza"/>
+    </changeSet>
+    <changeSet id="1638867919520-21" author="roman (generated)">
+        <setColumnRemarks columnName="date_reserv" tableName="reserv"/>
+    </changeSet>
+    <changeSet id="1638867919520-22" author="roman (generated)">
+        <setColumnRemarks columnName="date_zakaz" tableName="zakaz"/>
+    </changeSet>
+    <changeSet id="1638867919520-23" author="roman (generated)">
+        <setColumnRemarks columnName="dogovor" tableName="orders"/>
+    </changeSet>
+    <changeSet id="1638867919520-24" author="roman (generated)">
+        <dropColumn columnName="dogovor" tableName="sostav_naklad"/>
+
+        <dropColumn columnName="summa" tableName="sostav_naklad"/>
+    </changeSet>
+    <changeSet id="1638867919520-25" author="roman (generated)">
+        <addColumn tableName="sostav_naklad">
+            <column name="dogovor" type="BIGINT">
+                <constraints foreignKeyName="FK_SOSTAV_NAKLAD_ON_DOGOVOR" nullable="false"
+                             references="dogovor(id_dogovor)" validateNullable="true"/>
+            </column>
+        </addColumn>
+    </changeSet>
+    <changeSet id="1638867919520-26" author="roman (generated)">
+        <setColumnRemarks columnName="dogovor" tableName="sostav_naklad"/>
+    </changeSet>
+    <changeSet id="1638867919520-27" author="roman (generated)">
+        <setColumnRemarks columnName="fio" tableName="usr"/>
+    </changeSet>
+    <changeSet id="1638867919520-28" author="roman (generated)">
+        <setColumnRemarks columnName="full_name" tableName="reserv"/>
+    </changeSet>
+    <changeSet id="1638867919520-29" author="roman (generated)">
+        <setColumnRemarks columnName="id_akt" tableName="akt_spis"/>
+    </changeSet>
+    <changeSet id="1638867919520-30" author="roman (generated)">
+        <setColumnRemarks columnName="id_cat" tableName="category"/>
+    </changeSet>
+    <changeSet id="1638867919520-31" author="roman (generated)">
+        <setColumnRemarks columnName="id_dogovor" tableName="dogovor"/>
+    </changeSet>
+    <changeSet id="1638867919520-32" author="roman (generated)">
+        <setColumnRemarks columnName="id_menu" tableName="menu"/>
+    </changeSet>
+    <changeSet id="1638867919520-33" author="roman (generated)">
+        <setColumnRemarks columnName="id_naklad" tableName="sostav_naklad"/>
+    </changeSet>
+    <changeSet id="1638867919520-34" author="roman (generated)">
+        <setColumnRemarks columnName="id_order" tableName="orders"/>
+    </changeSet>
+    <changeSet id="1638867919520-35" author="roman (generated)">
+        <setColumnRemarks columnName="id_post" tableName="postavshik"/>
+    </changeSet>
+    <changeSet id="1638867919520-36" author="roman (generated)">
+        <setColumnRemarks columnName="id_prod" tableName="prodaza"/>
+    </changeSet>
+    <changeSet id="1638867919520-37" author="roman (generated)">
+        <setColumnRemarks columnName="id_prod" tableName="product"/>
+    </changeSet>
+    <changeSet id="1638867919520-38" author="roman (generated)">
+        <setColumnRemarks columnName="id_reserv" tableName="reserv"/>
+    </changeSet>
+    <changeSet id="1638867919520-39" author="roman (generated)">
+        <setColumnRemarks columnName="id_sotrud" tableName="usr"/>
+    </changeSet>
+    <changeSet id="1638867919520-40" author="roman (generated)">
+        <dropNotNullConstraint columnDataType="bigint" columnName="id_table" tableName="reserv"/>
+    </changeSet>
+    <changeSet id="1638867919520-41" author="roman (generated)">
+        <setColumnRemarks columnName="id_table" tableName="reserv"/>
+    </changeSet>
+    <changeSet id="1638867919520-42" author="roman (generated)">
+        <setColumnRemarks columnName="id_table" tableName="stol"/>
+    </changeSet>
+    <changeSet id="1638867919520-43" author="roman (generated)">
+        <setColumnRemarks columnName="id_zakaz" tableName="zakaz"/>
+    </changeSet>
+    <changeSet id="1638867919520-44" author="roman (generated)">
+        <setColumnRemarks columnName="name_cat" tableName="category"/>
+    </changeSet>
+    <changeSet id="1638867919520-45" author="roman (generated)">
+        <setColumnRemarks columnName="name_post" tableName="postavshik"/>
+    </changeSet>
+    <changeSet id="1638867919520-46" author="roman (generated)">
+        <setColumnRemarks columnName="name_prod" tableName="product"/>
+    </changeSet>
+    <changeSet id="1638867919520-47" author="roman (generated)">
+        <setColumnRemarks columnName="orders" tableName="sostav_order"/>
+    </changeSet>
+    <changeSet id="1638867919520-48" author="roman (generated)">
+        <modifyDataType columnName="phone" newDataType="VARCHAR(11)" tableName="postavshik"/>
+    </changeSet>
+    <changeSet id="1638867919520-49" author="roman (generated)">
+        <setColumnRemarks columnName="phone" tableName="postavshik"/>
+    </changeSet>
+    <changeSet id="1638867919520-50" author="roman (generated)">
+        <modifyDataType columnName="post" newDataType="VARCHAR(15)" tableName="usr"/>
+    </changeSet>
+    <changeSet id="1638867919520-51" author="roman (generated)">
+        <addNotNullConstraint columnDataType="VARCHAR(15)" columnName="post" tableName="usr" validate="true"/>
+    </changeSet>
+    <changeSet id="1638867919520-52" author="roman (generated)">
+        <setColumnRemarks columnName="postavshik" tableName="dogovor"/>
+    </changeSet>
+    <changeSet id="1638867919520-53" author="roman (generated)">
+        <setColumnRemarks columnName="postavshik" tableName="orders"/>
+    </changeSet>
+    <changeSet id="1638867919520-54" author="roman (generated)">
+        <setColumnRemarks columnName="postavshik" tableName="sostav_naklad"/>
+    </changeSet>
+    <changeSet id="1638867919520-55" author="roman (generated)">
+        <setColumnRemarks columnName="price" tableName="menu"/>
+    </changeSet>
+    <changeSet id="1638867919520-56" author="roman (generated)">
+        <dropColumn columnName="price" tableName="sostav_akt"/>
+
+        <dropColumn columnName="quantity" tableName="sostav_akt"/>
+    </changeSet>
+    <changeSet id="1638867919520-57" author="roman (generated)">
+        <addColumn tableName="sostav_akt">
+            <column name="price" type="DOUBLE">
+                <constraints nullable="false" validateNullable="true"/>
+            </column>
+        </addColumn>
+    </changeSet>
+    <changeSet id="1638867919520-58" author="roman (generated)">
+        <setColumnRemarks columnName="price" tableName="sostav_akt"/>
+    </changeSet>
+    <changeSet id="1638867919520-59" author="roman (generated)">
+        <setColumnRemarks columnName="price" tableName="sostav_postav"/>
+    </changeSet>
+    <changeSet id="1638867919520-60" author="roman (generated)">
+        <setColumnRemarks columnName="prodaza" tableName="sostav_prod"/>
+    </changeSet>
+    <changeSet id="1638867919520-61" author="roman (generated)">
+        <setColumnRemarks columnName="product" tableName="sostav_akt"/>
+    </changeSet>
+    <changeSet id="1638867919520-62" author="roman (generated)">
+        <setColumnRemarks columnName="product" tableName="sostav_order"/>
+    </changeSet>
+    <changeSet id="1638867919520-63" author="roman (generated)">
+        <setColumnRemarks columnName="product" tableName="sostav_postav"/>
+    </changeSet>
+    <changeSet id="1638867919520-64" author="roman (generated)">
+        <dropNotNullConstraint columnDataType="int" columnName="quantity" tableName="product"/>
+    </changeSet>
+    <changeSet id="1638867919520-65" author="roman (generated)">
+        <setColumnRemarks columnName="quantity" tableName="product"/>
+    </changeSet>
+    <changeSet id="1638867919520-67" author="roman (generated)">
+        <addColumn tableName="sostav_akt">
+            <column name="quantity" type="DOUBLE">
+                <constraints nullable="false" validateNullable="true"/>
+            </column>
+        </addColumn>
+    </changeSet>
+    <changeSet id="1638867919520-68" author="roman (generated)">
+        <setColumnRemarks columnName="quantity" tableName="sostav_akt"/>
+    </changeSet>
+    <changeSet id="1638867919520-69" author="roman (generated)">
+        <setColumnRemarks columnName="quantity" tableName="sostav_order"/>
+    </changeSet>
+    <changeSet id="1638867919520-70" author="roman (generated)">
+        <setColumnRemarks columnName="quantity" tableName="sostav_postav"/>
+    </changeSet>
+    <changeSet id="1638867919520-71" author="roman (generated)">
+        <setColumnRemarks columnName="quantity" tableName="sostav_prod"/>
+    </changeSet>
+    <changeSet id="1638867919520-72" author="roman (generated)">
+        <setColumnRemarks columnName="quantity" tableName="sostav_zakaz"/>
+    </changeSet>
+    <changeSet id="1638867919520-73" author="roman (generated)">
+        <setColumnRemarks columnName="reason" tableName="sostav_akt"/>
+    </changeSet>
+    <changeSet id="1638867919520-74" author="roman (generated)">
+        <modifyDataType columnName="sostav" newDataType="VARCHAR(255)" tableName="dogovor"/>
+    </changeSet>
+    <changeSet id="1638867919520-75" author="roman (generated)">
+        <setColumnRemarks columnName="sostav" tableName="dogovor"/>
+    </changeSet>
+    <changeSet id="1638867919520-76" author="roman (generated)">
+        <setColumnRemarks columnName="sotrud" tableName="akt_spis"/>
+    </changeSet>
+    <changeSet id="1638867919520-77" author="roman (generated)">
+        <setColumnRemarks columnName="sotrud" tableName="prodaza"/>
+    </changeSet>
+    <changeSet id="1638867919520-78" author="roman (generated)">
+        <setColumnRemarks columnName="sotrud" tableName="zakaz"/>
+    </changeSet>
+    <changeSet id="1638867919520-79" author="roman (generated)">
+        <setColumnRemarks columnName="stol" tableName="zakaz"/>
+    </changeSet>
+    <changeSet id="1638867919520-80" author="roman (generated)">
+        <setColumnRemarks columnName="summa" tableName="akt_spis"/>
+    </changeSet>
+    <changeSet id="1638867919520-81" author="roman (generated)">
+        <setColumnRemarks columnName="summa" tableName="prodaza"/>
+    </changeSet>
+    <changeSet id="1638867919520-83" author="roman (generated)">
+        <addColumn tableName="sostav_naklad">
+            <column name="summa" type="DOUBLE">
+                <constraints nullable="false" validateNullable="true"/>
+            </column>
+        </addColumn>
+    </changeSet>
+    <changeSet id="1638867919520-84" author="roman (generated)">
+        <setColumnRemarks columnName="summa" tableName="sostav_naklad"/>
+    </changeSet>
+    <changeSet id="1638867919520-85" author="roman (generated)">
+        <addNotNullConstraint columnDataType="DOUBLE" columnName="summa" tableName="sostav_postav" validate="true"/>
+    </changeSet>
+    <changeSet id="1638867919520-86" author="roman (generated)">
+        <setColumnRemarks columnName="summa" tableName="sostav_prod"/>
+    </changeSet>
+    <changeSet id="1638867919520-87" author="roman (generated)">
+        <setColumnRemarks columnName="summa" tableName="sostav_zakaz"/>
+    </changeSet>
+    <changeSet id="1638867919520-88" author="roman (generated)">
+        <setColumnRemarks columnName="summa" tableName="zakaz"/>
+    </changeSet>
+    <changeSet id="1638867919520-89" author="roman (generated)">
+        <setColumnRemarks columnName="time_prod" tableName="prodaza"/>
+    </changeSet>
+    <changeSet id="1638867919520-90" author="roman (generated)">
+        <setColumnRemarks columnName="time_reserv" tableName="reserv"/>
+    </changeSet>
+    <changeSet id="1638867919520-91" author="roman (generated)">
+        <setColumnRemarks columnName="time_zakaz" tableName="zakaz"/>
+    </changeSet>
+    <changeSet id="1638867919520-92" author="roman (generated)">
+        <setColumnRemarks columnName="tovar_naklad" tableName="sostav_postav"/>
+    </changeSet>
+    <changeSet id="1638867919520-93" author="roman (generated)">
+        <setColumnRemarks columnName="weight" tableName="menu"/>
+    </changeSet>
+    <changeSet id="1638867919520-94" author="roman (generated)">
+        <setColumnRemarks columnName="zakaz" tableName="sostav_zakaz"/>
+    </changeSet>
+
+</databaseChangeLog>
