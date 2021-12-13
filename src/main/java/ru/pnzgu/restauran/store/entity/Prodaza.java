@@ -3,11 +3,14 @@ package ru.pnzgu.restauran.store.entity;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import ru.pnzgu.restauran.dto.SostavProdDTO;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Table(name = "prodaza")
 @Entity
@@ -28,6 +31,9 @@ public class Prodaza extends EntityParent {
     @ManyToOne(optional = false)
     @JoinColumn(name = "sotrud", nullable = false)
     private Sotrudnik sotrud;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "prodaza", fetch = FetchType.EAGER)
+    private List<SostavProd> sostavProd = new ArrayList<>();
 
     @Column(name = "summa", nullable = false, precision = 131089)
     private BigDecimal summa;

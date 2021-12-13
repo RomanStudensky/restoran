@@ -74,7 +74,6 @@ public class NakladController {
         return UPDATE_NAKLAD_VIEW;
     }
 
-
     @GetMapping("/sostav/create/view/{nakladId}")
     public String getSostavCreateView(@PathVariable Long nakladId, Model model) {
         model.addAttribute("sostav", new SostavPostavDTO());
@@ -121,19 +120,16 @@ public class NakladController {
     @GetMapping("/sostav/delete/{id}")
     public String deleteSostav(@PathVariable Long id) {
         Long nakladId = sostavPostavService.get(id).getTovarNaklad().getId();
-        sostavPostavService.delete(id);
 
+        sostavPostavService.delete(id);
         return String.format(REDIRECT_URL, nakladId);
     }
 
     @GetMapping("/delete/{id}")
     public String deleteNaklad(@PathVariable Long id) {
-        Long nakladId = nakladService.getFirstNaklad();
 
         nakladService.delete(id);
 
-        return String.format(REDIRECT_URL, nakladId);
+        return String.format(REDIRECT_URL, id);
     }
-
-
 }

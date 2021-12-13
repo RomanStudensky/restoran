@@ -50,7 +50,7 @@ public class SostavProdService {
         SostavProd sostavProd = simpleMapper.mapDtoToEntity(dto);
         sostavProd.setProdaza(prodaza);
         sostavProd.setBludo(menu);
-        sostavProd.setSumma(BigDecimal.valueOf(dto.getQuantity() * menu.getPrice().longValue()));
+        sostavProd.setSumma((double) (dto.getQuantity() * menu.getPrice().longValue()));
 
         return simpleMapper
                 .mapEntityToDto(

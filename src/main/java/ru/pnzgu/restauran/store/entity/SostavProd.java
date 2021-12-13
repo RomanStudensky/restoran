@@ -1,13 +1,16 @@
 package ru.pnzgu.restauran.store.entity;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Table(name = "sostav_prod")
 @Entity
-@Data
+@Getter
+@Setter
 public class SostavProd extends EntityParent {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,6 +29,6 @@ public class SostavProd extends EntityParent {
     private Integer quantity;
 
     @Column(name = "summa", nullable = false, precision = 131089)
-    private BigDecimal summa;
+    private Double summa;
 
 }

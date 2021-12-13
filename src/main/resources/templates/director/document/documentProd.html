@@ -31,7 +31,7 @@
                 </li>
 
                 <li class="nav-item ">
-                    <a class="nav-link" th:href="@{/director/documents/view/prodaza}">Отчёт по продажам в баре</a>
+                    <a class="nav-link active" th:href="@{/director/documents/view/prodaza}">Отчёт по продажам в баре</a>
                 </li>
 
                 <li class="nav-item">
@@ -43,21 +43,15 @@
 </nav>
 <div style="position: absolute; left: 50%; transform:translate(-50%, 0)">
     <div style="position: absolute; left: 50%; transform:translate(-50%, 0)">
-        <form th:method="POST" th:action="@{/director/postavshik/dogovor/create/{id}(id=${postavshikId})}">
+        <form th:method="POST" th:action="@{/director/documents/prodaza}">
 
             <div class="field">
-                <label for="dateDogovor">Дата заключения: </label>
-                <input type="date" th:field="*{dogovor.dateDogovor}" id="dateDogovor" />
-                <div style="color:red" th:if="${#fields.hasErrors('dogovor.dateDogovor')}" th:errors="*{dogovor.dateDogovor}">Name Error</div>
+                <label for="date">Дата: </label>
+                <input type="date" th:field="*{prod.date}" id="date" />
+                <div style="color:red" th:if="${#fields.hasErrors('prod.date')}" th:errors="*{prod.date}">Name Error</div>
             </div>
 
-            <div class="field">
-                <label for="sostav">Описание: </label>
-                <input id="sostav" type="tel" name="text" th:field="*{dogovor.sostav}">
-                <div style="color:red" th:if="${#fields.hasErrors('dogovor.sostav')}" th:errors="*{dogovor.sostav}">Name Error</div>
-            </div>
-
-            <input type="submit" value="Сохранить">
+            <input type="submit" value="Сформировать отчёт">
         </form>
     </div>
 </div>

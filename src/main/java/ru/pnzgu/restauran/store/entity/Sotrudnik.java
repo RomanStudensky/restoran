@@ -7,7 +7,7 @@ import ru.pnzgu.restauran.store.Role;
 
 import javax.persistence.*;
 
-@Table(name = "usr")
+@Table(name = "sotrudnik")
 @Entity
 @Getter
 @Setter

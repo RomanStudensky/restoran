@@ -1,0 +1,5 @@
+databaseChangeLog:
+  - includeAll:
+      path: db/changelog/2021/12/
+#  - includeAll:
+#      path: db/changelog/2021/11/data/

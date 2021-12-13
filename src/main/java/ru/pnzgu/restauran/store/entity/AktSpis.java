@@ -9,6 +9,7 @@ import org.hibernate.Hibernate;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -34,9 +35,9 @@ public class AktSpis extends EntityParent {
     @Column(name = "summa", nullable = false)
     private BigDecimal summa;
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
     @JoinColumn(name = "akt")
-    private List<SostavAkt> spisProducts;
+    private List<SostavAkt> spisProducts = new ArrayList<>();
 
     @Override
     public boolean equals(Object o) {

@@ -9,4 +9,5 @@ import java.util.List;
 @Repository
 public interface SostavPostavRepository extends JpaRepository<SostavPostav, Long> {
     List<SostavPostav> findAllByTovarNakladId(Long id);
+
 }

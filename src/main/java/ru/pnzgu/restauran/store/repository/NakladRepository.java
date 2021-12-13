@@ -10,8 +10,10 @@ import java.util.Optional;
 
 @Repository
 public interface NakladRepository extends JpaRepository<Naklad, Long> {
-    @Query(value = "SELECT MIN(id_naklad) FROM sostav_naklad", nativeQuery = true)
+    @Query(value = "SELECT MIN(id_sost_post) FROM sostav_postav", nativeQuery = true)
     Optional<Long> findMinIdNaklad();
 
     List<Naklad> findAllByPostavshikId(Long postavshik_id);
+
+    void deleteById(Long id);
 }

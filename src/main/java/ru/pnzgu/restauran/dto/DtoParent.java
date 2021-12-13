@@ -1,5 +1,6 @@
 package ru.pnzgu.restauran.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

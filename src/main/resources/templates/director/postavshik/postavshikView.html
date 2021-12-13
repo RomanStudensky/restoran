@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" class="h-100">
+<html xmlns:th="http://www.thymeleaf.org" class="h-100" lang="ru">
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    
     <title>Панель управления официанта</title>
     <style type="text/css">
         a {
@@ -122,9 +123,12 @@
                 <li class="nav-item ">
                     <a class="nav-link" th:href="@{/director/documents/view/spis}">Отчёт по списанным продуктам</a>
                 </li>
+                <li class="nav-item ">
+                    <a class="nav-link" th:href="@{/director/documents/view/prodaza}">Отчёт по продажам в баре</a>
+                </li>
 
                 <li class="nav-item">
-                    <a class="nav-link disabled" href="#">Выход</a>
+                    <a class="nav-link disabled" th:href="@{/}">Выход</a>
                 </li>
             </ul>
         </div>
@@ -149,7 +153,7 @@
                         <th style="background-color: #d8d8d8" th:text="${postavshik.getId()}"></th>
                         <th style="background-color: #d8d8d8" th:text="${postavshik.getNamePost()}"></th>
                         <th style="background-color: #d8d8d8" th:text="${postavshik.getAddress}"></th>
-                        <th style="background-color: #d8d8d8" th:text="${postavshik.getPhone}"></th>
+                        <th style="background-color: #d8d8d8" th:text="${postavshik.getInn()}"></th>
                         <th style="background-color: #d8d8d8" class="_btn-active-table"><a th:href="@{/director/postavshik/{id}(id=${postavshik.getId})}">Договоры</a></th>
                         <th style="background-color: #d8d8d8" class="_btn-active-table"><a th:href="@{/director/postavshik/update/view/{id}(id=${postavshik.getId})}">Изменить</a></th>
                         <th style="background-color: #d8d8d8" class="_btn-active-table"><a th:href="@{/director/postavshik/delete/{id}(id=${postavshik.getId})}">Удалить</a></th>
@@ -159,7 +163,7 @@
                         <th th:text="${postavshik.getId()}"></th>
                         <th th:text="${postavshik.getNamePost()}"></th>
                         <th th:text="${postavshik.getAddress}"></th>
-                        <th th:text="${postavshik.getPhone}"></th>
+                        <th th:text="${postavshik.getInn()}"></th>
                         <th class="_btn-active-table"><a th:href="@{/director/postavshik/{id}(id=${postavshik.getId})}">Договоры</a></th>
                         <th class="_btn-active-table"><a th:href="@{/director/postavshik/update/view/{id}(id=${postavshik.getId})}">Изменить</a></th>
                         <th class="_btn-active-table"><a th:href="@{/director/postavshik/delete/{id}(id=${postavshik.getId})}">Удалить</a></th>

@@ -31,7 +31,7 @@ public class PostavshikController {
     public String getCommonView(Model model) {
         model.addAttribute("postavshikList", postavshikService.getAll());
 
-        return COMMON_VIEW;
+        return "/director/postavshik/postavshikView";
     }
 
     @GetMapping("/{postavshikId}")
