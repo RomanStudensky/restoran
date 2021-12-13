@@ -22,7 +22,7 @@ public class Postavshik extends EntityParent {
     @Column(name = "address", nullable = false, length = 100)
     private String address;
 
-    @Column(name = "phone", length = 11)
-    private String phone;
+    @Column(name = "inn", length = 11)
+    private String inn;
 
 }

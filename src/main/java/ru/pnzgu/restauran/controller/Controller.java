@@ -25,6 +25,7 @@ public class Controller {
 
     @PostMapping("/auth")
     public String auth(@ModelAttribute(name = "sotrudnik") SotrudnikDTO sotrudnikDTO) {
+
         String redirectUrl = "";
         switch (sotrudnikDTO.getPost()) {
             case "Администратор": redirectUrl = "/admin";

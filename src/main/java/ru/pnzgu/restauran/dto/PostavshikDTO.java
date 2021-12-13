@@ -10,6 +10,5 @@ import lombok.*;
 public class PostavshikDTO extends DtoParent {
     private String namePost;
     private String address;
-    private String phone;
     private String inn;
 }

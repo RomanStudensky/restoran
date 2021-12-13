@@ -20,7 +20,7 @@ public class Reserv extends EntityParent {
     @Column(name = "id_reserv", nullable = false)
     private Long id;
 
-    @Column(name = "full_name", nullable = false, length = 50)
+    @Column(name = "fio", nullable = false, length = 50)
     private String fullName;
 
     @Column(name = "date_reserv", nullable = false)
@@ -33,7 +33,7 @@ public class Reserv extends EntityParent {
     private Integer countPeople;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_table")
+    @JoinColumn(name = "stol")
     @ToString.Exclude
     private Stol stol;
 

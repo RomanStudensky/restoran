@@ -52,6 +52,7 @@ public class AktService {
 
         AktSpis aktSpis = simpleMapper.mapDtoToEntity(dto);
         aktSpis.setSotrud(sotrudnik);
+        aktSpis.setId(null);
 
         return simpleMapper
                 .mapEntityToDto(

@@ -8,7 +8,7 @@ import lombok.ToString;
 import javax.persistence.*;
 import java.math.BigDecimal;
 
-@Table(name = "sostav_akt")
+@Table(name = "spis_product")
 @Entity
 @Getter
 @Setter

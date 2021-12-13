@@ -1,5 +1,6 @@
 package ru.pnzgu.restauran.service;
 
+import org.springframework.transaction.annotation.Transactional;
 import ru.pnzgu.restauran.dto.SostavPostavDTO;
 import ru.pnzgu.restauran.exception.NotFoundException;
 import ru.pnzgu.restauran.store.entity.*;
@@ -23,7 +24,7 @@ public class SostavPostavService {
     private final ProductRepository productRepository;
     private final SimpleMapper<SostavPostavDTO, SostavPostav> simpleMapper = new SimpleMapper<>(new SostavPostavDTO(), new SostavPostav());
 
-
+    @Transactional(readOnly = true)
     public List<SostavPostavDTO> getAllSostavBySostavNaklId(Long id) {
         return sostavPostavRepository
                 .findAllByTovarNakladId(id)
@@ -32,14 +33,16 @@ public class SostavPostavService {
                 .collect(Collectors.toList());
     }
 
+    @Transactional(readOnly = true)
     public SostavPostavDTO get(Long id) {
         return simpleMapper.mapEntityToDto(
                 sostavPostavRepository
                 .findById(id)
-                .orElseThrow(() -> new NotFoundException(String.format("Поставка с идентификатором - %s не найден", id))));
+                .orElseThrow(() -> new NotFoundException(String.format("Поставка с идентификатором - %s не найдена", id))));
 
     }
 
+    @Transactional
     public SostavPostavDTO save(Long nakladId, Long productId, SostavPostavDTO dto) {
         Naklad naklad = nakladRepository
                 .findById(nakladId)
@@ -54,28 +57,22 @@ public class SostavPostavService {
         sostavPostav.setProduct(product);
         sostavPostav.setSumma(sostavPostav.getQuantity().doubleValue() * sostavPostav.getPrice().doubleValue());
 
+        SostavPostavDTO sostavPostavDTO = simpleMapper
+                .mapEntityToDto(
+                        sostavPostavRepository
+                                .save(sostavPostav)
+                );
+
         nakladService.updateSumma(naklad.getId(), sostavPostavRepository
                 .findAllByTovarNakladId(naklad.getId())
                 .stream()
                 .map(SostavPostav::getSumma)
                 .reduce(0.0D, Double::sum));
 
-        return simpleMapper
-                .mapEntityToDto(
-                        sostavPostavRepository
-                                .save(sostavPostav)
-                );
+        return sostavPostavDTO;
     }
 
     public void delete(Long id) {
-        Long idNaklad = sostavPostavRepository.findById(id).get().getTovarNaklad().getId();
-
         sostavPostavRepository.deleteById(id);
-
-        nakladService.updateSumma(idNaklad, sostavPostavRepository
-                .findAllByTovarNakladId(idNaklad)
-                .stream()
-                .map(SostavPostav::getSumma)
-                .reduce(0.0D, Double::sum));
     }
 }

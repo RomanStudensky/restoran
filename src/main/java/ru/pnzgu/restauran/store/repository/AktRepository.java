@@ -1,5 +1,6 @@
 package ru.pnzgu.restauran.store.repository;
 
+import org.springframework.data.jpa.repository.Lock;
 import org.springframework.data.jpa.repository.Query;
 import ru.pnzgu.restauran.store.entity.AktSpis;
 import org.springframework.data.jpa.repository.JpaRepository;

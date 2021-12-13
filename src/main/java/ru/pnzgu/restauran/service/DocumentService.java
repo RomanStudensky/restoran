@@ -5,14 +5,16 @@ import org.springframework.stereotype.Service;
 import org.yaml.snakeyaml.LoaderOptions;
 import ru.pnzgu.restauran.dto.*;
 import ru.pnzgu.restauran.exception.DocumentExportException;
-import ru.pnzgu.restauran.store.repository.AktRepository;
-import ru.pnzgu.restauran.store.repository.NakladRepository;
-import ru.pnzgu.restauran.store.repository.SostavAktRepository;
-import ru.pnzgu.restauran.store.repository.SostavPostavRepository;
+import ru.pnzgu.restauran.exception.NotFoundException;
+import ru.pnzgu.restauran.store.entity.Prodaza;
+import ru.pnzgu.restauran.store.entity.SostavProd;
+import ru.pnzgu.restauran.store.repository.*;
 import ru.pnzgu.restauran.util.excel.ExcelExportUtil;
 import ru.pnzgu.restauran.util.mapping.Mappers;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,6 +25,7 @@ public class DocumentService {
     private final NakladRepository nakladRepository;
     private final SostavPostavRepository sostavPostavRepository;
     private final PostavshikService postavshikService;
+    private final ProdazaRepository prodazaRepository;
 
     private final AktRepository aktRepository;
     private final SostavAktRepository sostavAktRepository;
@@ -62,6 +65,27 @@ public class DocumentService {
 
         try {
             return ExcelExportUtil.createSpisCurrentDateExelDocument(aktDTOS).toByteArray();
+        } catch (IOException e) {
+            throw new DocumentExportException("Не удалось сформировать отчёт по списанным продуктам, повторите попытку");
+        }
+
+    }
+
+    public byte[] getProdazaExelDocument(LocalDate date) throws DocumentExportException {
+
+        List<Prodaza> prodazas = new ArrayList<>(prodazaRepository.findAllByDateProd(date));
+
+        List<SostavProd> prodazaDTOS = prodazas
+                .stream()
+                .map(Prodaza::getSostavProd)
+                .flatMap(Collection::stream)
+                .collect(Collectors.toList());
+
+        try {
+            return ExcelExportUtil.createProdazaExelDocument(
+                    prodazas
+                            .stream()
+                            .findAny().orElseThrow(() -> new NotFoundException("Продажи не найдены")), date, prodazaDTOS).toByteArray();
         } catch (IOException e) {
             throw new DocumentExportException("Не удалось сформировать отчёт по списанным продуктам, повторите попытку");
         }

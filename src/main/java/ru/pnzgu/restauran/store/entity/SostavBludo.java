@@ -19,7 +19,7 @@ public class SostavBludo extends EntityParent {
     @Column(name = "id_sostav", nullable = false)
     private Long id;
 
-    @Column(name = "count", nullable = false)
+    @Column(name = "quanity", nullable = false)
     private Integer count;
 
     @ManyToOne(fetch = FetchType.LAZY)
