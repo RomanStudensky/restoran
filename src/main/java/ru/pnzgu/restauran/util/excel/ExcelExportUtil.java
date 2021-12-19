@@ -146,7 +146,7 @@ public class ExcelExportUtil {
         sheet.addMergedRegion(new CellRangeAddress(rowNum, rowNum, 0, SpistProdCol.LENGTH - 1));
         setMergedCellBorders(new CellRangeAddress(rowNum, rowNum, 0, SpistProdCol.LENGTH - 1), sheet);
 
-        createCell(cellStyle, row, sheet, 0, "Отчёт о списанных продуктах");
+        createCell(cellStyle, row, sheet, 0, "Отчёт по списанным продуктам");
 
         rowNum++;
         row = sheet.createRow(rowNum);

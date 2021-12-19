@@ -36,4 +36,7 @@ public class SostavAkt extends EntityParent {
 
     @Column(name = "price", nullable = false, precision = 131089)
     private Double price;
+
+    @Column(name = "summa", nullable = false, precision = 131089)
+    private Double summa;
 }
