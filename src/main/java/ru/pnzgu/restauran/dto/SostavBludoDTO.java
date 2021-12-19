@@ -15,7 +15,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 public class SostavBludoDTO extends DtoParent{
     private Integer count;
-    private Product product;
-    private Menu menu;
+    private ProductDTO product;
+    private MenuDTO menu;
 }
 

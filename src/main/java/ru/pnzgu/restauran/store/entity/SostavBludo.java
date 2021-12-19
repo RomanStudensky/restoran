@@ -23,10 +23,10 @@ public class SostavBludo extends EntityParent {
     private Integer count;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_prod")
+    @JoinColumn(name = "product")
     private Product product;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_menu")
+    @JoinColumn(name = "bludo")
     private Menu menu;
 }
