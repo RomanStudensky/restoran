@@ -10,8 +10,7 @@ import ru.pnzgu.restauran.store.entity.Menu;
 import ru.pnzgu.restauran.store.entity.Product;
 import ru.pnzgu.restauran.store.repository.CategoryRepository;
 import ru.pnzgu.restauran.store.repository.MenuRepository;
-import ru.pnzgu.restauran.store.repository.ProductRepository;
-import ru.pnzgu.restauran.util.mapping.SimpleMapper;
+import ru.pnzgu.restauran.util.mapping.Mappers;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -22,31 +21,30 @@ public class MenuService {
 
     private final MenuRepository menuRepository;
     private final CategoryRepository categoryRepository;
-    private final ProductRepository productRepository;
-    private final SimpleMapper<MenuDTO, Menu> simpleMapper = new SimpleMapper<>(new MenuDTO(), new Menu());
+    
 
     public List<MenuDTO> getAllByCategId(Long categId) {
         return menuRepository
                 .findAllByCategory_Id(categId)
                 .stream()
-                .map(simpleMapper::mapEntityToDto)
+                .map(Mappers.MENU::mapEntityToDto)
                 .collect(Collectors.toList());
     }
 
-    public Long getCategIdByMenuId(Long menuId) {
-        return menuRepository.getById(menuId).getCategory().getId();
+    public CategoryDTO getCategByMenuId(Long menuId) {
+        return Mappers.CATEGORY.mapEntityToDto(menuRepository.getById(menuId).getCategory());
     }
 
     public List<MenuDTO> getAll() {
         return menuRepository
                 .findAll()
                 .stream()
-                .map(simpleMapper::mapEntityToDto)
+                .map(Mappers.MENU::mapEntityToDto)
                 .collect(Collectors.toList());
     }
 
     public MenuDTO get(Long id) {
-        return simpleMapper
+        return Mappers.MENU
                 .mapEntityToDto(
                         menuRepository
                                 .findById(id)
@@ -57,25 +55,32 @@ public class MenuService {
         Category category = categoryRepository
                 .findById(categId)
                 .orElseThrow(() -> new NotFoundException(String.format("Категория с идентификатором - %s не найдена", categId)));
-        Menu menu = simpleMapper.mapDtoToEntity(menuDTO);
+        Menu menu = Mappers.MENU.mapDtoToEntity(menuDTO);
         menu.setCategory(category);
 
-        return simpleMapper
+        return Mappers.MENU
                 .mapEntityToDto(
                         menuRepository
                                 .save(menu)
                 );
     }
 
-    public MenuDTO update(Long id, MenuDTO menuDTO) {
+    public MenuDTO update(Long id, MenuDTO menuDTO, Long categId) {
 
         get(id);
 
-        menuDTO.setId(id);
+        Category category = categoryRepository
+                .findById(categId)
+                .orElseThrow(() -> new NotFoundException(String.format("Категория с идентификатором - %s не найдена", categId)));
 
-        return simpleMapper
+        menuDTO.setId(id);
+        Menu menu = Mappers.MENU.mapDtoToEntity(menuDTO);
+        menu.setCategory(category);
+
+
+        return Mappers.MENU
                 .mapEntityToDto(
-                        menuRepository.save(simpleMapper.mapDtoToEntity(menuDTO))
+                        menuRepository.save(menu)
                 );
     }
 

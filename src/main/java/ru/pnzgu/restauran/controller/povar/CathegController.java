@@ -11,7 +11,7 @@ import ru.pnzgu.restauran.service.*;
 import java.util.ArrayList;
 
 @Controller
-@RequestMapping("/povar/catheg")
+@RequestMapping("/povar/categ")
 @RequiredArgsConstructor
 public class CathegController {
 
@@ -24,10 +24,10 @@ public class CathegController {
     private final String UPDATE_CATEG_VIEW = "/povar/categ/action/categ/update";
 
     private final String CREATE_MENU_VIEW = "/povar/categ/action/menu/create";
-    private final String UPDATE_MENU_VIEW = "/povar/categ/action/menu/create";
+    private final String UPDATE_MENU_VIEW = "/povar/categ/action/menu/update";
 
     private final String CREATE_SOSTAV_MENU_VIEW = "/povar/categ/action/sostav/create";
-    private final String UPDATE_SOSTAV_MENU_VIEW = "/povar/categ/action/sostav/create";
+    private final String UPDATE_SOSTAV_MENU_VIEW = "/povar/categ/action/sostav/update";
 
     private final CategService categService;
     private final SostavBludoService sostavBludoService;
@@ -55,10 +55,11 @@ public class CathegController {
         model.addAttribute("menuList", menuService.getAllByCategId(categId));
         model.addAttribute("sostavList", new ArrayList<SostavBludoDTO>());
         model.addAttribute("categId", categId);
+
         return COMMON_VIEW;
     }
 
-    @GetMapping("/{categId}/{menuId}")
+    @GetMapping("/menu/{categId}/{menuId}")
     public String getCommonView(@PathVariable Long categId, @PathVariable Long menuId, Model model) {
         try {
             menuService.get(menuId);
@@ -100,6 +101,7 @@ public class CathegController {
     @GetMapping("/menu/update/view/{menuId}")
     public String getMenuUpdateView(@PathVariable Long menuId, Model model) {
         model.addAttribute("menu", menuService.get(menuId));
+        model.addAttribute("categ", menuService.getCategByMenuId(menuId));
         model.addAttribute("menuId", menuId);
 
         return UPDATE_MENU_VIEW;
@@ -162,17 +164,16 @@ public class CathegController {
 
     @PostMapping("/menu/update/{menuId}")
     public String updateMenu(@PathVariable Long menuId,
-                               @ModelAttribute(name = "menu") MenuDTO menuDTO) {
+                                @ModelAttribute(name = "menu") MenuDTO menuDTO) {
+        Long categId = menuService.getCategByMenuId(menuId).getId();
+        menuService.update(menuId, menuDTO, categId);
 
-        menuService.update(menuId, menuDTO);
-        Long categId = menuService.getCategIdByMenuId(menuId);
-
-        return String.format(REDIRECT_MENU_URL, menuId, categId);
+        return String.format(REDIRECT_MENU_URL, categId, menuId);
     }
 
     @GetMapping("/menu/delete/{id}")
     public String deleteMenu(@PathVariable Long id) {
-        Long categId = menuService.getCategIdByMenuId(id);
+        Long categId = menuService.getCategByMenuId(id).getId();
 
         menuService.delete(id);
 
@@ -185,7 +186,7 @@ public class CathegController {
                                @ModelAttribute(name = "product") ProductDTO productDTO) {
 
         sostavBludoService.save(sostavBludoDTO, menuId, productDTO.getId());
-        Long categId = menuService.getCategIdByMenuId(menuId);
+        Long categId = menuService.getCategByMenuId(menuId).getId();
 
         return String.format(REDIRECT_MENU_URL, menuId, categId);
     }
@@ -193,7 +194,7 @@ public class CathegController {
     @PostMapping("/menu/sostav/update/{sostavId}")
     public String updateSostav(@PathVariable Long sostavId,
                                @ModelAttribute(name = "sostav") SostavBludoDTO sostav,
-                               @ModelAttribute(name = "productDto") ProductDTO productDTO) {
+                               @ModelAttribute(name = "product") ProductDTO productDTO) {
 
         sostav = sostavBludoService.update(sostavId, sostav, productDTO.getId());
 
@@ -203,11 +204,9 @@ public class CathegController {
     @GetMapping("/menu/sostav/delete/{id}")
     public String deleteSostav(@PathVariable Long id) {
         Long menuId = sostavBludoService.getMenuIdBySostavId(id);
-        Long categId = menuService.getCategIdByMenuId(menuId);
+        Long categId = menuService.getCategByMenuId(menuId).getId();
         sostavBludoService.delete(id);
 
         return String.format(REDIRECT_MENU_URL, categId, menuId);
     }
-
-
 }

@@ -86,9 +86,15 @@ public class SostavBludoService {
                 .orElseThrow(() -> new NotFoundException(String.format("Продукт с идентификатором - %s не найден", productId)));
 
 
+        Menu menu = sostavBludoRepository
+                .findById(sostavId)
+                .orElseThrow(() -> new NotFoundException(String.format("Блюдо с идентификатором - %s не найдено", productId)))
+                .getMenu();
+
         SostavBludo sostavBludo = Mappers.SOSTAV_BLUDO.mapDtoToEntity(dto);
         sostavBludo.setId(sostavId);
         sostavBludo.setProduct(product);
+        sostavBludo.setMenu(menu);
 
         SostavBludoDTO sostavBludoDTO = Mappers.SOSTAV_BLUDO
                 .mapEntityToDto(
@@ -96,13 +102,7 @@ public class SostavBludoService {
                                 .save(sostavBludo)
                 );
 
-
-        Menu menu = sostavBludo.getMenu();
-
-        MenuDTO menuDTO = Mappers.MENU.mapEntityToDto(menu);
-        menuDTO.setCategory(Mappers.CATEGORY.mapEntityToDto(menu.getCategory()));
-
-        sostavBludoDTO.setMenu(menuDTO);
+        sostavBludoDTO.setMenu(Mappers.MENU.mapEntityToDto(menu));
 
         return sostavBludoDTO;
     }

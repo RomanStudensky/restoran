@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Изменение даты отпуска</title>
+    <link rel="stylesheet" type="text/css" href="../style.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 <body>
@@ -38,24 +39,25 @@
 </nav>
 <div style="position: absolute; left: 50%; transform:translate(-50%, 0)">
     <div style="position: absolute; left: 50%; transform:translate(-50%, 0)">
-        <form th:method="POST" th:action="@{/povar/categ/menu/update/{id}(id=${menu.getId})}">
-            <div class="field">
-                <label for="bludo">Название блюда: </label>
-                <input type="text" th:field="*{menu.bludo}" id="bludo" />
-                <div style="color:red" th:if="${#fields.hasErrors('menu.bludo')}" th:errors="*{menu.bludo}">Name Error</div>
+        <form th:method="POST" th:action="@{/povar/categ/menu/sostav/create/{id}(id=${menuId})}">
+            <div class="f">
+                <label for="menu">Выберите продукт</label>
+                <br/>
+                <select id="menu" style="width: 300px;" th:field="*{productDto.id}" name="menuDto">
+                    <option th:each="product : ${productList}"
+                            th:value="${product.id}"
+                            th:text="${product.nameProd}">
+                        Part name
+                    </option>
+                </select>
             </div>
 
             <div class="field">
-                <label for="weight">Вес (в граммах): </label>
-                <input type="number" th:field="*{menu.weight}" id="weight" />
-                <div style="color:red" th:if="${#fields.hasErrors('menu.weight')}" th:errors="*{menu.weight}">Name Error</div>
+                <label for="price">Количество: </label>
+                <input type="number" th:field="*{sostav.count}" id="price" />
+                <div style="color:red" th:if="${#fields.hasErrors('sostav.count')}" th:errors="*{sostav.count}">Name Error</div>
             </div>
 
-            <div class="field">
-                <label for="price">Цена: </label>
-                <input type="number" th:field="*{menu.price}" id="price" />
-                <div style="color:red" th:if="${#fields.hasErrors('menu.price')}" th:errors="*{menu.price}">Name Error</div>
-            </div>
             <input type="submit" value="Сохранить">
         </form>
     </div>

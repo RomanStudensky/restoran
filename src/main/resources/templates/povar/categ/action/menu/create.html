@@ -15,13 +15,13 @@
         <div class="collapse navbar-collapse" style="width: 100%;" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{/povar/naklad}">Накладная - Состав<span class="sr-only"></span></a>
+                    <a class="nav-link" th:href="@{/povar/menu}">Накладная - Состав<span class="sr-only"></span></a>
                 </li>
                 <li class="nav-item ">
                     <a class="nav-link" th:href="@{/povar/order}">Заявка - Состав<span class="sr-only"></span></a>
                 </li>
                 <li class="nav-item ">
-                    <a class="nav-link" th:href="@{/povar/cathegory}">Категория - Меню - Состав блюда<span class="sr-only"></span></a>
+                    <a class="nav-link" th:href="@{/povar/categ}">Категория - Меню - Состав блюда<span class="sr-only"></span></a>
                 </li>
                 <li class="nav-item ">
                     <a class="nav-link" th:href="@{/povar/akt}">Акт о списании продукта - Списание продукта<span class="sr-only"></span></a>
@@ -38,35 +38,23 @@
 </nav>
 <div style="position: absolute; left: 50%; transform:translate(-50%, 0)">
     <div style="position: absolute; left: 50%; transform:translate(-50%, 0)">
-        <form th:method="POST" th:action="@{/povar/naklad/create}">
+        <form th:method="POST" th:action="@{/povar/categ/menu/create/{id}(id=${categId})}">
             <div class="field">
-                <label for="dateNaklad">Дата накладной: </label>
-                <input type="date" th:field="*{naklad.dateNaklad}" id="dateNaklad" />
-                <div style="color:red" th:if="${#fields.hasErrors('naklad.dateNaklad')}" th:errors="*{naklad.dateNaklad}">Name Error</div>
+                <label for="bludo">Название блюда: </label>
+                <input type="text" th:field="*{menu.bludo}" id="bludo" />
+                <div style="color:red" th:if="${#fields.hasErrors('menu.bludo')}" th:errors="*{menu.bludo}">Name Error</div>
             </div>
 
-            <div class="f">
-                <label for="stol">Выберите поставщика</label>
-                <br/>
-                <select id="stol" style="width: 300px;" th:field="*{postavshikDto.id}" name="stolDto">
-                    <option th:each="postavshik : ${postavshikList}"
-                            th:value="${postavshik.id}"
-                            th:text="${postavshik.namePost}">
-                        Part name
-                    </option>
-                </select>
+            <div class="field">
+                <label for="weight">Вес (в граммах): </label>
+                <input type="number" th:field="*{menu.weight}" id="weight" />
+                <div style="color:red" th:if="${#fields.hasErrors('menu.weight')}" th:errors="*{menu.weight}">Name Error</div>
             </div>
 
-            <div class="f">
-                <label for="sotrud">Выберите договор</label>
-                <br/>
-                <select id="sotrud" style="width: 300px;" th:field="*{dogovorDto.id}" name="dogovorDto">
-                    <option th:each="dogovor : ${dogovorList}"
-                            th:value="${dogovor.id}"
-                            th:text="${dogovor.id}">
-                        Part name
-                    </option>
-                </select>
+            <div class="field">
+                <label for="price">Цена: </label>
+                <input type="number" th:field="*{menu.price}" id="price" />
+                <div style="color:red" th:if="${#fields.hasErrors('menu.price')}" th:errors="*{menu.price}">Name Error</div>
             </div>
             <input type="submit" value="Сохранить">
         </form>
