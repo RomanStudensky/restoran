@@ -15,10 +15,10 @@
         <div class="collapse navbar-collapse" style="width: 100%;" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{/templates/povar/naklad}">Накладная - Состав<span class="sr-only"></span></a>
+                    <a class="nav-link" th:href="@{/povar/naklad}">Накладная - Состав<span class="sr-only"></span></a>
                 </li>
                 <li class="nav-item ">
-                    <a class="nav-link" th:href="@{/templates/povar/order}">Заявка - Состав<span class="sr-only"></span></a>
+                    <a class="nav-link" th:href="@{/povar/order}">Заявка - Состав<span class="sr-only"></span></a>
                 </li>
                 <li class="nav-item ">
                     <a class="nav-link" th:href="@{/povar/categ}">Категория - Меню - Состав блюда<span class="sr-only"></span></a>
@@ -27,7 +27,7 @@
                     <a class="nav-link" th:href="@{/povar/akt}">Акт о списании продукта - Списание продукта<span class="sr-only"></span></a>
                 </li>
                 <li class="nav-item ">
-                    <a class="nav-link" th:href="@{/templates/povar/product}">Продукты<span class="sr-only"></span></a>
+                    <a class="nav-link" th:href="@{/povar/product}">Продукты<span class="sr-only"></span></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link disabled" th:href="@{/}">Выход</a>
@@ -38,19 +38,17 @@
 </nav>
 <div style="position: absolute; left: 50%; transform:translate(-50%, 0)">
     <div style="position: absolute; left: 50%; transform:translate(-50%, 0)">
-        <form th:method="POST" th:action="@{/povar/product/update/{id}(id=${product.getId()})}">
-            <div class="field">
-                <label for="nameProd">Название продукта: </label>
-                <input type="text" th:field="*{product.nameProd}" id="nameProd" />
-                <div style="color:red" th:if="${#fields.hasErrors('product.nameProd')}" th:errors="*{product.nameProd}">Name Error</div>
+        <form th:method="POST" th:action="@{/povar/categ/update/{id}(id=${categ.getId})}">
+            <div style="position: absolute; left: 50%; transform:translate(-50%, 0)">
+                <form th:method="POST" th:action="@{/povar/categ}">
+                    <div class="field">
+                        <label for="nameCat">Наименование: </label>
+                        <input type="text" th:field="*{categ.nameCat}" id="nameCat" />
+                        <div style="color:red" th:if="${#fields.hasErrors('categ.nameCat')}" th:errors="*{categ.nameCat}">Name Error</div>
+                    </div>
+                    <input type="submit" value="Сохранить">
+                </form>
             </div>
-
-            <div class="field">
-                <label for="quantity">Количество: </label>
-                <input type="text" th:field="*{product.quantity}" id="quantity" />
-                <div style="color:red" th:if="${#fields.hasErrors('product.quantity')}" th:errors="*{product.quantity}">Name Error</div>
-            </div>
-            <input type="submit" value="Сохранить">
         </form>
     </div>
 </div>

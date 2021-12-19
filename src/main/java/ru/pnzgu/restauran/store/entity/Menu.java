@@ -6,6 +6,8 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 @Table(name = "menu")
 @Entity
@@ -30,4 +32,6 @@ public class Menu extends EntityParent {
     @JoinColumn(name = "category", nullable = false)
     private Category category;
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "menu", fetch = FetchType.LAZY)
+    private List<SostavBludo> sostavList = new ArrayList<>();
 }

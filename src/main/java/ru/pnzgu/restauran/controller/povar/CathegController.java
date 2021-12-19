@@ -8,138 +8,205 @@ import ru.pnzgu.restauran.dto.*;
 import ru.pnzgu.restauran.exception.NotFoundException;
 import ru.pnzgu.restauran.service.*;
 
-import java.util.List;
+import java.util.ArrayList;
 
 @Controller
-@RequestMapping("/povar/catheg")
+@RequestMapping("/povar/categ")
 @RequiredArgsConstructor
 public class CathegController {
 
-    private final String REDIRECT_URL = "redirect:/povar/categ/%s";
-    private final String COMMON_VIEW =  "/povar/categ/commonView";
+    private final String REDIRECT_HOME_URL = "redirect:/povar/categ";
+    private final String REDIRECT_CATEG_URL = "redirect:/povar/categ/%s";
+    private final String REDIRECT_MENU_URL = "redirect:/povar/categ/menu/%s/%s";
+    private final String COMMON_VIEW = "/povar/categ/commonView";
 
-    private final String CREATE_CATHEG_VIEW = "/povar/categ/action/naklad/create";
-    private final String UPDATE_CATHEG_VIEW = "/povar/categ/action/naklad/update";
+    private final String CREATE_CATEG_VIEW = "/povar/categ/action/categ/create";
+    private final String UPDATE_CATEG_VIEW = "/povar/categ/action/categ/update";
 
     private final String CREATE_MENU_VIEW = "/povar/categ/action/menu/create";
-    private final String UPDATE_MENU_VIEW = "/povar/categ/action/menu/create";
+    private final String UPDATE_MENU_VIEW = "/povar/categ/action/menu/update";
 
     private final String CREATE_SOSTAV_MENU_VIEW = "/povar/categ/action/sostav/create";
-    private final String UPDATE_SOSTAV_MENU_VIEW = "/povar/categ/action/sostav/create";
+    private final String UPDATE_SOSTAV_MENU_VIEW = "/povar/categ/action/sostav/update";
 
-    private final NakladService nakladService;
-    private final SostavPostavService sostavPostavService;
-    private final DogovorService dogovorService;
-    private final PostavshikService postavshikService;
+    private final CategService categService;
+    private final SostavBludoService sostavBludoService;
+    private final MenuService menuService;
     private final ProductService productService;
 
 
     @GetMapping()
     public String getCommonView(Model model) {
-        model.addAttribute("nakladList", nakladService.getAll());
+        model.addAttribute("categList", categService.getAll());
+        model.addAttribute("menuList", new ArrayList<MenuDTO>());
+        model.addAttribute("sostavList", new ArrayList<SostavBludoDTO>());
 
         return COMMON_VIEW;
     }
 
-    @GetMapping("/{nakladId}")
-    public String getCommonView(@PathVariable Long nakladId, Model model) {
+    @GetMapping("/{categId}")
+    public String getCommonView(@PathVariable Long categId, Model model) {
         try {
-            nakladService.get(nakladId);
+            categService.get(categId);
         } catch (NotFoundException e) {
-            return "redirect:/director/naklad";
+            return REDIRECT_HOME_URL;
         }
-        model.addAttribute("nakladList", nakladService.getAll());
+        model.addAttribute("categList", categService.getAll());
+        model.addAttribute("menuList", menuService.getAllByCategId(categId));
+        model.addAttribute("sostavList", new ArrayList<SostavBludoDTO>());
+        model.addAttribute("categId", categId);
 
-        List<SostavPostavDTO> sostavList = sostavPostavService.getAllSostavBySostavNaklId(nakladId);
-        model.addAttribute("sostavList", sostavList);
-        model.addAttribute("nakladId", nakladId);
+        return COMMON_VIEW;
+    }
 
+    @GetMapping("/menu/{categId}/{menuId}")
+    public String getCommonView(@PathVariable Long categId, @PathVariable Long menuId, Model model) {
+        try {
+            menuService.get(menuId);
+        } catch (NotFoundException e) {
+            return String.format(REDIRECT_CATEG_URL, categId);
+        }
+
+        model.addAttribute("categList", categService.getAll());
+        model.addAttribute("menuList", menuService.getAllByCategId(categId));
+        model.addAttribute("sostavList", sostavBludoService.getAllSostavByMenuId(menuId));
+        model.addAttribute("categId", categId);
+        model.addAttribute("menuId", menuId);
         return COMMON_VIEW;
     }
 
     @GetMapping("/create/view")
-    public String getNakladCreateView(Model model) {
-        model.addAttribute("naklad", new NakladDTO());
-        model.addAttribute("postavshikList", postavshikService.getAll());
-        model.addAttribute("dogovorList", dogovorService.getAll());
-        model.addAttribute("postavshikDto", new PostavshikDTO());
-        model.addAttribute("dogovorDto", new DogovorDTO());
+    public String getCategCreateView(Model model) {
+        model.addAttribute("categ", new CategoryDTO());
 
-        return CREATE_CATHEG_VIEW;
+        return CREATE_CATEG_VIEW;
     }
 
     @GetMapping("/update/view/{id}")
     public String getNakladUpdateView(@PathVariable Long id, Model model) {
-        NakladDTO nakladDTO = nakladService.get(id);
-        model.addAttribute("naklad", nakladDTO);
-        model.addAttribute("postavshikList", postavshikService.getAll());
-        model.addAttribute("dogovorList", dogovorService.getAll());
-        model.addAttribute("postavshikDto", nakladDTO.getPostavshik());
-        model.addAttribute("dogovorDto", nakladDTO.getDogovor());
+        CategoryDTO categoryDTO = categService.get(id);
+        model.addAttribute("categ", categoryDTO);
 
-        return UPDATE_CATHEG_VIEW;
+        return UPDATE_CATEG_VIEW;
     }
 
+    @GetMapping("/menu/create/view/{categId}")
+    public String getMenuCreateView(@PathVariable Long categId, Model model) {
+        model.addAttribute("menu", new MenuDTO());
+        model.addAttribute("categ", categService.get(categId));
 
-    @GetMapping("/sostav/create/view/{nakladId}")
-    public String getSostavCreateView(@PathVariable Long nakladId, Model model) {
-        model.addAttribute("sostav", new SostavPostavDTO());
-        model.addAttribute("nakladId", nakladId);
+        return CREATE_MENU_VIEW;
+    }
+
+    @GetMapping("/menu/update/view/{menuId}")
+    public String getMenuUpdateView(@PathVariable Long menuId, Model model) {
+        model.addAttribute("menu", menuService.get(menuId));
+        model.addAttribute("categ", menuService.getCategByMenuId(menuId));
+        model.addAttribute("menuId", menuId);
+
+        return UPDATE_MENU_VIEW;
+    }
+
+    @GetMapping("/menu/sostav/create/view/{menuId}")
+    public String getSostavCreateView(@PathVariable Long menuId, Model model) {
+        model.addAttribute("sostav", new SostavBludoDTO());
+        model.addAttribute("menuId", menuId);
         model.addAttribute("productDto", new ProductDTO());
         model.addAttribute("productList", productService.getAll());
 
         return CREATE_SOSTAV_MENU_VIEW;
     }
 
+    @GetMapping("/menu/sostav/update/view/{sostavId}")
+    public String getSostavUpdateView(@PathVariable Long sostavId, Model model) {
+        model.addAttribute("sostav", sostavBludoService.get(sostavId));
+        model.addAttribute("nakladId", sostavId);
+        model.addAttribute("productDto", new ProductDTO());
+        model.addAttribute("productList", productService.getAll());
+
+        return UPDATE_SOSTAV_MENU_VIEW;
+    }
+
     // ------------- REST ------------
 
     @PostMapping("/create")
-    public String createNaklad(@ModelAttribute(name = "naklad") NakladDTO naklad,
-                               @ModelAttribute(name = "dogovorDto") DogovorDTO dogovorDTO,
-                               @ModelAttribute(name = "postavshikDto") PostavshikDTO postavshikDto) {
+    public String createCateg(@ModelAttribute(name = "categ") CategoryDTO categoryDTO) {
 
-        naklad = nakladService.save(naklad, postavshikDto.getId(), dogovorDTO.getId());
+        categoryDTO = categService.save(categoryDTO);
 
-        return String.format(REDIRECT_URL, naklad.getId());
+        return String.format(REDIRECT_CATEG_URL, categoryDTO.getId());
     }
 
     @PostMapping("/update/{id}")
-    public String updateNaklad(@ModelAttribute(name = "naklad") NakladDTO naklad,
-                               @ModelAttribute(name = "dogovorDto") DogovorDTO dogovorDTO,
-                               @ModelAttribute(name = "postavshikDto") PostavshikDTO postavshikDto,
-                               @PathVariable Long id) {
+    public String updateCateg(@ModelAttribute(name = "categ") CategoryDTO categoryDTO, @PathVariable Long id) {
 
-        naklad = nakladService.update(id, naklad, postavshikDto.getId(), dogovorDTO.getId());
+        categoryDTO = categService.update(id, categoryDTO);
 
-        return String.format(REDIRECT_URL, naklad.getId());
-    }
-
-    @PostMapping("/sostav/create/{nakladId}")
-    public String createSostav(@PathVariable Long nakladId,
-                               @ModelAttribute(name = "sostav") SostavPostavDTO sostav,
-                               @ModelAttribute(name = "productDto") ProductDTO productDTO) {
-
-        sostavPostavService.save(nakladId, productDTO.getId(), sostav);
-
-        return String.format(REDIRECT_URL, nakladId);
-    }
-
-    @GetMapping("/sostav/delete/{id}")
-    public String deleteSostav(@PathVariable Long id) {
-        Long nakladId = sostavPostavService.get(id).getTovarNaklad().getId();
-        sostavPostavService.delete(id);
-
-        return String.format(REDIRECT_URL, nakladId);
+        return String.format(REDIRECT_CATEG_URL, categoryDTO.getId());
     }
 
     @GetMapping("/delete/{id}")
-    public String deleteNaklad(@PathVariable Long id) {
-        Long nakladId = nakladService.getFirstNaklad();
+    public String deleteCateg(@PathVariable Long id) {
+        categService.delete(id);
 
-        nakladService.delete(id);
-
-        return String.format(REDIRECT_URL, nakladId);
+        return REDIRECT_HOME_URL;
     }
 
+    @PostMapping("/menu/create/{categId}")
+    public String createMenu(@PathVariable Long categId,
+                               @ModelAttribute(name = "menu") MenuDTO menuDTO,
+                               @ModelAttribute(name = "product") ProductDTO productDTO) {
 
+        menuDTO = menuService.save(menuDTO, categId);
+
+        return String.format(REDIRECT_MENU_URL, categId, menuDTO.getId());
+    }
+
+    @PostMapping("/menu/update/{menuId}")
+    public String updateMenu(@PathVariable Long menuId,
+                                @ModelAttribute(name = "menu") MenuDTO menuDTO) {
+        Long categId = menuService.getCategByMenuId(menuId).getId();
+        menuService.update(menuId, menuDTO, categId);
+
+        return String.format(REDIRECT_MENU_URL, categId, menuId);
+    }
+
+    @GetMapping("/menu/delete/{id}")
+    public String deleteMenu(@PathVariable Long id) {
+        Long categId = menuService.getCategByMenuId(id).getId();
+
+        menuService.delete(id);
+
+        return String.format(REDIRECT_CATEG_URL, categId);
+    }
+
+    @PostMapping("/menu/sostav/create/{menuId}")
+    public String createSostav(@PathVariable Long menuId,
+                               @ModelAttribute(name = "sostav") SostavBludoDTO sostavBludoDTO,
+                               @ModelAttribute(name = "product") ProductDTO productDTO) {
+
+        sostavBludoService.save(sostavBludoDTO, menuId, productDTO.getId());
+        Long categId = menuService.getCategByMenuId(menuId).getId();
+
+        return String.format(REDIRECT_MENU_URL, menuId, categId);
+    }
+
+    @PostMapping("/menu/sostav/update/{sostavId}")
+    public String updateSostav(@PathVariable Long sostavId,
+                               @ModelAttribute(name = "sostav") SostavBludoDTO sostav,
+                               @ModelAttribute(name = "product") ProductDTO productDTO) {
+
+        sostav = sostavBludoService.update(sostavId, sostav, productDTO.getId());
+
+        return String.format(REDIRECT_MENU_URL, sostav.getMenu().getCategory().getId(), sostav.getMenu().getId());
+    }
+
+    @GetMapping("/menu/sostav/delete/{id}")
+    public String deleteSostav(@PathVariable Long id) {
+        Long menuId = sostavBludoService.getMenuIdBySostavId(id);
+        Long categId = menuService.getCategByMenuId(menuId).getId();
+        sostavBludoService.delete(id);
+
+        return String.format(REDIRECT_MENU_URL, categId, menuId);
+    }
 }

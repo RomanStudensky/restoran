@@ -21,7 +21,7 @@
                     <a class="nav-link" th:href="@{/povar/order}">Заявка - Состав<span class="sr-only"></span></a>
                 </li>
                 <li class="nav-item ">
-                    <a class="nav-link" th:href="@{/povar/cathegory}">Категория - Меню - Состав блюда<span class="sr-only"></span></a>
+                    <a class="nav-link" th:href="@{/povar/categ}">Категория - Меню - Состав блюда<span class="sr-only"></span></a>
                 </li>
                 <li class="nav-item ">
                     <a class="nav-link" th:href="@{/povar/akt}">Акт о списании продукта - Списание продукта<span class="sr-only"></span></a>
@@ -38,35 +38,11 @@
 </nav>
 <div style="position: absolute; left: 50%; transform:translate(-50%, 0)">
     <div style="position: absolute; left: 50%; transform:translate(-50%, 0)">
-        <form th:method="POST" th:action="@{/povar/naklad/update/{id}(id=${naklad.getId})}">
+        <form th:method="POST" th:action="@{/povar/categ/create}">
             <div class="field">
-                <label for="dateNaklad">Дата накладной: </label>
-                <input type="date" th:field="*{naklad.dateNaklad}" id="dateNaklad" />
-                <div style="color:red" th:if="${#fields.hasErrors('naklad.dateNaklad')}" th:errors="*{naklad.dateNaklad}">Name Error</div>
-            </div>
-
-            <div class="f">
-                <label for="stol">Выберите поставщика</label>
-                <br/>
-                <select id="stol" style="width: 300px;" th:field="*{postavshikDto.id}" name="stolDto">
-                    <option th:each="postavshik : ${postavshikList}"
-                            th:value="${postavshik.id}"
-                            th:text="${postavshik.namePost}">
-                        Part name
-                    </option>
-                </select>
-            </div>
-
-            <div class="f">
-                <label for="sotrud">Выберите договор</label>
-                <br/>
-                <select id="sotrud" style="width: 300px;" th:field="*{dogovorDto.id}" name="dogovorDto">
-                    <option th:each="dogovor : ${dogovorList}"
-                            th:value="${dogovor.id}"
-                            th:text="${dogovor.id}">
-                        Part name
-                    </option>
-                </select>
+                <label for="nameCat">Наименование: </label>
+                <input type="text" th:field="*{categ.nameCat}" id="nameCat" />
+                <div style="color:red" th:if="${#fields.hasErrors('categ.nameCat')}" th:errors="*{categ.nameCat}">Name Error</div>
             </div>
             <input type="submit" value="Сохранить">
         </form>

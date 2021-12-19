@@ -2,7 +2,6 @@ package ru.pnzgu.restauran.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.yaml.snakeyaml.LoaderOptions;
 import ru.pnzgu.restauran.dto.*;
 import ru.pnzgu.restauran.exception.DocumentExportException;
 import ru.pnzgu.restauran.exception.NotFoundException;
@@ -34,14 +33,14 @@ public class DocumentService {
         List<NakladDTO> nakladList = nakladRepository
                 .findAllByPostavshikId(postavshikId)
                 .stream()
-                .map(Mappers.NAKLAD_MAPPER::mapEntityToDto)
+                .map(Mappers.NAKLAD::mapEntityToDto)
                 .collect(Collectors.toList());
 
         nakladList.forEach(naklad -> naklad.setSostav(
                 sostavPostavRepository
                 .findAllByTovarNakladId(naklad.getId())
                 .stream()
-                .map(Mappers.SOSTAV_POSTAV_MAPPER::mapEntityToDto)
+                .map(Mappers.SOSTAV_POSTAV::mapEntityToDto)
                 .collect(Collectors.toList())));
 
         PostavshikDTO postavshikDTO = postavshikService.get(postavshikId);
@@ -60,7 +59,7 @@ public class DocumentService {
         List<AktDTO> aktDTOS = aktRepository
                 .findByDateAktBetween(date1, date2)
                 .stream()
-                .map(Mappers.AKT_MAPPER::mapEntityToDto)
+                .map(Mappers.AKT::mapEntityToDto)
                 .collect(Collectors.toList());
 
         try {

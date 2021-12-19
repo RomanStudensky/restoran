@@ -26,7 +26,7 @@ public class DogovorService {
         return dogovorRepository
                 .findDogovorsByPostavshikId(id)
                 .stream()
-                .map(Mappers.DOGOVOR_MAPPER::mapEntityToDto)
+                .map(Mappers.DOGOVOR::mapEntityToDto)
                 .collect(Collectors.toList());
     }
 
@@ -67,7 +67,7 @@ public class DogovorService {
                 .orElseThrow(() -> new NotFoundException(String.format("Договор с идентификатором - %s не найден", id)))
                 .getPostavshik();
 
-        Dogovor dogovor = Mappers.DOGOVOR_MAPPER.mapDtoToEntity(dto);
+        Dogovor dogovor = Mappers.DOGOVOR.mapDtoToEntity(dto);
         dogovor.setPostavshik(postavshik);
         dogovor.setId(id);
 
