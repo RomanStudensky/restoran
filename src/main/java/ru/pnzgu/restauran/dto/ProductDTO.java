@@ -11,5 +11,5 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ProductDTO extends DtoParent {
     private String nameProd;
-    private Integer quantity = 0;
+    private Double quantity = 0.0;
 }

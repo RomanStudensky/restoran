@@ -17,5 +17,5 @@ public class Product extends EntityParent {
     private String nameProd;
 
     @Column(name = "quantity")
-    private Integer quantity;
+    private Double quantity;
 }

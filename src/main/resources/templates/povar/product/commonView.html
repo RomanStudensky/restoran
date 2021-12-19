@@ -135,9 +135,8 @@
         <thead>
             <tr>
                 <th>№ накладной</th>
-                <th>Дата акта списания</th>
-                <th>Сотрудник</th>
-                <th>Сумма</th>
+                <th>Наименование</th>
+                <th>Количество</th>
                 <th class="_btn-active-table" colspan="2" style="text-align: center;"><a th:href="@{/povar/product/create/view}">Добавить запись</a></th>
             </tr>
         </thead>
@@ -147,7 +146,7 @@
                     <div th:if="${product.getId == productId}">
                         <th style="background-color: #d8d8d8" th:text="${product.getId}"></th>
                         <th style="background-color: #d8d8d8" th:text="${product.getNameProd()}"></th>
-                        <th style="background-color: #d8d8d8" th:text="${product.getQuantity()}"></th>
+                        <th style="background-color: #d8d8d8" th:text="${#numbers.formatDecimal(product.getQuantity(), 0, 3)}"></th>
                         <th style="background-color: #d8d8d8" class="_btn-active-table"><a th:href="@{/povar/product/{id}(id=${product.getId})}">Состав</a></th>
                         <th style="background-color: #d8d8d8" class="_btn-active-table"><a th:href="@{/povar/product/update/view/{id}(id=${product.getId})}">Изменить</a></th>
                         <th style="background-color: #d8d8d8" class="_btn-active-table"><a th:href="@{/povar/product/delete/{id}(id=${product.getId})}">Удалить</a></th>
@@ -156,7 +155,7 @@
                     <div th:unless="${product.getId == productId}">
                         <th th:text="${product.getId}"></th>
                         <th th:text="${product.getNameProd()}"></th>
-                        <th th:text="${product.getQuantity()}"></th>
+                        <th th:text="${#numbers.formatDecimal(product.getQuantity(), 0, 3)}"></th>
                         <th class="_btn-active-table"><a th:href="@{/povar/product/{id}(id=${product.getId})}">Состав</a></th>
                         <th class="_btn-active-table"><a th:href="@{/povar/product/update/view/{id}(id=${product.getId})}">Изменить</a></th>
                         <th class="_btn-active-table"><a th:href="@{/povar/product/delete/{id}(id=${product.getId})}">Удалить</a></th>
