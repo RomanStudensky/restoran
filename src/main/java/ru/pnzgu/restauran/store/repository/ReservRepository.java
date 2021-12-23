@@ -5,6 +5,7 @@ import org.springframework.data.repository.query.Param;
 import ru.pnzgu.restauran.store.entity.Reserv;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+import ru.pnzgu.restauran.store.entity.Stol;
 
 import java.util.List;
 import java.util.Optional;
@@ -13,6 +14,6 @@ import java.util.Optional;
 public interface ReservRepository extends JpaRepository<Reserv, Long> {
     List<Reserv> findAllReservByStolId(Long id);
 
-    @Query(value = "SELECT id_table FROM reserv WHERE id_reserv = :id", nativeQuery = true)
-    Optional<Long> findStolById(@Param(value = "id") Long id);
+    @Query(nativeQuery = true, value = "select id_reserv from reserv where reserv.stol = ?1")
+    Optional<Long> findStolByReservId(Long id);
 }
