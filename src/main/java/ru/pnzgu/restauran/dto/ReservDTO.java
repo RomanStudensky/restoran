@@ -1,7 +1,6 @@
 package ru.pnzgu.restauran.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 import ru.pnzgu.restauran.util.mapping.DateOptions;
@@ -9,7 +8,6 @@ import ru.pnzgu.restauran.util.mapping.TimeOptions;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.Date;
 
 
 @Getter

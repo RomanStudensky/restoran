@@ -7,7 +7,6 @@ import ru.pnzgu.restauran.dto.MenuDTO;
 import ru.pnzgu.restauran.exception.NotFoundException;
 import ru.pnzgu.restauran.store.entity.Category;
 import ru.pnzgu.restauran.store.entity.Menu;
-import ru.pnzgu.restauran.store.entity.Product;
 import ru.pnzgu.restauran.store.repository.CategoryRepository;
 import ru.pnzgu.restauran.store.repository.MenuRepository;
 import ru.pnzgu.restauran.util.mapping.Mappers;

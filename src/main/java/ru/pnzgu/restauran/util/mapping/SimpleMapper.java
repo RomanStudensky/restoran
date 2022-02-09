@@ -1,10 +1,9 @@
 package ru.pnzgu.restauran.util.mapping;
 
-import ru.pnzgu.restauran.dto.DtoParent;
-import ru.pnzgu.restauran.store.entity.EntityParent;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.stereotype.Service;
+import ru.pnzgu.restauran.dto.DtoParent;
+import ru.pnzgu.restauran.store.entity.EntityParent;
 
 @RequiredArgsConstructor
 public class SimpleMapper<Dto extends DtoParent, Entity extends EntityParent> {

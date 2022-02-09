@@ -1,10 +1,6 @@
 package ru.pnzgu.restauran.rest.controller.oficiant;
 
 
-import ru.pnzgu.restauran.dto.ReservDTO;
-import ru.pnzgu.restauran.dto.StolDTO;
-import ru.pnzgu.restauran.rest.service.admin.ReservService;
-import ru.pnzgu.restauran.rest.service.admin.StolService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +8,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import ru.pnzgu.restauran.dto.ReservDTO;
+import ru.pnzgu.restauran.dto.StolDTO;
+import ru.pnzgu.restauran.rest.service.admin.ReservService;
+import ru.pnzgu.restauran.rest.service.admin.StolService;
 
 import java.util.List;
 

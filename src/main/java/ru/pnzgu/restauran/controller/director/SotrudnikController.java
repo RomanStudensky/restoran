@@ -4,9 +4,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import ru.pnzgu.restauran.dto.*;
+import ru.pnzgu.restauran.dto.SotrudnikDTO;
 import ru.pnzgu.restauran.exception.NotFoundException;
-import ru.pnzgu.restauran.service.*;
+import ru.pnzgu.restauran.service.SotrudnikService;
 
 @Controller
 @RequestMapping("/director/sotrudnik")

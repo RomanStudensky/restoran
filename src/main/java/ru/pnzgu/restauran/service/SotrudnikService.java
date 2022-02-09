@@ -1,12 +1,12 @@
 package ru.pnzgu.restauran.service;
 
-import ru.pnzgu.restauran.dto.SotrudnikDTO;
-import ru.pnzgu.restauran.exception.NotFoundException;
-import ru.pnzgu.restauran.store.entity.Sotrudnik;
-import ru.pnzgu.restauran.store.repository.SotrudnikRepository;
-import ru.pnzgu.restauran.util.mapping.SimpleMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import ru.pnzgu.restauran.dto.SotrudnikDTO;
+import ru.pnzgu.restauran.exception.NotFoundException;
+import ru.pnzgu.restauran.store.entity.User;
+import ru.pnzgu.restauran.store.repository.UserRepository;
+import ru.pnzgu.restauran.util.mapping.SimpleMapper;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -15,8 +15,8 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class SotrudnikService {
 
-    final SotrudnikRepository sotrudnikRepository;
-    final SimpleMapper<SotrudnikDTO, Sotrudnik> simpleMapper = new SimpleMapper<>(new SotrudnikDTO(), new Sotrudnik());
+    final UserRepository sotrudnikRepository;
+    final SimpleMapper<SotrudnikDTO, User> simpleMapper = new SimpleMapper<>(new SotrudnikDTO(), new User());
 
     public List<SotrudnikDTO> getAll() {
         return sotrudnikRepository

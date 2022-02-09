@@ -1,6 +1,5 @@
 package ru.pnzgu.restauran.store.entity;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 

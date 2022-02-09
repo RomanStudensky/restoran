@@ -4,9 +4,15 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import ru.pnzgu.restauran.dto.*;
+import ru.pnzgu.restauran.dto.AktDTO;
+import ru.pnzgu.restauran.dto.ProductDTO;
+import ru.pnzgu.restauran.dto.SostavAktDTO;
+import ru.pnzgu.restauran.dto.SotrudnikDTO;
 import ru.pnzgu.restauran.exception.NotFoundException;
-import ru.pnzgu.restauran.service.*;
+import ru.pnzgu.restauran.service.AktService;
+import ru.pnzgu.restauran.service.ProductService;
+import ru.pnzgu.restauran.service.SostavAktService;
+import ru.pnzgu.restauran.service.SotrudnikService;
 
 import java.util.List;
 

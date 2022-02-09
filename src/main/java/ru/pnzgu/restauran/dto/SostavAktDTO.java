@@ -3,8 +3,6 @@ package ru.pnzgu.restauran.dto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
-import java.math.BigDecimal;
-
 @Setter
 @Getter
 @Builder

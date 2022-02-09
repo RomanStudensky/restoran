@@ -4,10 +4,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import ru.pnzgu.restauran.dto.*;
+import ru.pnzgu.restauran.dto.DogovorDTO;
+import ru.pnzgu.restauran.dto.PostavshikDTO;
 import ru.pnzgu.restauran.exception.NotFoundException;
-import ru.pnzgu.restauran.service.*;
-import ru.pnzgu.restauran.store.entity.Dogovor;
+import ru.pnzgu.restauran.service.DogovorService;
+import ru.pnzgu.restauran.service.PostavshikService;
 
 import java.util.List;
 

@@ -2,8 +2,6 @@ package ru.pnzgu.restauran.dto;
 
 import lombok.*;
 
-import java.math.BigDecimal;
-
 @Getter
 @Setter
 @Builder

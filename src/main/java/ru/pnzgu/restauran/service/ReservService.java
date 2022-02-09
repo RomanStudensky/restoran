@@ -1,5 +1,7 @@
 package ru.pnzgu.restauran.service;
 
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.pnzgu.restauran.dto.ReservDTO;
 import ru.pnzgu.restauran.dto.StolDTO;
@@ -9,8 +11,6 @@ import ru.pnzgu.restauran.store.entity.Stol;
 import ru.pnzgu.restauran.store.repository.ReservRepository;
 import ru.pnzgu.restauran.store.repository.StolRepository;
 import ru.pnzgu.restauran.util.mapping.SimpleMapper;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
