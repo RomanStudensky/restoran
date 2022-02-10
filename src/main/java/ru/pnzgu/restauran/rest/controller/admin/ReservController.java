@@ -1,5 +1,7 @@
 package ru.pnzgu.restauran.rest.controller.admin;
 
+import ru.pnzgu.restauran.dto.ReservDTO;
+import ru.pnzgu.restauran.service.admin.ReservService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

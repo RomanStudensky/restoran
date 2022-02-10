@@ -10,6 +10,7 @@ import ru.pnzgu.restauran.store.entity.Reserv;
 import ru.pnzgu.restauran.store.entity.Stol;
 import ru.pnzgu.restauran.store.repository.ReservRepository;
 import ru.pnzgu.restauran.store.repository.StolRepository;
+import ru.pnzgu.restauran.util.mapping.Mappers;
 import ru.pnzgu.restauran.util.mapping.SimpleMapper;
 
 import java.util.List;
@@ -17,6 +18,7 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class ReservService {
 
     private final ReservRepository reservRepository;
@@ -57,32 +59,31 @@ public class ReservService {
     }
 
     public ReservDTO update(Long id, ReservDTO dto) {
-        reservRepository
+        Stol stol = reservRepository
                 .findById(id)
-                .orElseThrow(() -> new NotFoundException(String.format("Бронь с идентификатором - %s не найдена", id)));
+                .orElseThrow(() -> new NotFoundException(String.format("Бронь с идентификатором - %s не найдена", id)))
+                .getStol();
 
-        Long idStol = reservRepository
-                .findStolById(id)
-                .orElseThrow(() -> new NotFoundException(String.format("Стол с идентификатором - %s не найдена", id)));
-
-        dto.setId(id);
-        StolDTO stol = new StolDTO();
-        stol.setId(idStol);
-
-        dto.setStol(stol);
-        Reserv newReserv = simpleReservMapper.mapDtoToEntity(dto);
+        Reserv reserv = Mappers.RESERV.mapDtoToEntity(dto);
+        reserv.setId(id);
+        reserv.setStol(stol);
 
         return simpleReservMapper
                 .mapEntityToDto(
-                        reservRepository.save(newReserv)
+                        reservRepository.save(reserv)
                 );
     }
 
-    public void delete(Long id) {
-        Reserv reserv = reservRepository
-                .findById(id)
-                .orElseThrow(() -> new NotFoundException(String.format("Бронь с идентификатором - %s не найден", id)));
+    @Transactional(readOnly = true)
+    public Long getStolIdByReservId(Long stolId) {
+        return reservRepository
+                .findStolByReservId(stolId)
+                .stream()
+                .findFirst()
+                .orElseThrow(() -> new NotFoundException(String.format("Стол с идентификатором - %s не найден", stolId)));
+    }
 
-        reservRepository.delete(reserv);
+    public void delete(Long id) {
+        reservRepository.deleteById(id);
     }
 }
