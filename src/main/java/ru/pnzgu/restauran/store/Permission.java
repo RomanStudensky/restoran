@@ -4,61 +4,61 @@ public enum Permission {
     AKT_READ("akt:read"),
     AKT_WRITE("akt:write"),
 
-    CATEGORY_READ("akt:read"),
-    CATEGORY_WRITE("akt:write"),
+    CATEGORY_READ("category:read"),
+    CATEGORY_WRITE("category:write"),
 
-    DOGOVOR_READ("akt:read"),
-    DOGOVOR_WRITE("akt:write"),
+    DOGOVOR_READ("dogovor:read"),
+    DOGOVOR_WRITE("dogovor:write"),
 
-    MENU_READ("akt:read"),
-    MENU_WRITE("akt:write"),
+    MENU_READ("menu:read"),
+    MENU_WRITE("menu:write"),
 
-    ORDERS_READ("akt:read"),
-    ORDERS_WRITE("akt:write"),
+    ORDERS_READ("orders:read"),
+    ORDERS_WRITE("orders:write"),
 
-    POSTAVSHIK_READ("akt:read"),
-    POSTAVSHIK_WRITE("akt:write"),
+    POSTAVSHIK_READ("postavshik:read"),
+    POSTAVSHIK_WRITE("postavshik:write"),
 
-    PRODAZA_READ("akt:read"),
-    PRODAZA_WRITE("akt:write"),
+    PRODAZA_READ("prodaza:read"),
+    PRODAZA_WRITE("prodaza:write"),
 
-    PRODUCT_READ("akt:read"),
-    PRODUCT_WRITE("akt:write"),
+    PRODUCT_READ("product:read"),
+    PRODUCT_WRITE("product:write"),
 
-    RESERV_READ("akt:read"),
-    RESERV_WRITE("akt:write"),
+    RESERV_READ("reserv:read"),
+    RESERV_WRITE("reserv:write"),
 
-    SOSTAV_BLUDO_READ("akt:read"),
-    SOSTAV_BLUDO_WRITE("akt:write"),
+    SOSTAV_BLUDO_READ("sostav_bludo:read"),
+    SOSTAV_BLUDO_WRITE("sostav_bludo:write"),
 
-    SOSTAV_ORDER_READ("akt:read"),
-    SOSTAV_ORDER_WRITE("akt:write"),
+    SOSTAV_ORDER_READ("sostav_order:read"),
+    SOSTAV_ORDER_WRITE("sostav_order:write"),
 
-    SOSTAV_POSTAV_READ("akt:read"),
-    SOSTAV_POSTAV_WRITE("akt:write"),
+    SOSTAV_POSTAV_READ("sostav_postav:read"),
+    SOSTAV_POSTAV_WRITE("sostav_postav:write"),
 
-    SOSTAV_PROD_READ("akt:read"),
-    SOSTAV_PROD_WRITE("akt:write"),
+    SOSTAV_PROD_READ("sostav_prod:read"),
+    SOSTAV_PROD_WRITE("sostav_prod:write"),
 
-    SOSTAV_ZAKAZ_READ("akt:read"),
-    SOSTAV_ZAKAZ_WRITE("akt:write"),
+    SOSTAV_ZAKAZ_READ("sostav_zakaz:read"),
+    SOSTAV_ZAKAZ_WRITE("sostav_zakaz:write"),
 
-    SOSTAV_PRODUCT_READ("akt:read"),
-    SOSTAV_PRODUCT_WRITE("akt:write"),
+    SPIS_PRODUCT_READ("spis_product:read"),
+    SPIS_PRODUCT_WRITE("spis_product:write"),
 
-    STOL_READ("akt:read"),
-    STOL_WRITE("akt:write"),
+    STOL_READ("stol_read:read"),
+    STOL_WRITE("stol_read:write"),
 
-    TOVAR_NAKLAD_READ("akt:read"),
-    TOVAR_NAKLAD_WRITE("akt:write"),
+    TOVAR_NAKLAD_READ("tovar_naklad:read"),
+    TOVAR_NAKLAD_WRITE("tovar_naklad:write"),
 
-    USER_READ("akt:read"),
-    USER_WRITE("akt:write"),
+    USER_READ("user:read"),
+    USER_WRITE("user:write"),
 
-    ZAKAZ_READ("akt:read"),
-    ZAKAZ_WRITE("akt:write"),
+    ZAKAZ_READ("zakaz:read"),
+    ZAKAZ_WRITE("zakaz:write"),
 
-    DOCUMENT_READ("akt:write");
+    REPORT_READ("report:write");
 
     private final String permission;
 
