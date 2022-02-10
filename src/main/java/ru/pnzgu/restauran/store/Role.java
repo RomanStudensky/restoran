@@ -14,7 +14,10 @@ public enum Role {
             Permission.REPORT_READ,
             Permission.POSTAVSHIK_WRITE,    Permission.POSTAVSHIK_READ,
             Permission.DOGOVOR_WRITE,       Permission.DOGOVOR_READ,
-            Permission.USER_WRITE,          Permission.USER_READ
+            Permission.USER_WRITE,          Permission.USER_READ,
+            Permission.CATEGORY_READ,
+            Permission.MENU_READ,
+            Permission.SOSTAV_BLUDO_READ
     )),
     COOK("Повар", Set.of(
             Permission.TOVAR_NAKLAD_WRITE,  Permission.TOVAR_NAKLAD_READ,
@@ -26,7 +29,11 @@ public enum Role {
             Permission.PRODUCT_WRITE,       Permission.PRODUCT_READ,
             Permission.CATEGORY_WRITE,      Permission.CATEGORY_READ,
             Permission.MENU_WRITE,          Permission.MENU_READ,
-            Permission.SOSTAV_BLUDO_WRITE,  Permission.SOSTAV_BLUDO_READ
+            Permission.SOSTAV_BLUDO_WRITE,  Permission.SOSTAV_BLUDO_READ,
+            Permission.POSTAVSHIK_READ,
+            Permission.DOGOVOR_READ,
+            Permission.ZAKAZ_READ,
+            Permission.SOSTAV_ZAKAZ_READ
     )),
     ADMIN("Администратор", Set.of(
             Permission.ZAKAZ_WRITE,         Permission.ZAKAZ_READ,
@@ -38,7 +45,9 @@ public enum Role {
     )),
     BARMAN("Бармен", Set.of(
             Permission.PRODAZA_WRITE,       Permission.PRODAZA_READ,
-            Permission.SOSTAV_PROD_WRITE,   Permission.SOSTAV_PROD_READ
+            Permission.SOSTAV_PROD_WRITE,   Permission.SOSTAV_PROD_READ,
+            Permission.RESERV_READ,
+            Permission.STOL_READ
     ));
 
     private final String value;

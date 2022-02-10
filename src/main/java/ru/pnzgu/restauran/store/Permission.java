@@ -1,5 +1,10 @@
 package ru.pnzgu.restauran.store;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+@Getter
+@AllArgsConstructor
 public enum Permission {
     AKT_READ("akt:read"),
     AKT_WRITE("akt:write"),
@@ -61,12 +66,4 @@ public enum Permission {
     REPORT_READ("report:write");
 
     private final String permission;
-
-    Permission(String permission) {
-        this.permission = permission;
-    }
-
-    public String getPermission() {
-        return permission;
-    }
 }
