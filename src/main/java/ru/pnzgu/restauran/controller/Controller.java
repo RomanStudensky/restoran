@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import ru.pnzgu.restauran.dto.SotrudnikDTO;
+import ru.pnzgu.restauran.dto.UserDTO;
 import ru.pnzgu.restauran.store.Role;
 
 import java.util.Arrays;
@@ -19,12 +19,12 @@ public class Controller {
     @GetMapping()
     public String getAuthView(Model model) {
         model.addAttribute("authList", Arrays.stream(Role.values()).map(Role::getValue).collect(Collectors.toList()));
-        model.addAttribute("sotrudnik", new SotrudnikDTO());
+        model.addAttribute("sotrudnik", new UserDTO());
         return "auth";
     }
 
     @PostMapping("/auth")
-    public String auth(@ModelAttribute(name = "sotrudnik") SotrudnikDTO sotrudnikDTO) {
+    public String auth(@ModelAttribute(name = "sotrudnik") UserDTO sotrudnikDTO) {
 
         String redirectUrl = "";
         switch (sotrudnikDTO.getPost()) {

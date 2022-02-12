@@ -6,7 +6,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.pnzgu.restauran.dto.*;
 import ru.pnzgu.restauran.exception.NotFoundException;
-import ru.pnzgu.restauran.service.*;
+import ru.pnzgu.restauran.service.MenuService;
+import ru.pnzgu.restauran.service.ProdazaService;
+import ru.pnzgu.restauran.service.SostavProdService;
+import ru.pnzgu.restauran.service.SotrudnikService;
 
 import java.util.List;
 
@@ -48,7 +51,7 @@ public class BarmanController {
     public String getprodazaCreateView(Model model) {
         model.addAttribute("prodaza", new ProdazaDTO());
         model.addAttribute("sotrudnikList", sotrudnikService.getAll());
-        model.addAttribute("sotrudnikDto", new SotrudnikDTO());
+        model.addAttribute("sotrudnikDto", new UserDTO());
 
         return "/barman/prodaza/action/prodaza/create";
     }
@@ -79,7 +82,7 @@ public class BarmanController {
     @PostMapping("/create")
     public String createprodaza(@ModelAttribute(name = "prodaza") ProdazaDTO prodaza,
                                 @ModelAttribute(name = "stolDto") StolDTO stolDto,
-                                @ModelAttribute(name = "sotrudnikDto") SotrudnikDTO sotrudnikDto) {
+                                @ModelAttribute(name = "sotrudnikDto") UserDTO sotrudnikDto) {
 
         prodaza = prodazaService.save(prodaza, sotrudnikDto.getId());
 
@@ -89,7 +92,7 @@ public class BarmanController {
     @PostMapping("/update/{id}")
     public String updateprodaza(@ModelAttribute(name = "prodaza") ProdazaDTO prodaza,
                                 @ModelAttribute(name = "stolDto") StolDTO stolDto,
-                                @ModelAttribute(name = "sotrudnikDto") SotrudnikDTO sotrudnikDto,
+                                @ModelAttribute(name = "sotrudnikDto") UserDTO sotrudnikDto,
                                 @PathVariable Long id) {
 
         prodaza = prodazaService.update(id, prodaza, sotrudnikDto.getId());

@@ -1,11 +1,11 @@
 package ru.pnzgu.restauran.rest.controller.povar.akt;
 
-import ru.pnzgu.restauran.dto.SpisProductDTO;
-import ru.pnzgu.restauran.rest.service.povar.SpisProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ru.pnzgu.restauran.dto.SpisProductDTO;
+import ru.pnzgu.restauran.rest.service.povar.SpisProductService;
 
 @RestController
 @RequestMapping("/api/povar/spisProduct")

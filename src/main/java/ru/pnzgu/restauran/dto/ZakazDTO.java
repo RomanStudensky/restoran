@@ -18,14 +18,41 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ZakazDTO extends DtoParent {
+public class ZakazDTO extends DtoParent implements DtoInterface {
+
+    @Getter(value = AccessLevel.PRIVATE)
+    private static final List<String> HEADER = List.of(
+            "№",
+            "Дата заказа",
+            "Время заказа",
+            "Сумма",
+            "Стол",
+            "Сотрудник"
+    );
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DateOptions.PATTERN)
     private LocalDate dateZakaz = LocalDate.now();
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = TimeOptions.PATTERN)
     private LocalTime timeZakaz = LocalTime.now();
     private StolDTO stol = new StolDTO();
-    private SotrudnikDTO sotrud = new SotrudnikDTO();
+    private UserDTO sotrud = new UserDTO();
     private BigDecimal summa = BigDecimal.valueOf(0);
     private List<SostavZakazDTO> sostav = new ArrayList<>();
+
+    @Override
+    public List<String> getHeaderList() {
+        return HEADER;
+    }
+
+    @Override
+    public List<String> getElementList() {
+        return List.of(
+                String.valueOf(id),
+                dateZakaz.format(DateOptions.FORMATTER),
+                timeZakaz.format(TimeOptions.FORMATTER),
+                String.valueOf(summa),
+                String.valueOf(stol.getId()),
+                sotrud.getFio()
+        );
+    }
 }

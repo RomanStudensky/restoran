@@ -30,7 +30,7 @@ public class AktSpis extends EntityParent {
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "sotrud", nullable = false)
-    private Sotrudnik sotrud;
+    private User sotrud;
 
     @Column(name = "summa", nullable = false)
     private BigDecimal summa;

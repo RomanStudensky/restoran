@@ -3,7 +3,6 @@ package ru.pnzgu.restauran.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.pnzgu.restauran.dto.MenuDTO;
 import ru.pnzgu.restauran.dto.SostavBludoDTO;
 import ru.pnzgu.restauran.exception.NotFoundException;
 import ru.pnzgu.restauran.store.entity.Menu;
