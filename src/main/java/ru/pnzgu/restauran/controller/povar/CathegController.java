@@ -4,15 +4,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import ru.pnzgu.restauran.dto.CategoryDTO;
-import ru.pnzgu.restauran.dto.MenuDTO;
-import ru.pnzgu.restauran.dto.ProductDTO;
-import ru.pnzgu.restauran.dto.SostavBludoDTO;
+import ru.pnzgu.restauran.dto.*;
 import ru.pnzgu.restauran.exception.NotFoundException;
-import ru.pnzgu.restauran.service.CategService;
-import ru.pnzgu.restauran.service.MenuService;
-import ru.pnzgu.restauran.service.ProductService;
-import ru.pnzgu.restauran.service.SostavBludoService;
+import ru.pnzgu.restauran.service.*;
 
 import java.util.ArrayList;
 

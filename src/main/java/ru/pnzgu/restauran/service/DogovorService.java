@@ -1,7 +1,5 @@
 package ru.pnzgu.restauran.service;
 
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
 import ru.pnzgu.restauran.dto.DogovorDTO;
 import ru.pnzgu.restauran.exception.NotFoundException;
 import ru.pnzgu.restauran.store.entity.Dogovor;
@@ -10,6 +8,8 @@ import ru.pnzgu.restauran.store.repository.DogovorRepository;
 import ru.pnzgu.restauran.store.repository.PostavshikRepository;
 import ru.pnzgu.restauran.util.mapping.Mappers;
 import ru.pnzgu.restauran.util.mapping.SimpleMapper;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;

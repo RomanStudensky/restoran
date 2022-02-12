@@ -1,11 +1,11 @@
 package ru.pnzgu.restauran.rest.controller.barman;
 
+import ru.pnzgu.restauran.dto.ProdazaDTO;
+import ru.pnzgu.restauran.rest.service.barmen.ProdazaService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ru.pnzgu.restauran.dto.ProdazaDTO;
-import ru.pnzgu.restauran.rest.service.barmen.ProdazaService;
 
 import java.util.List;
 
