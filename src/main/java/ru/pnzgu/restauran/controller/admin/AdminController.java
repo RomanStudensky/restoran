@@ -8,8 +8,6 @@ import ru.pnzgu.restauran.dto.ReservDTO;
 import ru.pnzgu.restauran.dto.StolDTO;
 import ru.pnzgu.restauran.service.ReservService;
 import ru.pnzgu.restauran.service.StolService;
-import ru.pnzgu.restauran.util.view.settings.builder.CreateSettingsBuilder;
-import ru.pnzgu.restauran.util.view.settings.builder.SettingsBuilder;
 
 import java.util.ArrayList;
 import java.util.List;

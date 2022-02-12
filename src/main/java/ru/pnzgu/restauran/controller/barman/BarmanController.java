@@ -51,7 +51,7 @@ public class BarmanController {
     public String getprodazaCreateView(Model model) {
         model.addAttribute("prodaza", new ProdazaDTO());
         model.addAttribute("sotrudnikList", sotrudnikService.getAll());
-        model.addAttribute("sotrudnikDto", new SotrudnikDTO());
+        model.addAttribute("sotrudnikDto", new UserDTO());
 
         return "/barman/prodaza/action/prodaza/create";
     }
@@ -82,7 +82,7 @@ public class BarmanController {
     @PostMapping("/create")
     public String createprodaza(@ModelAttribute(name = "prodaza") ProdazaDTO prodaza,
                                 @ModelAttribute(name = "stolDto") StolDTO stolDto,
-                                @ModelAttribute(name = "sotrudnikDto") SotrudnikDTO sotrudnikDto) {
+                                @ModelAttribute(name = "sotrudnikDto") UserDTO sotrudnikDto) {
 
         prodaza = prodazaService.save(prodaza, sotrudnikDto.getId());
 
@@ -92,7 +92,7 @@ public class BarmanController {
     @PostMapping("/update/{id}")
     public String updateprodaza(@ModelAttribute(name = "prodaza") ProdazaDTO prodaza,
                                 @ModelAttribute(name = "stolDto") StolDTO stolDto,
-                                @ModelAttribute(name = "sotrudnikDto") SotrudnikDTO sotrudnikDto,
+                                @ModelAttribute(name = "sotrudnikDto") UserDTO sotrudnikDto,
                                 @PathVariable Long id) {
 
         prodaza = prodazaService.update(id, prodaza, sotrudnikDto.getId());

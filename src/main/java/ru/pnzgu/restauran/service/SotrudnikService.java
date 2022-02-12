@@ -2,7 +2,7 @@ package ru.pnzgu.restauran.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import ru.pnzgu.restauran.dto.SotrudnikDTO;
+import ru.pnzgu.restauran.dto.UserDTO;
 import ru.pnzgu.restauran.exception.NotFoundException;
 import ru.pnzgu.restauran.store.entity.User;
 import ru.pnzgu.restauran.store.repository.UserRepository;
@@ -16,9 +16,9 @@ import java.util.stream.Collectors;
 public class SotrudnikService {
 
     final UserRepository sotrudnikRepository;
-    final SimpleMapper<SotrudnikDTO, User> simpleMapper = new SimpleMapper<>(new SotrudnikDTO(), new User());
+    final SimpleMapper<UserDTO, User> simpleMapper = new SimpleMapper<>(new UserDTO(), new User());
 
-    public List<SotrudnikDTO> getAll() {
+    public List<UserDTO> getAll() {
         return sotrudnikRepository
                 .findAll()
                 .stream()
@@ -26,7 +26,7 @@ public class SotrudnikService {
                 .collect(Collectors.toList());
     }
 
-    public SotrudnikDTO get(Long id) {
+    public UserDTO get(Long id) {
         return simpleMapper
                 .mapEntityToDto(
                         sotrudnikRepository
@@ -34,7 +34,7 @@ public class SotrudnikService {
                                 .orElseThrow(() -> new NotFoundException(String.format("Сотрудник с идентификатором - %s не найден", id))));
     }
 
-    public SotrudnikDTO save(SotrudnikDTO sotrudnikDTO) {
+    public UserDTO save(UserDTO sotrudnikDTO) {
         return simpleMapper
                 .mapEntityToDto(
                         sotrudnikRepository
@@ -44,7 +44,7 @@ public class SotrudnikService {
 
 
 
-    public SotrudnikDTO update(Long id, SotrudnikDTO sotrudnikDTO) {
+    public UserDTO update(Long id, UserDTO sotrudnikDTO) {
         sotrudnikRepository
                 .findById(id)
                 .orElseThrow(() -> new NotFoundException(String.format("Сотрудник с идентификатором - %s не найден", id)));

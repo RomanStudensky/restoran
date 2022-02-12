@@ -4,11 +4,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.pnzgu.restauran.dto.ZakazDTO;
 import ru.pnzgu.restauran.exception.NotFoundException;
-import ru.pnzgu.restauran.store.entity.User;
 import ru.pnzgu.restauran.store.entity.Stol;
+import ru.pnzgu.restauran.store.entity.User;
 import ru.pnzgu.restauran.store.entity.Zakaz;
-import ru.pnzgu.restauran.store.repository.UserRepository;
 import ru.pnzgu.restauran.store.repository.StolRepository;
+import ru.pnzgu.restauran.store.repository.UserRepository;
 import ru.pnzgu.restauran.store.repository.ZakazRepository;
 import ru.pnzgu.restauran.util.mapping.SimpleMapper;
 

@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.pnzgu.restauran.dto.AktDTO;
 import ru.pnzgu.restauran.dto.ProductDTO;
 import ru.pnzgu.restauran.dto.SostavAktDTO;
-import ru.pnzgu.restauran.dto.SotrudnikDTO;
+import ru.pnzgu.restauran.dto.UserDTO;
 import ru.pnzgu.restauran.exception.NotFoundException;
 import ru.pnzgu.restauran.service.AktService;
 import ru.pnzgu.restauran.service.ProductService;
@@ -60,7 +60,7 @@ public class AktController {
     public String getNakladCreateView(Model model) {
         model.addAttribute("akt", new AktDTO());
         model.addAttribute("sotrudnikList", sotrudnikService.getAll());
-        model.addAttribute("sotrudnikDto", new SotrudnikDTO());
+        model.addAttribute("sotrudnikDto", new UserDTO());
         return CREATE_AKT_VIEW;
     }
 
@@ -69,7 +69,7 @@ public class AktController {
         AktDTO aktDTO = aktService.get(id);
         model.addAttribute("akt", aktDTO);
         model.addAttribute("sotrudnikList", sotrudnikService.getAll());
-        model.addAttribute("sotrudnikDto", new SotrudnikDTO());
+        model.addAttribute("sotrudnikDto", new UserDTO());
         return UPDATE_AKT_VIEW;
     }
 
@@ -88,7 +88,7 @@ public class AktController {
 
     @PostMapping("/create")
     public String createAkt(@ModelAttribute(name = "akt") AktDTO aktDTO,
-                            @ModelAttribute(name = "sotrudnikDto") SotrudnikDTO sotrudnikDTO) {
+                            @ModelAttribute(name = "sotrudnikDto") UserDTO sotrudnikDTO) {
 
         aktDTO = aktService.save(aktDTO, sotrudnikDTO.getId());
 
@@ -97,7 +97,7 @@ public class AktController {
 
     @PostMapping("/update/{id}")
     public String updateNaklad(@ModelAttribute(name = "akt") AktDTO aktDTO,
-                               @ModelAttribute(name = "sotrudnikDto") SotrudnikDTO sotrudnikDTO,
+                               @ModelAttribute(name = "sotrudnikDto") UserDTO sotrudnikDTO,
                                @PathVariable Long id) {
 
         aktDTO = aktService.update(id, aktDTO, sotrudnikDTO.getId());

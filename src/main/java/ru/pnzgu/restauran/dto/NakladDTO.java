@@ -13,7 +13,17 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class NakladDTO extends DtoParent {
+public class NakladDTO extends DtoParent implements DtoInterface{
+
+    @Getter(value = AccessLevel.PRIVATE)
+    private static final List<String> HEADER = List.of(
+            "№",
+            "Дата поставки",
+            "Поставщик",
+            "№ договора",
+            "Сумма"
+    );
+
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DateOptions.PATTERN)
     private LocalDate dateNaklad = LocalDate.now();
@@ -21,4 +31,20 @@ public class NakladDTO extends DtoParent {
     private DogovorDTO dogovor;
     private Long summa = 0L;
     private List<SostavPostavDTO> sostav;
+
+    @Override
+    public List<String> getHeaderList() {
+        return HEADER;
+    }
+
+    @Override
+    public List<String> getElementList() {
+        return List.of(
+                String.valueOf(id),
+                dateNaklad.format(DateOptions.FORMATTER),
+                postavshik.getNamePost(),
+                String.valueOf(dogovor.getId()),
+                String.valueOf(summa)
+        );
+    }
 }
