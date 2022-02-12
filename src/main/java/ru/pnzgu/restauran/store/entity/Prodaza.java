@@ -1,7 +1,9 @@
 package ru.pnzgu.restauran.store.entity;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import ru.pnzgu.restauran.dto.SostavProdDTO;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -28,7 +30,7 @@ public class Prodaza extends EntityParent {
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "sotrud", nullable = false)
-    private User sotrud;
+    private Sotrudnik sotrud;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "prodaza", fetch = FetchType.EAGER)
     private List<SostavProd> sostavProd = new ArrayList<>();

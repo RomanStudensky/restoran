@@ -1,11 +1,11 @@
 package ru.pnzgu.restauran.rest.controller.admin;
 
+import ru.pnzgu.restauran.dto.StolDTO;
+import ru.pnzgu.restauran.rest.service.admin.StolService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ru.pnzgu.restauran.dto.StolDTO;
-import ru.pnzgu.restauran.rest.service.admin.StolService;
 
 import java.util.List;
 

@@ -21,7 +21,7 @@ public class Mappers {
     public static final SimpleMapper<SostavPostavDTO, SostavPostav> SOSTAV_POSTAV = new SimpleMapper<>(new SostavPostavDTO(), new SostavPostav());
     public static final SimpleMapper<SostavProdDTO, SostavProd> SOSTAV_PROD = new SimpleMapper<>(new SostavProdDTO(), new SostavProd());
     public static final SimpleMapper<SostavZakazDTO, SostavZakaz> SOSTAV_ZAKAZ = new SimpleMapper<>(new SostavZakazDTO(), new SostavZakaz());
-    public static final SimpleMapper<UserDTO, User> SOTRUDNIK = new SimpleMapper<>(new UserDTO(), new User());
+    public static final SimpleMapper<SotrudnikDTO, Sotrudnik> SOTRUDNIK = new SimpleMapper<>(new SotrudnikDTO(), new Sotrudnik());
     public static final SimpleMapper<StolDTO, Stol> STOL = new SimpleMapper<>(new StolDTO(), new Stol());
     public static final SimpleMapper<ZakazDTO, Zakaz> ZAKAZ = new SimpleMapper<>(new ZakazDTO(), new Zakaz());
 }

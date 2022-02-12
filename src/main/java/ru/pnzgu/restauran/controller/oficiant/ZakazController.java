@@ -50,7 +50,7 @@ public class ZakazController {
         model.addAttribute("zakaz", new ZakazDTO());
         model.addAttribute("sotrudnikList", sotrudnikService.getAll());
         model.addAttribute("stolList", stolService.getAllStol());
-        model.addAttribute("sotrudnikDto", new UserDTO());
+        model.addAttribute("sotrudnikDto", new SotrudnikDTO());
         model.addAttribute("stolDto", new StolDTO());
 
         return "/oficiant/zakaz/action/zakaz/create";
@@ -84,7 +84,7 @@ public class ZakazController {
     @PostMapping("/create")
     public String createZakaz(@ModelAttribute(name = "zakaz") ZakazDTO zakaz,
                               @ModelAttribute(name = "stolDto") StolDTO stolDto,
-                              @ModelAttribute(name = "sotrudnikDto") UserDTO sotrudnikDto) {
+                              @ModelAttribute(name = "sotrudnikDto") SotrudnikDTO sotrudnikDto) {
 
         zakaz = zakazService.save(zakaz, sotrudnikDto.getId(), stolDto.getId());
 
@@ -94,7 +94,7 @@ public class ZakazController {
     @PostMapping("/update/{id}")
     public String updateZakaz(@ModelAttribute(name = "zakaz") ZakazDTO zakaz,
                               @ModelAttribute(name = "stolDto") StolDTO stolDto,
-                              @ModelAttribute(name = "sotrudnikDto") UserDTO sotrudnikDto,
+                              @ModelAttribute(name = "sotrudnikDto") SotrudnikDTO sotrudnikDto,
                               @PathVariable Long id) {
 
         zakaz = zakazService.update(zakaz, sotrudnikDto.getId(), stolDto.getId(), id);

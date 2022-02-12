@@ -1,36 +1,21 @@
 package ru.pnzgu.restauran.dto;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import ru.pnzgu.restauran.store.entity.Menu;
+import ru.pnzgu.restauran.store.entity.Product;
 
-import java.util.List;
+import javax.persistence.*;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class SostavBludoDTO extends DtoParent implements DtoInterface {
-
-    @Getter(value = AccessLevel.PRIVATE)
-    private static final List<String> HEADER = List.of(
-            "Продукт",
-            "Количество"
-    );
-
+public class SostavBludoDTO extends DtoParent{
     private Integer count;
     private ProductDTO product;
     private MenuDTO menu;
-
-    @Override
-    public List<String> getHeaderList() {
-        return HEADER;
-    }
-
-    @Override
-    public List<String> getElementList() {
-        return List.of(
-                product.getNameProd(),
-                String.valueOf(count)
-        );
-    }
 }
 

@@ -16,6 +16,7 @@ import ru.pnzgu.restauran.util.mapping.DateOptions;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
