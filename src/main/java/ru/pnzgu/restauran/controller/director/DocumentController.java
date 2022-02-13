@@ -46,6 +46,11 @@ public class DocumentController {
         return "/director/document/documentProd";
     }
 
+    @GetMapping("/view/menu")
+    public String getMenuDocumentView(Model model) {
+        return "/director/document/documentMenu";
+    }
+
     @PostMapping(value = "/postav", produces = MediaType.TEXT_PLAIN_VALUE)
     public ResponseEntity<?> getPostavDocument(@ModelAttribute(name = "postavshikDto") PostavshikDTO postavshikDTO) throws DocumentExportException {
         return ResponseEntity.ok()
@@ -68,6 +73,14 @@ public class DocumentController {
                 .contentType(MediaType.APPLICATION_OCTET_STREAM)
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"prodaza.xlsx\"")
                 .body(documentService.getProdazaExelDocument(prodDto.getDate()));
+    }
+
+    @PostMapping(value = "/menu", produces = MediaType.TEXT_PLAIN_VALUE)
+    public ResponseEntity<?> getMenuExelDocument(@ModelAttribute(name = "prodDto") ProdDto prodDto) throws DocumentExportException {
+        return ResponseEntity.ok()
+                .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"menu.xlsx\"")
+                .body(documentService.getMenuExelDocument());
     }
 
 

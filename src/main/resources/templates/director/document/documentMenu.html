@@ -26,11 +26,11 @@
                 </li>
 
                 <li class="nav-item ">
-                    <a class="nav-link active" disabled="true">Отчёты:</a>
+                    <a disabled="true">Отчёты:</a>
                 </li>
 
                 <li class="nav-item ">
-                    <a class="nav-link active" th:href="@{/director/documents/view/postav}">по поставкам</a>
+                    <a class="nav-link" th:href="@{/director/documents/view/postav}">по поставкам</a>
                 </li>
 
                 <li class="nav-item active">
@@ -50,21 +50,10 @@
 </nav>
 <div style="position: absolute; left: 50%; transform:translate(-50%, 0)">
     <div style="position: absolute; left: 50%; transform:translate(-50%, 0)">
-        <form th:method="POST" th:action="@{/director/documents/postav}">
+        <form th:method="POST" th:action="@{/director/documents/menu}">
+            <br>
 
-            <div class="f">
-                <label for="stol">Выберите поставщика</label>
-                <br/>
-                <select id="stol" style="width: 300px;" th:field="*{postavshikDto.id}" name="stolDto">
-                    <option th:each="postavshik : ${postavshikList}"
-                            th:value="${postavshik.id}"
-                            th:text="${postavshik.namePost}">
-                        Part name
-                    </option>
-                </select>
-            </div>
-
-            <input type="submit" value="Сформировать отчёт">
+            <input type="submit" value="Выгрузить меню">
         </form>
     </div>
 </div>

@@ -22,11 +22,11 @@ public class SostavBludo extends EntityParent {
     @Column(name = "quanity", nullable = false)
     private Integer count;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "product")
     private Product product;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "bludo")
     private Menu menu;
 }

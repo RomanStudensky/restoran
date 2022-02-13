@@ -12,7 +12,7 @@ public enum SostavPostavCol {
     COLUMN_PRICE(3, "Цена"),
     COLUMN_SUMMA(4, "Сумма");
 
-    private int colNum;
-    private String colName;
+    private final int colNum;
+    private final String colName;
     public static final int LENGTH = 5;
 }

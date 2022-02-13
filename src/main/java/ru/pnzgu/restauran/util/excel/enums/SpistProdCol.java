@@ -13,7 +13,7 @@ public enum SpistProdCol {
     COLUMN_DATE(4, "Дата списания"),
     COLUMN_SUMMA(5, "Стоимость списанного продукта");
 
-    private int colNum;
-    private String colName;
+    private final int colNum;
+    private final String colName;
     public static final int LENGTH = 6;
 }

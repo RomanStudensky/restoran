@@ -22,20 +22,26 @@
                     <a class="nav-link" th:href="@{/director/sotrudnik}">Сотрудники<span class="sr-only"></span></a>
                 </li>
 
-
                 <li class="nav-item ">
-                    <a class="nav-link" th:href="@{/director/documents/view/postav}">Отчёт по поставкам</a>
+                    <a class="nav-link" th:href="@{/director/documents/view/menu}">Выгрузка меню</a>
                 </li>
 
                 <li class="nav-item ">
-                    <a class="nav-link" th:href="@{/director/documents/view/spis}">Отчёт по списанным продуктам</a>
+                    <a class="nav-link active" disabled="true">Отчёты:</a>
                 </li>
 
                 <li class="nav-item ">
-                    <a class="nav-link" th:href="@{/director/documents/view/prodaza}">Отчёт по продажам в баре</a>
+                    <a class="nav-link active" th:href="@{/director/documents/view/postav}">по поставкам</a>
+                </li>
+
+                <li class="nav-item active">
+                    <a class="nav-link" th:href="@{/director/documents/view/spis}">по списанным продуктам</a>
+                </li>
+
+                <li class="nav-item ">
+                    <a class="nav-link" th:href="@{/director/documents/view/prodaza}">по продажам в баре</a>
                 </li>
             </ul>
-
         </div>
     </div>
     <form method="POST" th:action="@{/auth/login}" class="form-inline my-2 my-lg-0">

@@ -5,16 +5,13 @@ import org.springframework.stereotype.Service;
 import ru.pnzgu.restauran.dto.*;
 import ru.pnzgu.restauran.exception.DocumentExportException;
 import ru.pnzgu.restauran.exception.NotFoundException;
-import ru.pnzgu.restauran.store.entity.Prodaza;
-import ru.pnzgu.restauran.store.entity.SostavProd;
+import ru.pnzgu.restauran.store.entity.*;
 import ru.pnzgu.restauran.store.repository.*;
 import ru.pnzgu.restauran.util.excel.ExcelExportUtil;
 import ru.pnzgu.restauran.util.mapping.Mappers;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -25,6 +22,7 @@ public class DocumentService {
     private final SostavPostavRepository sostavPostavRepository;
     private final PostavshikService postavshikService;
     private final ProdazaRepository prodazaRepository;
+    private final CategoryRepository categoryRepository;
 
     private final AktRepository aktRepository;
     private final SostavAktRepository sostavAktRepository;
@@ -46,7 +44,7 @@ public class DocumentService {
         PostavshikDTO postavshikDTO = postavshikService.get(postavshikId);
 
         try {
-            return ExcelExportUtil.createPostavExelDocument(postavshikDTO, nakladList).toByteArray();
+            return ExcelExportUtil.createPostavExcelReport(postavshikDTO, nakladList).toByteArray();
         } catch (IOException e) {
             throw new DocumentExportException("Не удалось сформировать отчёт по поставщику, повторите попытку");
         }
@@ -54,8 +52,6 @@ public class DocumentService {
     }
 
     public byte[] getSpisCurrentDateExelDocument(LocalDate date1, LocalDate date2) throws DocumentExportException {
-
-
         List<AktDTO> aktDTOS = aktRepository
                 .findByDateAktBetween(date1, date2)
                 .stream()
@@ -63,7 +59,7 @@ public class DocumentService {
                 .collect(Collectors.toList());
 
         try {
-            return ExcelExportUtil.createSpisCurrentDateExelDocument(aktDTOS).toByteArray();
+            return ExcelExportUtil.createSpisCurrentDateExcelReport(aktDTOS).toByteArray();
         } catch (IOException e) {
             throw new DocumentExportException("Не удалось сформировать отчёт по списанным продуктам, повторите попытку");
         }
@@ -81,12 +77,27 @@ public class DocumentService {
                 .collect(Collectors.toList());
 
         try {
-            return ExcelExportUtil.createProdazaExelDocument(
+            return ExcelExportUtil.createProdazaExcelReport(
                     prodazas
                             .stream()
-                            .findAny().orElseThrow(() -> new NotFoundException("Продажи не найдены")), date, prodazaDTOS).toByteArray();
+                            .findAny().orElseThrow(() -> new NotFoundException("Продажи не найдены")), date, prodazaDTOS
+            ).toByteArray();
         } catch (IOException e) {
             throw new DocumentExportException("Не удалось сформировать отчёт по списанным продуктам, повторите попытку");
+        }
+
+    }
+
+    public byte[] getMenuExelDocument() throws DocumentExportException {
+
+        List<Category> menu = categoryRepository.findAll();
+
+        try {
+            return ExcelExportUtil.createMenuExcelDocument(
+                    menu
+            ).toByteArray();
+        } catch (IOException e) {
+            throw new DocumentExportException("Не удалось сформировать меню");
         }
 
     }
