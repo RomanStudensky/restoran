@@ -2,7 +2,6 @@ package ru.pnzgu.restauran.store.entity;
 
 import lombok.Getter;
 import lombok.Setter;
-import ru.pnzgu.restauran.dto.SostavZakazDTO;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -33,7 +32,7 @@ public class Zakaz extends EntityParent {
 
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     @JoinColumn(name = "sotrud", nullable = false)
-    private Sotrudnik sotrud = new Sotrudnik();
+    private User sotrud = new User();
 
     @Column(name = "summa", nullable = false, precision = 131089)
     private BigDecimal summa;

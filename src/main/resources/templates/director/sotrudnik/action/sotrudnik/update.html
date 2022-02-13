@@ -33,13 +33,13 @@
                 <li class="nav-item ">
                     <a class="nav-link" th:href="@{/director/documents/view/prodaza}">Отчёт по продажам в баре</a>
                 </li>
-
-                <li class="nav-item">
-                    <a class="nav-link disabled" th:href="@{/}">Выход</a>
-                </li>
             </ul>
         </div>
     </div>
+    <form method="POST" th:action="@{/auth/login}" class="form-inline my-2 my-lg-0">
+        <div sec:authentication="name" class="form-control mr-sm-2" type="label" aria-label="Username" style="user-select: none;"></div>
+        <input class="btn btn-outline-success my-2 my-sm-0" type="submit" value="Выйти"/>
+    </form>
 </nav>
 <div style="position: absolute; left: 50%; transform:translate(-50%, 0)">
     <div style="position: absolute; left: 50%; transform:translate(-50%, 0)">
@@ -51,14 +51,26 @@
                 <div style="color:red" th:if="${#fields.hasErrors('sotrudnik.fio')}" th:errors="*{sotrudnik.fio}">Name Error</div>
             </div>
 
+            <div class="field">
+                <label for="fio">Имя пользователя в системе: </label>
+                <input type="text" th:field="*{sotrudnik.username}" id="username"/>
+                <div style="color:red" th:if="${#fields.hasErrors('sotrudnik.Username')}" th:errors="*{sotrudnik.username}">Name Error</div>
+            </div>
+
+            <div class="field">
+                <label for="fio">Новый пароль: </label>
+                <input type="password" th:field="*{sotrudnik.password}" id="password" />
+                <div style="color:red" th:if="${#fields.hasErrors('sotrudnik.Fio')}" th:errors="*{sotrudnik.fio}">Name Error</div>
+            </div>
+
             <div class="f">
                 <label for="role">Выберите должность</label>
                 <br/>
-                <select id="role" style="width: 300px;" th:field="*{sotrudnik.post}" name="role" >
+                <select id="role" style="width: 300px;" th:field="*{sotrudnik.role}" name="role" >
                     <option th:each="role : ${roleList}"
                             th:value="${role}"
-                            th:text="${role}"
-                        th:selected="${role == sotrudnik.getPost} ? 'selected' : 'none'">
+                            th:text="${role.getValue()}"
+                            th:selected="${role == sotrudnik.getRole()} ? 'selected' : 'none'">
                     </option>
 
                 </select>

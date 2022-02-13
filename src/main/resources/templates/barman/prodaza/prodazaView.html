@@ -110,12 +110,14 @@
                 <li class="nav-item">
                     <a class="nav-link" th:href="@{/barman/prodaza}">Стол-Бронь<span class="sr-only"></span></a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled" th:href="@{/}">Выход</a>
-                </li>
             </ul>
+
         </div>
     </div>
+    <form method="POST" th:action="@{/auth/login}" class="form-inline my-2 my-lg-0">
+        <div sec:authentication="name" class="form-control mr-sm-2" type="label" aria-label="Username" style="user-select: none;"></div>
+        <input class="btn btn-outline-success my-2 my-sm-0" type="submit" value="Выйти"/>
+    </form>
 </nav>
 
 <div th:class="scroll-table">
@@ -137,7 +139,7 @@
                         <th style="background-color: #d8d8d8" th:text="${prodaza.getId}"></th>
                         <th style="background-color: #d8d8d8" th:text="${prodaza.getDateProd()}"></th>
                         <th style="background-color: #d8d8d8" th:text="${prodaza.getTimeProd()}"></th>
-                        <th style="background-color: #d8d8d8" th:text="${prodaza.getSotrud().getFio()}"></th>
+                        <th style="background-color: #d8d8d8" th:text="${prodaza.getUser().getFio()}"></th>
                         <th style="background-color: #d8d8d8" class="_cell-active-table" th:text="${prodaza.getSumma()}"></th>
                         <th style="background-color: #d8d8d8" class="_btn-active-table"><a th:href="@{/barman/prodaza/{id}(id=${prodaza.getId()})}">Состав</a></th>
                         <th style="background-color: #d8d8d8" class="_btn-active-table"><a th:href="@{/barman/prodaza/update/view/{id}(id=${prodaza.getId()})}">Изменить</a></th>
@@ -148,7 +150,7 @@
                         <th th:text="${prodaza.getId}"></th>
                         <th th:text="${prodaza.getDateProd()}"></th>
                         <th th:text="${prodaza.getTimeProd()}"></th>
-                        <th th:text="${prodaza.getSotrud().getFio()}"></th>
+                        <th th:text="${prodaza.getUser().getFio()}"></th>
                         <th th:text="${prodaza.getSumma()}"></th>
                         <th class="_btn-active-table"><a th:href="@{/barman/prodaza/{id}(id=${prodaza.getId()})}">Состав</a></th>
                         <th class="_btn-active-table"><a th:href="@{/barman/prodaza/update/view/{id}(id=${prodaza.getId()})}">Изменить</a></th>

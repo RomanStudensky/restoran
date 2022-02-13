@@ -17,12 +17,14 @@
                 <li class="nav-item">
                     <a class="nav-link" th:href="@{/barman/prodaza}">Продажи<span class="sr-only"></span></a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled" th:href="@{/}">Выход</a>
-                </li>
             </ul>
+
         </div>
     </div>
+    <form method="POST" th:action="@{/auth/login}" class="form-inline my-2 my-lg-0">
+        <div sec:authentication="name" class="form-control mr-sm-2" type="label" aria-label="Username" style="user-select: none;"></div>
+        <input class="btn btn-outline-success my-2 my-sm-0" type="submit" value="Выйти"/>
+    </form>
 </nav>
 <div style="position: absolute; left: 50%; transform:translate(-50%, 0)">
     <div style="position: absolute; left: 50%; transform:translate(-50%, 0)">
@@ -37,18 +39,6 @@
                 <label for="timeProd">Время продажи: </label>
                 <input type="time" th:field="*{prodaza.timeProd}" id="timeProd" />
                 <div style="color:red" th:if="${#fields.hasErrors('prodaza.timeProd')}" th:errors="*{prodaza.timeProd}">Name Error</div>
-            </div>
-
-            <div class="f">
-                <label for="sotrud">Выберите сотрудника</label>
-                <br/>
-                <select id="sotrud" style="width: 300px;" th:field="*{sotrudnikDto.id}" name="sotrudnikDto">
-                    <option th:each="sotrud : ${sotrudnikList}"
-                            th:value="${sotrud.id}"
-                            th:text="${sotrud.fio}">
-                        Part name
-                    </option>
-                </select>
             </div>
             <input type="submit" value="Сохранить">
         </form>

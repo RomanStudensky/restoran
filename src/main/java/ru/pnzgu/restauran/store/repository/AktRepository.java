@@ -16,4 +16,11 @@ public interface AktRepository extends JpaRepository<AktSpis, Long> {
     Optional<Long> findMinIdAkt();
 
     List<AktSpis> findByDateAktBetween(LocalDate dateAkt, LocalDate dateAkt2);
+
+    @Query(value = "" +
+            "select *  " +
+            "from akt_spis " +
+            "join usr u on u.id_user = akt_spis.usr and u.username = ?1",
+            nativeQuery = true)
+    List<AktSpis> findAllByUsername(String username);
 }

@@ -7,6 +7,9 @@ import org.springframework.web.bind.annotation.*;
 import ru.pnzgu.restauran.dto.*;
 import ru.pnzgu.restauran.exception.NotFoundException;
 import ru.pnzgu.restauran.service.*;
+import ru.pnzgu.restauran.store.Role;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/director/sotrudnik")
@@ -18,7 +21,7 @@ public class SotrudnikController {
     private final String CREATE_SOTRUDNIK_VIEW = "/director/sotrudnik/action/sotrudnik/create";
     private final String UPDATE_SOTRUDNIK_VIEW = "/director/sotrudnik/action/sotrudnik/update";
 
-    private final SotrudnikService sotrudnikService;
+    private final UserService sotrudnikService;
 
     @GetMapping()
     public String getCommonView(Model model) {
@@ -43,17 +46,17 @@ public class SotrudnikController {
 
     @GetMapping("/create/view")
     public String getSotrudnikCreateView(Model model) {
-        model.addAttribute("sotrudnik", new SotrudnikDTO());
-        model.addAttribute("roleList", SotrudnikDTO.ROLE);
+        model.addAttribute("sotrudnik", new UserDto());
+        model.addAttribute("roleList", List.of(Role.values()));
 
         return CREATE_SOTRUDNIK_VIEW;
     }
 
     @GetMapping("/update/view/{id}")
     public String getsotrudnikUpdateView(@PathVariable Long id, Model model) {
-        SotrudnikDTO sotrudnikDTO = sotrudnikService.get(id);
+        UserDto sotrudnikDTO = sotrudnikService.get(id);
         model.addAttribute("sotrudnik", sotrudnikDTO);
-        model.addAttribute("roleList", SotrudnikDTO.ROLE);
+        model.addAttribute("roleList", List.of(Role.values()));
 
         return UPDATE_SOTRUDNIK_VIEW;
     }
@@ -61,7 +64,7 @@ public class SotrudnikController {
     // ------------- REST ------------
 
     @PostMapping("/create")
-    public String createSotrudnik(@ModelAttribute(name = "sotrudnik") SotrudnikDTO sotrudnik) {
+    public String createSotrudnik(@ModelAttribute(name = "sotrudnik") UserDto sotrudnik) {
 
         sotrudnik = sotrudnikService.save(sotrudnik);
 
@@ -69,7 +72,7 @@ public class SotrudnikController {
     }
 
     @PostMapping("/update/{id}")
-    public String updateSotrudnik(@ModelAttribute(name = "sotrudnik") SotrudnikDTO sotrudnik, @PathVariable Long id) {
+    public String updateSotrudnik(@ModelAttribute(name = "sotrudnik") UserDto sotrudnik, @PathVariable Long id) {
 
         sotrudnik = sotrudnikService.update(id, sotrudnik);
 

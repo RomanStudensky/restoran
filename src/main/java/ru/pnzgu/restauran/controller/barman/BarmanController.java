@@ -1,6 +1,7 @@
 package ru.pnzgu.restauran.controller.barman;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -17,10 +18,10 @@ public class BarmanController {
 
     private final ProdazaService prodazaService;
     private final SostavProdService sostavProdService;
-    private final SotrudnikService sotrudnikService;
+    private final UserService sotrudnikService;
     private final MenuService menuService;
 
-    @GetMapping()
+    @GetMapping
     public String getCommonView(Model model) {
         model.addAttribute("prodazaList", prodazaService.getAll());
 
@@ -47,8 +48,6 @@ public class BarmanController {
     @GetMapping("/create/view")
     public String getprodazaCreateView(Model model) {
         model.addAttribute("prodaza", new ProdazaDTO());
-        model.addAttribute("sotrudnikList", sotrudnikService.getAll());
-        model.addAttribute("sotrudnikDto", new SotrudnikDTO());
 
         return "/barman/prodaza/action/prodaza/create";
     }
@@ -57,8 +56,6 @@ public class BarmanController {
     public String getprodazaUpdateView(@PathVariable Long id, Model model) {
         ProdazaDTO prodaza = prodazaService.get(id);
         model.addAttribute("prodaza", prodaza);
-        model.addAttribute("sotrudnikList", sotrudnikService.getAll());
-        model.addAttribute("sotrudnikDto", prodaza.getSotrud());
 
         return "/barman/prodaza/action/prodaza/update";
     }
@@ -77,22 +74,19 @@ public class BarmanController {
     // ------------- REST ------------
 
     @PostMapping("/create")
-    public String createprodaza(@ModelAttribute(name = "prodaza") ProdazaDTO prodaza,
-                                @ModelAttribute(name = "stolDto") StolDTO stolDto,
-                                @ModelAttribute(name = "sotrudnikDto") SotrudnikDTO sotrudnikDto) {
+    public String createProdaza(@ModelAttribute(name = "prodaza") ProdazaDTO prodaza,
+                                Authentication authentication) {
 
-        prodaza = prodazaService.save(prodaza, sotrudnikDto.getId());
+        prodaza = prodazaService.save(prodaza, authentication.getName());
 
         return String.format("redirect:/barman/prodaza/%s", prodaza.getId());
     }
 
     @PostMapping("/update/{id}")
-    public String updateprodaza(@ModelAttribute(name = "prodaza") ProdazaDTO prodaza,
-                                @ModelAttribute(name = "stolDto") StolDTO stolDto,
-                                @ModelAttribute(name = "sotrudnikDto") SotrudnikDTO sotrudnikDto,
+    public String updateProdaza(@ModelAttribute(name = "prodaza") ProdazaDTO prodaza,
                                 @PathVariable Long id) {
 
-        prodaza = prodazaService.update(id, prodaza, sotrudnikDto.getId());
+        prodaza = prodazaService.update(id, prodaza);
 
         return String.format("redirect:/barman/prodaza/%s", prodaza.getId());
     }

@@ -21,7 +21,7 @@ public class ProdazaDTO extends DtoParent {
     private LocalDate dateProd = LocalDate.now();
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = TimeOptions.PATTERN)
     private LocalTime timeProd = LocalTime.now();
-    private SotrudnikDTO sotrud;
+    private UserDto user;
     private BigDecimal summa = BigDecimal.valueOf(0);
 
 }

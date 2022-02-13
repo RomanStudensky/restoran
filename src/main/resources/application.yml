@@ -4,13 +4,12 @@ spring:
 
   datasource:
     driver-class-name: org.postgresql.Driver
-    username: postgres
     url: jdbc:postgresql://localhost:5432/rest_new
+    username: postgres
     password: 12345
   liquibase:
     change-log: db/changelog/changelog-master.yml
     enabled: false
-
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQL9Dialect
 

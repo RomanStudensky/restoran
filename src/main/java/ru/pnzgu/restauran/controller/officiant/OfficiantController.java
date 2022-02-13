@@ -1,0 +1,41 @@
+package ru.pnzgu.restauran.controller.officiant;
+
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+import ru.pnzgu.restauran.dto.ReservDTO;
+import ru.pnzgu.restauran.service.ReservService;
+import ru.pnzgu.restauran.service.StolService;
+import java.util.ArrayList;
+import java.util.List;
+
+@Controller
+@RequestMapping("/officiant/stol")
+@RequiredArgsConstructor
+public class OfficiantController {
+
+    private final StolService stolService;
+    private final ReservService reservService;
+
+    @GetMapping("")
+    public String getCommonView(Model model) {
+        model.addAttribute("stolList", stolService.getAllStol());
+
+        List<ReservDTO> reservList = new ArrayList<>();
+        model.addAttribute("reservList", reservList);
+
+        return "/officiant/stol/stolReservView";
+    }
+
+    @GetMapping("/{stolId}")
+    public String getCommonView(@PathVariable Long stolId, Model model) {
+        model.addAttribute("stolList", stolService.getAllStol());
+
+        List<ReservDTO> reservList = stolService.getStol(stolId).getReservs();
+        model.addAttribute("reservList", reservList);
+        model.addAttribute("stolId", stolId);
+
+        return "/officiant/stol/stolReservView";
+    }
+}

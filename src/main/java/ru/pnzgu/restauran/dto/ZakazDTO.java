@@ -25,7 +25,7 @@ public class ZakazDTO extends DtoParent {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = TimeOptions.PATTERN)
     private LocalTime timeZakaz = LocalTime.now();
     private StolDTO stol = new StolDTO();
-    private SotrudnikDTO sotrud = new SotrudnikDTO();
+    private UserDto sotrud = new UserDto();
     private BigDecimal summa = BigDecimal.valueOf(0);
     private List<SostavZakazDTO> sostav = new ArrayList<>();
 }

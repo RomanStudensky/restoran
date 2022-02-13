@@ -1,15 +1,11 @@
 package ru.pnzgu.restauran.service;
 
 import ru.pnzgu.restauran.dto.ProdazaDTO;
-import ru.pnzgu.restauran.dto.SostavProdDTO;
-import ru.pnzgu.restauran.dto.SostavZakazDTO;
 import ru.pnzgu.restauran.exception.NotFoundException;
 import ru.pnzgu.restauran.store.entity.Prodaza;
-import ru.pnzgu.restauran.store.entity.Sotrudnik;
-import ru.pnzgu.restauran.store.entity.Stol;
+import ru.pnzgu.restauran.store.entity.User;
 import ru.pnzgu.restauran.store.repository.ProdazaRepository;
-import ru.pnzgu.restauran.store.repository.SotrudnikRepository;
-import ru.pnzgu.restauran.store.repository.SotrudnikRepository;
+import ru.pnzgu.restauran.store.repository.UserRepository;
 import ru.pnzgu.restauran.util.mapping.SimpleMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -22,7 +18,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class  ProdazaService {
 
-    private final SotrudnikRepository sotrudnikRepository;
+    private final UserRepository sotrudnikRepository;
     private final ProdazaRepository prodazaRepository;
     private final SimpleMapper<ProdazaDTO, Prodaza> simpleMapper = new SimpleMapper<>(new ProdazaDTO(), new Prodaza());
 
@@ -43,17 +39,17 @@ public class  ProdazaService {
 
     }
 
-    public ProdazaDTO save(ProdazaDTO prodazaDTO, Long sotrudId) {
+    public ProdazaDTO save(ProdazaDTO prodazaDTO, String username) {
 
         Prodaza prodaza = simpleMapper.mapDtoToEntity(prodazaDTO);
 
-        Sotrudnik sotrudnik = sotrudnikRepository
-                .findById(sotrudId)
-                .orElseThrow(() -> new NotFoundException(String.format("Сотрудник с идентификатором - %s не найден", sotrudId)));
+        User sotrudnik = sotrudnikRepository
+                .findByUsername(username)
+                .orElseThrow(() -> new NotFoundException(String.format("Сотрудник с именем - %s не найден", username)));
 
 
         prodaza.setSumma(BigDecimal.valueOf(0));
-        prodaza.setSotrud(sotrudnik);
+        prodaza.setUser(sotrudnik);
 
         return simpleMapper
                 .mapEntityToDto(
@@ -62,18 +58,15 @@ public class  ProdazaService {
                 );
     }
 
-    public ProdazaDTO update(Long id, ProdazaDTO prodazaDTO, Long sotrudId) {
-        prodazaRepository
+    public ProdazaDTO update(Long id, ProdazaDTO prodazaDTO) {
+        User user = prodazaRepository
                 .findById(id)
-                .orElseThrow(() -> new NotFoundException(String.format("Продажа с идентификатором - %s не найдена", id)));
-
-        Sotrudnik sotrudnik = sotrudnikRepository
-                .findById(sotrudId)
-                .orElseThrow(() -> new NotFoundException(String.format("Сотрудник с идентификатором - %s не найден", sotrudId)));
+                .orElseThrow(() -> new NotFoundException(String.format("Продажа с идентификатором - %s не найдена", id)))
+                .getUser();
 
         Prodaza prodaza = simpleMapper.mapDtoToEntity(prodazaDTO);
         prodaza.setId(id);
-        prodaza.setSotrud(sotrudnik);
+        prodaza.setUser(user);
 
         return simpleMapper
                 .mapEntityToDto(

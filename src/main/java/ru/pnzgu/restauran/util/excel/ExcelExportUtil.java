@@ -12,19 +12,14 @@ import ru.pnzgu.restauran.store.entity.SostavProd;
 import ru.pnzgu.restauran.util.excel.enums.SostavPostavCol;
 import ru.pnzgu.restauran.util.excel.enums.SostavProdCol;
 import ru.pnzgu.restauran.util.excel.enums.SpistProdCol;
-import ru.pnzgu.restauran.util.mapping.DateOptions;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @UtilityClass
 public class ExcelExportUtil {
-
-    private final static DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DateOptions.PATTERN);
 
     public static ByteArrayOutputStream createPostavExelDocument(PostavshikDTO postavshikDTO, List<NakladDTO> nakladList) throws IOException {
 
@@ -32,7 +27,7 @@ public class ExcelExportUtil {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         XSSFCellStyle cellStyle = workbook.createCellStyle();
 
-        createDocumentPostav(postavshikDTO, nakladList, workbook, cellStyle);
+        createPostavReport(postavshikDTO, nakladList, workbook, cellStyle);
 
         workbook.write(outputStream);
         outputStream.close();
@@ -45,7 +40,7 @@ public class ExcelExportUtil {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         XSSFCellStyle cellStyle = workbook.createCellStyle();
 
-        createDocumentSpis(aktList, workbook, cellStyle);
+        createSpisReport(aktList, workbook, cellStyle);
 
         workbook.write(outputStream);
         outputStream.close();
@@ -58,14 +53,14 @@ public class ExcelExportUtil {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         XSSFCellStyle cellStyle = workbook.createCellStyle();
 
-        createDocumentProd(prod, date, sostavProdList, workbook, cellStyle);
+        createProductsReport(prod, date, sostavProdList, workbook, cellStyle);
 
         workbook.write(outputStream);
         outputStream.close();
         return outputStream;
     }
 
-    private static void createDocumentPostav(PostavshikDTO postavshikDTO, List<NakladDTO> nakladList, XSSFWorkbook workbook, XSSFCellStyle cellStyle) {
+    private static void createPostavReport(PostavshikDTO postavshikDTO, List<NakladDTO> nakladList, XSSFWorkbook workbook, XSSFCellStyle cellStyle) {
         Sheet sheet = workbook.createSheet(String.format("Отчёт по поставкам продуктов от поставщика: %s", postavshikDTO.getNamePost()));
         sheet.autoSizeColumn(1);
 
@@ -134,7 +129,7 @@ public class ExcelExportUtil {
 
     }
 
-    private static void createDocumentSpis(List<AktDTO> sostavAktList, XSSFWorkbook workbook, XSSFCellStyle cellStyle) {
+    private static void createSpisReport(List<AktDTO> sostavAktList, XSSFWorkbook workbook, XSSFCellStyle cellStyle) {
         Sheet sheet = workbook.createSheet("Отчёт по списанным продуктам");
         sheet.autoSizeColumn(1);
 
@@ -204,7 +199,7 @@ public class ExcelExportUtil {
         createCell(cellStyle, row, sheet, SpistProdCol.LENGTH - 1, String.valueOf(summ));
     }
 
-    private static void createDocumentProd(Prodaza prodaza, LocalDate date, List<SostavProd> sostavProdList, XSSFWorkbook order, XSSFCellStyle cellStyle) {
+    private static void createProductsReport(Prodaza prodaza, LocalDate date, List<SostavProd> sostavProdList, XSSFWorkbook order, XSSFCellStyle cellStyle) {
         Sheet sheet = order.createSheet("Отчёт о продажах в баре");
         sheet.autoSizeColumn(1);
 
@@ -223,7 +218,7 @@ public class ExcelExportUtil {
         sheet.addMergedRegion(new CellRangeAddress(rowNum, rowNum, 0, SostavProdCol.LENGTH - 1));
         setMergedCellBorders(new CellRangeAddress(rowNum, rowNum, 0, SostavProdCol.LENGTH - 1), sheet);
 
-        createCell(cellStyle, row, sheet, 0, String.format("Официант: %s", prodaza.getSotrud().getFio()));
+        createCell(cellStyle, row, sheet, 0, String.format("Официант: %s", prodaza.getUser().getFio()));
 
         // Шапка
         rowNum++;

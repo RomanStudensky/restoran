@@ -126,13 +126,13 @@
                 <li class="nav-item ">
                     <a class="nav-link" th:href="@{/director/documents/view/prodaza}">Отчёт по продажам в баре</a>
                 </li>
-
-                <li class="nav-item">
-                    <a class="nav-link disabled" th:href="@{/}">Выход</a>
-                </li>
             </ul>
         </div>
     </div>
+    <form method="POST" th:action="@{/auth/login}" class="form-inline my-2 my-lg-0">
+        <div sec:authentication="name" class="form-control mr-sm-2" type="label" aria-label="Username" style="user-select: none;"></div>
+        <input class="btn btn-outline-success my-2 my-sm-0" type="submit" value="Выйти"/>
+    </form>
 </nav>
 
 <div class="scroll-table">
@@ -151,7 +151,7 @@
                     <div th:if="${sotrudnik.getId == sotrudnikId}">
                         <th style="background-color: #d8d8d8" th:text="${sotrudnik.getId()}"></th>
                         <th style="background-color: #d8d8d8" th:text="${sotrudnik.getFio()}"></th>
-                        <th style="background-color: #d8d8d8" th:text="${sotrudnik.getPost}"></th>
+                        <th style="background-color: #d8d8d8" th:text="${sotrudnik.getRole().getValue()}"></th>
                         <th style="background-color: #d8d8d8" class="_btn-active-table"><a th:href="@{/director/sotrudnik/update/view/{id}(id=${sotrudnik.getId})}">Изменить</a></th>
                         <th style="background-color: #d8d8d8" class="_btn-active-table"><a th:href="@{/director/sotrudnik/delete/{id}(id=${sotrudnik.getId})}">Удалить</a></th>
                     </div>
@@ -159,7 +159,7 @@
                     <div th:unless="${sotrudnik.getId == sotrudnikId}">
                         <th th:text="${sotrudnik.getId()}"></th>
                         <th th:text="${sotrudnik.getFio()}"></th>
-                        <th th:text="${sotrudnik.getPost}"></th>
+                        <th th:text="${sotrudnik.getRole().getValue()}"></th>
                         <th class="_btn-active-table"><a th:href="@{/director/sotrudnik/update/view/{id}(id=${sotrudnik.getId})}">Изменить</a></th>
                         <th class="_btn-active-table"><a th:href="@{/director/sotrudnik/delete/{id}(id=${sotrudnik.getId})}">Удалить</a></th>
                     </div>

@@ -11,7 +11,7 @@ import ru.pnzgu.restauran.dto.PostavshikDTO;
 import ru.pnzgu.restauran.exception.DocumentExportException;
 import ru.pnzgu.restauran.service.DocumentService;
 import ru.pnzgu.restauran.service.PostavshikService;
-import ru.pnzgu.restauran.service.SotrudnikService;
+import ru.pnzgu.restauran.service.UserService;
 import ru.pnzgu.restauran.util.excel.dto.ProdDto;
 import ru.pnzgu.restauran.util.excel.dto.SpisDto;
 
@@ -22,7 +22,7 @@ public class DocumentController {
 
     private final DocumentService documentService;
     private final PostavshikService postavshikService;
-    private final SotrudnikService sotrudnikService;
+    private final UserService sotrudnikService;
 
     @GetMapping("/view/postav")
     public String getPostavDocumentView(Model model) {

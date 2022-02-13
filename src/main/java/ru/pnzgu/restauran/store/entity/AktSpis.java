@@ -29,14 +29,15 @@ public class AktSpis extends EntityParent {
     private LocalDate dateAkt;
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "sotrud", nullable = false)
-    private Sotrudnik sotrud;
+    @JoinColumn(name = "usr", nullable = false)
+    private User user;
 
     @Column(name = "summa", nullable = false)
     private BigDecimal summa;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
     @JoinColumn(name = "akt")
+    @ToString.Exclude
     private List<SostavAkt> spisProducts = new ArrayList<>();
 
     @Override

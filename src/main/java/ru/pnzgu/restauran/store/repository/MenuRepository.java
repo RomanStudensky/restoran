@@ -5,6 +5,7 @@ import ru.pnzgu.restauran.store.entity.Menu;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import javax.print.attribute.Attribute;
 import java.util.List;
 import java.util.Optional;
 
@@ -12,5 +13,4 @@ import java.util.Optional;
 public interface MenuRepository extends JpaRepository<Menu, Long> {
 
     List<Menu> findAllByCategory_Id(Long id_cat);
-
 }

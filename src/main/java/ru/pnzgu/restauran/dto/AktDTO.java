@@ -18,7 +18,7 @@ public class AktDTO extends DtoParent {
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DateOptions.PATTERN)
     private LocalDate dateAkt = LocalDate.now();
-    private SotrudnikDTO sotrud;
+    private UserDto user;
     private Double summa = 0.0D;
     private List<SostavAktDTO> spisProducts = new ArrayList<>();
 }

@@ -2,11 +2,11 @@ package ru.pnzgu.restauran.service;
 
 import ru.pnzgu.restauran.dto.ZakazDTO;
 import ru.pnzgu.restauran.exception.NotFoundException;
-import ru.pnzgu.restauran.store.entity.Sotrudnik;
 import ru.pnzgu.restauran.store.entity.Stol;
+import ru.pnzgu.restauran.store.entity.User;
 import ru.pnzgu.restauran.store.entity.Zakaz;
-import ru.pnzgu.restauran.store.repository.SotrudnikRepository;
 import ru.pnzgu.restauran.store.repository.StolRepository;
+import ru.pnzgu.restauran.store.repository.UserRepository;
 import ru.pnzgu.restauran.store.repository.ZakazRepository;
 import ru.pnzgu.restauran.util.mapping.SimpleMapper;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class ZakazService {
 
-    final SotrudnikRepository sotrudnikRepository;
+    final UserRepository sotrudnikRepository;
     final StolRepository stolRepository;
     final ZakazRepository zakazRepository;
     final SimpleMapper<ZakazDTO, Zakaz> simpleMapper = new SimpleMapper<>(new ZakazDTO(), new Zakaz());
@@ -49,7 +49,7 @@ public class ZakazService {
         Stol stol = stolRepository
                 .findById(stolId)
                 .orElseThrow(() -> new NotFoundException(String.format("Стол с идентификатором - %s не найден", stolId)));
-        Sotrudnik sotrudnik = sotrudnikRepository
+        User sotrudnik = sotrudnikRepository
                 .findById(sotrudId)
                 .orElseThrow(() -> new NotFoundException(String.format("Сотрудник с идентификатором - %s не найден", sotrudId)));
 
@@ -75,7 +75,7 @@ public class ZakazService {
         Stol stol = stolRepository
                 .findById(stolId)
                 .orElseThrow(() -> new NotFoundException(String.format("Стол с идентификатором - %s не найден", stolId)));
-        Sotrudnik sotrudnik = sotrudnikRepository
+        User sotrudnik = sotrudnikRepository
                 .findById(sotrudId)
                 .orElseThrow(() -> new NotFoundException(String.format("Сотрудник с идентификатором - %s не найден", sotrudId)));
 
