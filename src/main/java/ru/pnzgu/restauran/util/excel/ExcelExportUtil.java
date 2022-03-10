@@ -5,10 +5,7 @@ import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.ss.util.RegionUtil;
 import org.apache.poi.xssf.usermodel.XSSFCellStyle;
-import org.apache.poi.xssf.usermodel.XSSFFont;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.apache.xmlbeans.SchemaType;
-import org.openxmlformats.schemas.spreadsheetml.x2006.main.impl.CTFontImpl;
 import ru.pnzgu.restauran.dto.*;
 import ru.pnzgu.restauran.store.entity.Category;
 import ru.pnzgu.restauran.store.entity.Menu;
@@ -23,7 +20,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 @UtilityClass
@@ -85,16 +81,38 @@ public class ExcelExportUtil {
 
         XSSFWorkbook workbook = new XSSFWorkbook();
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        XSSFCellStyle cellStyle = workbook.createCellStyle();
 
-        menu.forEach((category) -> createMenuDocument(category, workbook, cellStyle));
+        menu.forEach((category) -> createMenuDocument(category, workbook));
 
         workbook.write(outputStream);
         outputStream.close();
         return outputStream;
     }
 
-    private static void createMenuDocument(Category category, XSSFWorkbook workbook, XSSFCellStyle cellStyle) {
+    private static void createMenuDocument(Category category, XSSFWorkbook workbook) {
+
+        Font fontTitle = workbook.createFont();
+        fontTitle.setFontHeightInPoints((short)18);
+        fontTitle.setFontName("Courier New");
+
+        Font fontBludo = workbook.createFont();
+        fontBludo.setFontHeightInPoints((short)14);
+        fontBludo.setFontName("Courier New");
+
+        Font fontSostav = workbook.createFont();
+        fontSostav.setFontHeightInPoints((short)10);
+        fontSostav.setFontName("Courier New");
+        fontSostav.setItalic(true);
+
+        XSSFCellStyle cellStyleTitle = workbook.createCellStyle();
+        cellStyleTitle.setFont(fontTitle);
+
+        XSSFCellStyle cellStyleBludo = workbook.createCellStyle();
+        cellStyleBludo.setFont(fontBludo);
+
+        XSSFCellStyle cellStyleSostav = workbook.createCellStyle();
+        cellStyleSostav.setFont(fontSostav);
+
         Sheet sheet = workbook.createSheet(category.getNameCat());
         sheet.autoSizeColumn(1);
 
@@ -104,26 +122,30 @@ public class ExcelExportUtil {
 
         sheet.addMergedRegion(new CellRangeAddress(rowNum, rowNum, 0, MenuCol.LENGTH - 1));
 
-        createCellWithBorder(cellStyle, row, sheet, 0, category.getNameCat());
+        createCellWithBorder(cellStyleTitle, row, sheet, 0, category.getNameCat());
 
         rowNum++;
         row = sheet.createRow(rowNum);
-        createCellWithoutBorder(cellStyle, row, sheet, MenuCol.COLUMN_WEIGHT.getColNum(), MenuCol.COLUMN_WEIGHT.getColName());
+        row.setHeightInPoints(25.f);
+        createCellWithoutBorder(cellStyleBludo, row, sheet, MenuCol.COLUMN_WEIGHT.getColNum(), MenuCol.COLUMN_WEIGHT.getColName());
 
-        cellStyle.setAlignment(HorizontalAlignment.LEFT);
+        cellStyleBludo.setAlignment(HorizontalAlignment.LEFT);
         for (Menu menu : category.getMenuList()) {
             rowNum++;
             row = sheet.createRow(rowNum);
             row.setHeightInPoints(18.0f);
             sheet.addMergedRegion(new CellRangeAddress(rowNum, rowNum, 0, MenuCol.LENGTH - 3));
 
-            createCellWithoutBorder(cellStyle, row, sheet, MenuCol.COLUMN_NAME.getColNum(), menu.getBludo());
-            createCellWithoutBorder(cellStyle, row, sheet, MenuCol.COLUMN_WEIGHT.getColNum(), String.valueOf(menu.getWeight()));
-            createCellWithoutBorder(cellStyle, row, sheet, MenuCol.COLUMN_PRICE.getColNum(), String.valueOf(menu.getPrice()));
+            cellStyleBludo.setFont(fontBludo);
+            createCellWithoutBorder(cellStyleBludo, row, sheet, MenuCol.COLUMN_NAME.getColNum(), menu.getBludo());
+            createCellWithoutBorder(cellStyleBludo, row, sheet, MenuCol.COLUMN_WEIGHT.getColNum(), String.valueOf(menu.getWeight()));
+            createCellWithoutBorder(cellStyleBludo, row, sheet, MenuCol.COLUMN_PRICE.getColNum(), String.valueOf(menu.getPrice()) + " ₽");
             rowNum++;
             row = sheet.createRow(rowNum);
             sheet.addMergedRegion(new CellRangeAddress(rowNum, rowNum, 0, MenuCol.LENGTH - 3));
-            createCellWithoutBorder(cellStyle, row, sheet, MenuCol.COLUMN_SOSATAV.getColNum(),
+
+
+            createCellWithoutBorder(cellStyleSostav, row, sheet, MenuCol.COLUMN_SOSATAV.getColNum(),
                     menu
                             .getSostavList()
                             .stream()
@@ -342,7 +364,6 @@ public class ExcelExportUtil {
         sheet.autoSizeColumn(colNumber);
     }
 
-    
     private static XSSFCellStyle getCellStyleWithBorder(XSSFCellStyle cellStyle) {
 
         cellStyle.setAlignment(HorizontalAlignment.CENTER);
