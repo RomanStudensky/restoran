@@ -8,7 +8,7 @@
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">Ресторан -  Бухгалтер</a>
+    <a class="navbar-brand" href="#">Ресторан - Бухгалтер</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Панель управления">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -60,7 +60,7 @@
             </div>
 
             <div class="field">
-                <label for="sostav">Описание: </label>
+                <label for="sostav">Содержание: </label>
                 <input id="sostav" type="text" name="tel" th:field="*{dogovor.sostav}">
                 <div style="color:red" th:if="${#fields.hasErrors('dogovor.sostav')}" th:errors="*{dogovor.sostav}">Name Error</div>
             </div>

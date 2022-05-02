@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml" class="h-100" lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Изменение даты отпуска</title>
+    <title>Панель управления официанта</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 <body>
@@ -33,13 +33,13 @@
     <div style="position: absolute; left: 50%; transform:translate(-50%, 0)">
         <form th:method="POST" th:action="@{/officiant/zakaz/create}">
             <div class="field">
-                <label for="dateZakaz">Колво мест: </label>
+                <label for="dateZakaz">Дата заказа: </label>
                 <input type="date" th:field="*{zakaz.dateZakaz}" id="dateZakaz" />
                 <div style="color:red" th:if="${#fields.hasErrors('zakaz.dateZakaz')}" th:errors="*{zakaz.dateZakaz}">Name Error</div>
             </div>
 
             <div class="field">
-                <label for="timeZakaz">Колво мест: </label>
+                <label for="timeZakaz">Время заказа: </label>
                 <input type="time" th:field="*{zakaz.timeZakaz}" id="timeZakaz" />
                 <div style="color:red" th:if="${#fields.hasErrors('zakaz.timeZakaz')}" th:errors="*{zakaz.timeZakaz}">Name Error</div>
             </div>

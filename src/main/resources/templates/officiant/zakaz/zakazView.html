@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-    <title>Панель управления администратора</title>
+    <title>Панель управления официанта</title>
     <style type="text/css">
         a {
             text-decoration: none;
@@ -132,6 +132,7 @@
                 <th>Время заказа</th>
                 <th>№ стола</th>
                 <th>Сотрудник</th>
+                <th>Сумма</th>
                 <th class="_btn-active-table" colspan="3" style="text-align: center;"><a th:href="@{/officiant/zakaz/create/view}">Добавить запись</a></th>
             </tr>
         </thead>
@@ -144,6 +145,7 @@
                         <th style="background-color: #d8d8d8" th:text="${zakaz.getTimeZakaz}"></th>
                         <th style="background-color: #d8d8d8" th:text="${zakaz.getStol().getId()}"></th>
                         <th style="background-color: #d8d8d8" th:text="${zakaz.getSotrud().getFio()}"></th>
+                        <th style="background-color: #d8d8d8" class="_cell-active-table" th:text="${zakaz.getSumma()}"></th>
                         <th style="background-color: #d8d8d8" class="_btn-active-table"><a th:href="@{/officiant/zakaz/{id}(id=${zakaz.getId()})}">Состав</a></th>
                         <th style="background-color: #d8d8d8" class="_btn-active-table"><a th:href="@{/officiant/zakaz/update/view/{id}(id=${zakaz.getId()})}">Изменить</a></th>
                         <th style="background-color: #d8d8d8" class="_btn-active-table"><a th:href="@{/officiant/zakaz/delete/{id}(id=${zakaz.getId()})}">Удалить</a></th>
@@ -155,6 +157,7 @@
                         <th th:text="${zakaz.getTimeZakaz()}"></th>
                         <th th:text="${zakaz.getStol().getId()}"></th>
                         <th th:text="${zakaz.getSotrud().getFio()}"></th>
+                        <th th:text="${zakaz.getSumma()}"></th>
                         <th class="_btn-active-table"><a th:href="@{/officiant/zakaz/{id}(id=${zakaz.getId()})}">Состав</a></th>
                         <th class="_btn-active-table"><a th:href="@{/officiant/zakaz/update/view/{id}(id=${zakaz.getId()})}">Изменить</a></th>
                         <th class="_btn-active-table"><a th:href="@{/officiant/zakaz/delete/{id}(id=${zakaz.getId()})}">Удалить</a></th>
@@ -171,7 +174,7 @@
     <table>
         <thead>
             <tr>
-                <th>№</th>
+
                 <th>Блюдо</th>
                 <th>Количество</th>
                 <th>Сумма</th>
@@ -182,7 +185,7 @@
             <tbody>
                 <tr th:each="sostav : ${sostavList}" >
 
-                    <th th:text="${sostav.getId()}"></th>
+
                     <th th:text="${sostav.getBludo().getBludo()}"></th>
                     <th th:text="${sostav.getQuantity()}"></th>
                     <th th:text="${sostav.getSumma()}"></th>

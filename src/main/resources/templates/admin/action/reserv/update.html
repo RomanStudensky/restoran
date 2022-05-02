@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml" class="h-100" lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Изменение даты отпуска</title>
+    <title>Панель управления администратора</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 <body>
@@ -37,7 +37,7 @@
             <br/>
             <div class="f">
                 <label for="dateReserv">Введите дату брони: </label>
-                <input class="f" type="text" th:field="*{reserv.dateReserv}" id="dateReserv"/>
+                <input class="f" type="date" th:field="*{reserv.dateReserv}" id="dateReserv"/>
                 <div style="color:red" th:if="${#fields.hasErrors('reserv.dateReserv')}" th:errors="*{reserv.dateReserv}">Age Error</div>
             </div>
             <br/>
@@ -48,8 +48,8 @@
             </div>
             <br/>
             <div class="f">
-                <label for="countPeople">Введите кол-во людей: </label>
-                <input class="f" type="text" th:field="*{reserv.countPeople}" id="countPeople"/>
+                <label for="countPeople">Введите кол-во гостей: </label>
+                <input class="f" type="number" th:field="*{reserv.countPeople}" id="countPeople"/>
                 <div style="color:red" th:if="${#fields.hasErrors('reserv.countPeople')}" th:errors="*{reserv.countPeople}">Email Error</div>
             </div>
     

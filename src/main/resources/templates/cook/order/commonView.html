@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-    <title>Панель управления администратора</title>
+    <title>Панель управления шеф-повара</title>
     <style type="text/css">
         a {
             text-decoration: none;
@@ -136,8 +136,8 @@
     <table>
         <thead>
             <tr>
-                <th>№ накладной</th>
-                <th>Дата накладной</th>
+                <th>№ заявки</th>
+                <th>Дата заявки</th>
                 <th>Поставщик</th>
                 <th>Договор</th>
                 <th class="_btn-active-table" colspan="3" style="text-align: center;"><a th:href="@{/cook/order/create/view}">Добавить запись</a></th>
@@ -177,7 +177,7 @@
     <table>
         <thead>
             <tr>
-                <th>№</th>
+
                 <th>Продукт</th>
                 <th>Количество</th>
                 <th class="_btn-active-table"><a th:href="@{/cook/order/sostav/create/view/{id}(id=${orderId})}">Добавить запись</a></th>
@@ -187,7 +187,7 @@
             <tbody>
                 <tr th:each="sostav : ${sostavList}" >
 
-                    <th th:text="${sostav.getId}"></th>
+
                     <th th:text="${sostav.getProduct().getNameProd()}"></th>
                     <th th:text="${sostav.getQuantity()}"></th>
                     <th class="_btn-active-table"><a th:href="@{/cook/order/sostav/delete/{id}(id=${sostav.getId})}">Удалить</a></th>
