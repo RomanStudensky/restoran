@@ -4,7 +4,7 @@ spring:
 
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/rest_new
+    url: jdbc:postgresql://localhost:5432/rest
     username: postgres
     password: 12345
   liquibase:
@@ -14,4 +14,4 @@ spring:
     database-platform: org.hibernate.dialect.PostgreSQL9Dialect
 
 server:
-  port: 8081
+  port: 8080

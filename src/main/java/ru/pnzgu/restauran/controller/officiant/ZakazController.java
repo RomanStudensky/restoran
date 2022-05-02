@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.*;
 import ru.pnzgu.restauran.dto.*;
 import ru.pnzgu.restauran.exception.NotFoundException;
 import ru.pnzgu.restauran.service.*;
+import ru.pnzgu.restauran.store.entity.SostavZakaz;
+import ru.pnzgu.restauran.store.entity.Zakaz;
 
 import java.util.List;
 
@@ -14,7 +16,6 @@ import java.util.List;
 @RequestMapping("/officiant/zakaz")
 @RequiredArgsConstructor
 public class ZakazController {
-
     private final ZakazService zakazService;
     private final SostavZakazService sostavZakazService;
     private final StolService stolService;
@@ -114,10 +115,9 @@ public class ZakazController {
 
     @GetMapping("/sostav/delete/{id}")
     public String deleteSostav(@PathVariable Long id) {
-        Long zakazId = sostavZakazService.get(id).getZakaz().getId();
         sostavZakazService.delete(id);
 
-        return String.format("redirect:/officiant/zakaz/%s", zakazId);
+        return String.format("redirect:/officiant/zakaz/%s", id);
     }
 
     @GetMapping("/delete/{id}")
