@@ -7,8 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.pnzgu.restauran.dto.*;
 import ru.pnzgu.restauran.exception.NotFoundException;
 import ru.pnzgu.restauran.service.*;
-import ru.pnzgu.restauran.store.entity.SostavZakaz;
-import ru.pnzgu.restauran.store.entity.Zakaz;
+import ru.pnzgu.restauran.store.Role;
 
 import java.util.List;
 
@@ -49,7 +48,7 @@ public class ZakazController {
     @GetMapping("/create/view")
     public String getZakazCreateView(Model model) {
         model.addAttribute("zakaz", new ZakazDTO());
-        model.addAttribute("sotrudnikList", sotrudnikService.getAll());
+        model.addAttribute("sotrudnikList", sotrudnikService.getAll().stream().filter(userDto -> userDto.getRole() == Role.OFFICIANT));
         model.addAttribute("stolList", stolService.getAllStol());
         model.addAttribute("sotrudnikDto", new UserDto());
         model.addAttribute("stolDto", new StolDTO());
@@ -61,7 +60,7 @@ public class ZakazController {
     public String getZakazUpdateView(@PathVariable Long id, Model model) {
         ZakazDTO zakaz = zakazService.get(id);
         model.addAttribute("zakaz", zakaz);
-        model.addAttribute("sotrudnikList", sotrudnikService.getAll());
+        model.addAttribute("sotrudnikList", sotrudnikService.getAll().stream().filter(userDto -> userDto.getRole() == Role.OFFICIANT));
         model.addAttribute("stolList", stolService.getAllStol());
         model.addAttribute("sotrudnikDto", zakaz.getSotrud());
         model.addAttribute("stolDto", zakaz.getStol());
