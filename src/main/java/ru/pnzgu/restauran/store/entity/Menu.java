@@ -30,6 +30,6 @@ public class Menu extends EntityParent {
     @JoinColumn(name = "category", nullable = false)
     private Category category;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "menu", fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "menu", fetch = FetchType.LAZY)
     private List<SostavBludo> sostavList = new ArrayList<>();
 }

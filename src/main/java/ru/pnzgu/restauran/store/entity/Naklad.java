@@ -34,7 +34,7 @@ public class Naklad extends EntityParent {
     @Column(name = "summa", nullable = false, precision = 131089)
     private Double summa;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tovarNaklad", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "tovarNaklad")
     private List<SostavPostav> sostav = new ArrayList<>();
 
 }

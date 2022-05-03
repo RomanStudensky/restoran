@@ -197,7 +197,7 @@
                         <th th:text="${menu.getPrice()}"></th>
                         <th class="_btn-active-table"><a th:href="@{/cook/categ/menu/{idCateg}/{idMenu}(idMenu=${menu.getId()}, idCateg=${categId})}">Состав</a></th>
                         <th class="_btn-active-table"><a th:href="@{/cook/categ/menu/view/{id}(id=${menu.getId})}">Изменить</a></th>
-                        <th class="_btn-active-table"><a th:href="@{/cook/categ/menu/{id}(id=${menu.getId})}">Удалить</a></th>
+                        <th class="_btn-active-table"><a th:href="@{/cook/categ/menu/delete/{id}(id=${menu.getId})}">Удалить</a></th>
                     </div>
                 </tr>
             </tbody>
