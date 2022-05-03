@@ -10,6 +10,7 @@ import ru.pnzgu.restauran.service.*;
 import ru.pnzgu.restauran.store.Role;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/officiant/zakaz")
@@ -48,7 +49,14 @@ public class ZakazController {
     @GetMapping("/create/view")
     public String getZakazCreateView(Model model) {
         model.addAttribute("zakaz", new ZakazDTO());
-        model.addAttribute("sotrudnikList", sotrudnikService.getAll().stream().filter(userDto -> userDto.getRole() == Role.OFFICIANT));
+        model.addAttribute(
+                "sotrudnikList",
+                            sotrudnikService
+                                    .getAll()
+                                    .stream()
+                                    .filter(userDto -> userDto.getRole() == Role.OFFICIANT)
+                                    .collect(Collectors.toList())
+        );
         model.addAttribute("stolList", stolService.getAllStol());
         model.addAttribute("sotrudnikDto", new UserDto());
         model.addAttribute("stolDto", new StolDTO());
@@ -60,7 +68,14 @@ public class ZakazController {
     public String getZakazUpdateView(@PathVariable Long id, Model model) {
         ZakazDTO zakaz = zakazService.get(id);
         model.addAttribute("zakaz", zakaz);
-        model.addAttribute("sotrudnikList", sotrudnikService.getAll().stream().filter(userDto -> userDto.getRole() == Role.OFFICIANT));
+        model.addAttribute(
+                "sotrudnikList",
+                sotrudnikService
+                        .getAll()
+                        .stream()
+                        .filter(userDto -> userDto.getRole() == Role.OFFICIANT)
+                        .collect(Collectors.toList())
+        );
         model.addAttribute("stolList", stolService.getAllStol());
         model.addAttribute("sotrudnikDto", zakaz.getSotrud());
         model.addAttribute("stolDto", zakaz.getStol());
