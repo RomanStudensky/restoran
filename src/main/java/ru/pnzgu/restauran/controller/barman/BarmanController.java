@@ -18,7 +18,6 @@ public class BarmanController {
 
     private final ProdazaService prodazaService;
     private final SostavProdService sostavProdService;
-    private final UserService sotrudnikService;
     private final MenuService menuService;
 
     @GetMapping
@@ -103,19 +102,17 @@ public class BarmanController {
 
     @GetMapping("/sostav/delete/{id}")
     public String deleteSostav(@PathVariable Long id) {
-        Long prodazaId = sostavProdService.getSostav(id).getProdaza().getId();
+        Long prodazaId = sostavProdService.getProdIdBySostavId(id);
         sostavProdService.delete(id);
 
         return String.format("redirect:/barman/prodaza/%s", prodazaId);
     }
 
     @GetMapping("/delete/{id}")
-    public String deleteprodaza(@PathVariable Long id) {
-        Long prodazaId = prodazaService.getFirstProdaza();
-
+    public String deleteProdaza(@PathVariable Long id) {
         prodazaService.delete(id);
 
-        return String.format("redirect:/barman/prodaza/%s", prodazaId);
+        return "redirect:/barman/prodaza";
     }
 
 

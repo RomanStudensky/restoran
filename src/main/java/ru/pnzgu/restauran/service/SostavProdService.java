@@ -1,5 +1,6 @@
 package ru.pnzgu.restauran.service;
 
+import org.springframework.transaction.annotation.Transactional;
 import ru.pnzgu.restauran.dto.SostavProdDTO;
 import ru.pnzgu.restauran.exception.NotFoundException;
 import ru.pnzgu.restauran.store.entity.*;
@@ -24,6 +25,7 @@ public class SostavProdService {
     private final SimpleMapper<SostavProdDTO, SostavProd> simpleMapper = new SimpleMapper<>(new SostavProdDTO(), new SostavProd());
 
 
+    @Transactional(readOnly = true)
     public List<SostavProdDTO> getAllSostavByProdazaId(Long id) {
         return sostavProdRepository
                 .findByProdazaId(id)
@@ -32,12 +34,14 @@ public class SostavProdService {
                 .collect(Collectors.toList());
     }
 
+    @Transactional(readOnly = true)
     public SostavProdDTO getSostav(Long id) {
         return simpleMapper.mapEntityToDto(sostavProdRepository
                 .findById(id)
                 .orElseThrow(() -> new NotFoundException(String.format("Договор с идентификатором - %s не найден", id))));
     }
 
+    @Transactional
     public SostavProdDTO save(SostavProdDTO dto, Long zakazId, Long menuId) {
         Prodaza prodaza = prodazaRepository
                 .findById(zakazId)
@@ -59,6 +63,7 @@ public class SostavProdService {
                 );
     }
 
+    @Transactional
     public SostavProdDTO update(Long id, SostavProdDTO dto) {
         sostavProdRepository
                 .findById(id)
@@ -72,7 +77,14 @@ public class SostavProdService {
                 );
     }
 
+    @Transactional
     public void delete(Long id) {
         sostavProdRepository.deleteById(id);
     }
+
+    @Transactional(readOnly = true)
+    public Long getProdIdBySostavId(Long id) {
+        return sostavProdRepository.getProdIdBySostavId(id);
+    }
+
 }

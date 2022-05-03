@@ -30,7 +30,7 @@ public class Prodaza extends EntityParent {
     @JoinColumn(name = "usr", nullable = false)
     private User user;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "prodaza", fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "prodaza", fetch = FetchType.LAZY)
     private List<SostavProd> sostavProd = new ArrayList<>();
 
     @Column(name = "summa", nullable = false, precision = 131089)
