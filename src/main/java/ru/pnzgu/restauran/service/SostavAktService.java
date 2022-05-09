@@ -23,7 +23,7 @@ public class SostavAktService {
     private final ProductService productService;
     private final SimpleMapper<SostavAktDTO, SostavAkt> simpleMapper = new SimpleMapper<>(new SostavAktDTO(), new SostavAkt());
 
-
+    @Transactional(readOnly = true)
     public SostavAktDTO get(Long id) {
         return simpleMapper.mapEntityToDto(sostavAktRepository
                 .findById(id)
@@ -45,6 +45,7 @@ public class SostavAktService {
 
         dto.setProduct(product);
         dto.setAktSpis(aktSpis);
+        dto.setSumma(0.0);
 
         SostavAktDTO newSpis = simpleMapper
                 .mapEntityToDto(
@@ -58,6 +59,7 @@ public class SostavAktService {
         return newSpis;
     }
 
+    @Transactional
     public SostavAktDTO update(Long id, SostavAktDTO dto) {
         sostavAktRepository
                 .findById(id)
@@ -71,17 +73,23 @@ public class SostavAktService {
                 );
     }
 
+    @Transactional
     public void delete(Long id) {
         sostavAktRepository.deleteById(id);
     }
 
+    @Transactional(readOnly = true)
     public List<SostavAktDTO> getSostavByAktId(Long id) {
         List<SostavAktDTO> list = sostavAktRepository
-                .findSostavAktByAktSpis_Id(id)
+                .findAllByAktSpis_Id(id)
                 .stream()
                 .map(simpleMapper::mapEntityToDto)
                 .collect(Collectors.toList());
         list.forEach(dto -> dto.setSumma(dto.getPrice() * dto.getQuantity()));
         return list;
+    }
+
+    public Long getAktBySostavId(Long id) {
+        return sostavAktRepository.getAktSpisIdBySostavAktId(id);
     }
 }

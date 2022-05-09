@@ -74,15 +74,6 @@ public class ReservService {
                 );
     }
 
-    @Transactional(readOnly = true)
-    public Long getStolIdByReservId(Long stolId) {
-        return reservRepository
-                .findStolByReservId(stolId)
-                .stream()
-                .findFirst()
-                .orElseThrow(() -> new NotFoundException(String.format("Стол с идентификатором - %s не найден", stolId)));
-    }
-
     public void delete(Long id) {
         reservRepository.deleteById(id);
     }

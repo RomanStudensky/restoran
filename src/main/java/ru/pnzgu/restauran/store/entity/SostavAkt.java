@@ -20,7 +20,7 @@ public class SostavAkt extends EntityParent {
     @Column(name = "id_spis", nullable = false)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     @JoinColumn(name = "akt")
     private AktSpis aktSpis;
 

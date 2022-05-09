@@ -1,5 +1,6 @@
 package ru.pnzgu.restauran.service;
 
+import org.springframework.transaction.annotation.Transactional;
 import ru.pnzgu.restauran.dto.AktDTO;
 import ru.pnzgu.restauran.exception.NotFoundException;
 import ru.pnzgu.restauran.store.entity.AktSpis;
@@ -23,6 +24,7 @@ public class AktService {
     private final SostavAktRepository sostavAktRepository;
     private final SimpleMapper<AktDTO, AktSpis> simpleMapper = new SimpleMapper<>(new AktDTO(), new AktSpis());
 
+    @Transactional(readOnly = true)
     public List<AktDTO> getAll() {
         return aktRepository
                 .findAll()
@@ -31,6 +33,7 @@ public class AktService {
                 .collect(Collectors.toList());
     }
 
+    @Transactional(readOnly = true)
     public AktDTO get(Long id) {
         return simpleMapper
                 .mapEntityToDto(
@@ -39,6 +42,7 @@ public class AktService {
                                 .orElseThrow(() -> new NotFoundException(String.format("Акт списания с идентификатором - %s не найден", id))));
     }
 
+    @Transactional
     public AktDTO save(AktDTO dto, String username) {
 
         User user =
@@ -56,6 +60,7 @@ public class AktService {
                 );
     }
 
+    @Transactional
     public AktDTO update(Long id, AktDTO dto) {
         User user = aktRepository
                 .findById(id)
@@ -72,22 +77,24 @@ public class AktService {
                 );
     }
 
+    @Transactional
     public void delete(Long id) {
         aktRepository.deleteById(id);
     }
 
-    public Long getFirstAkt() {
-        return aktRepository.findMinIdAkt().orElse(0L);
-    }
-
+    @Transactional
     public void setSumma(Long aktId) {
         AktDTO aktDTO = get(aktId);
 
         aktDTO.setSumma(sostavAktRepository
-                .findSostavAktByAktSpis_Id(aktId)
+                .findAllByAktSpis_Id(aktId)
                 .stream()
                 .map(sostavAkt -> sostavAkt.getQuantity() * sostavAkt.getPrice())
                 .reduce(0.0, Double::sum));
+
+        if (aktDTO.getSumma() == null) {
+            aktDTO.setSumma(0.);
+        }
 
         aktRepository.save(simpleMapper.mapDtoToEntity(aktDTO));
     }

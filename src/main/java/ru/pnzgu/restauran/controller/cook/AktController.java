@@ -17,6 +17,7 @@ import java.util.List;
 public class AktController {
 
     private final String REDIRECT_URL = "redirect:/cook/akt/%s";
+    private final String DEFAULT_REDIRECT_URL = "redirect:/cook/akt";
     private final String COMMON_VIEW =  "/cook/akt/commonView";
     private final String CREATE_AKT_VIEW = "/cook/akt/action/akt/create";
     private final String UPDATE_AKT_VIEW = "/cook/akt/action/akt/update";
@@ -40,7 +41,7 @@ public class AktController {
         try {
             aktService.get(aktId);
         } catch (NotFoundException e) {
-            return "redirect:/cook/akt";
+            return DEFAULT_REDIRECT_URL;
         }
         model.addAttribute("aktList", aktService.getAll());
 
@@ -107,19 +108,17 @@ public class AktController {
 
     @GetMapping("/sostav/delete/{id}")
     public String deleteSostav(@PathVariable Long id) {
-        Long nakladId = sostavAktService.get(id).getAktSpis().getId();
+        Long aktId = sostavAktService.getAktBySostavId(id);
         sostavAktService.delete(id);
 
-        return String.format(REDIRECT_URL, nakladId);
+        return String.format(REDIRECT_URL, aktId);
     }
 
     @GetMapping("/delete/{id}")
     public String deleteNaklad(@PathVariable Long id) {
-        Long nakladId = aktService.getFirstAkt();
-
         aktService.delete(id);
 
-        return String.format(REDIRECT_URL, nakladId);
+        return DEFAULT_REDIRECT_URL;
     }
 
 
