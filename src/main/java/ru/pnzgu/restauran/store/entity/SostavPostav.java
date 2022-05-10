@@ -17,11 +17,11 @@ public class SostavPostav extends EntityParent {
     @Column(name = "id_sost_post", nullable = false)
     private Long id;
 
-    @ManyToOne(optional = false)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "tovar_naklad", nullable = false)
     private Naklad tovarNaklad;
 
-    @ManyToOne(optional = false)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product", nullable = false)
     private Product product;
 

@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml" class="h-100" lang="ru">
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml"
+      class="h-100" lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Панель управления бухгалтера</title>
+    <title sec:authorize="hasRole('ADMIN')"></title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 <body>
@@ -15,14 +16,14 @@
         <div class="collapse navbar-collapse" style="width: 100%;" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{/director/postavshik}">Поставщик - Договор<span class="sr-only"></span></a>
+                    <a class="nav-link" th:href="@{/templates/director/postavshik}">Поставщик - Договор<span class="sr-only"></span></a>
                 </li>
                 <li class="nav-item ">
-                    <a class="nav-link" th:href="@{/director/sotrudnik}">Сотрудники<span class="sr-only"></span></a>
+                    <a class="nav-link" th:href="@{/templates/director/sotrudnik}">Сотрудники<span class="sr-only"></span></a>
                 </li>
 
                 <li class="nav-item ">
-                    <a class="nav-link" th:href="@{/director/documents/view/menu}">Выгрузка меню</a>
+                    <a class="nav-link" th:href="@{/documents/view/menu}">Выгрузка меню</a>
                 </li>
 
                 <li class="nav-item ">
@@ -30,15 +31,15 @@
                 </li>
 
                 <li class="nav-item ">
-                    <a class="nav-link" th:href="@{/director/documents/view/postav}">по поставкам</a>
+                    <a class="nav-link " th:href="@{/documents/view/postav}">по поставкам</a>
                 </li>
 
                 <li class="nav-item active">
-                    <a class="nav-link" th:href="@{/director/documents/view/spis}">по списанным продуктам</a>
+                    <a class="nav-link active" th:href="@{/documents/view/spis}">по списанным продуктам</a>
                 </li>
 
                 <li class="nav-item ">
-                    <a class="nav-link active" th:href="@{/director/documents/view/prodaza}">по продажам в баре</a>
+                    <a class="nav-link" th:href="@{/documents/view/prodaza}">по продажам в баре</a>
                 </li>
             </ul>
         </div>
@@ -50,12 +51,18 @@
 </nav>
 <div style="position: absolute; left: 50%; transform:translate(-50%, 0)">
     <div style="position: absolute; left: 50%; transform:translate(-50%, 0)">
-        <form th:method="POST" th:action="@{/director/documents/prodaza}">
+        <form th:method="POST" th:action="@{/documents/spis}">
 
             <div class="field">
-                <label for="date">Дата: </label>
-                <input type="date" th:field="*{prod.date}" id="date" />
-                <div style="color:red" th:if="${#fields.hasErrors('prod.date')}" th:errors="*{prod.date}">Name Error</div>
+                <label for="beginDate">Начальная дата: </label>
+                <input type="date" th:field="*{spisDto.beginDate}" id="beginDate" />
+                <div style="color:red" th:if="${#fields.hasErrors('spisDto.beginDate')}" th:errors="*{spisDto.beginDate}">Name Error</div>
+            </div>
+
+            <div class="field">
+                <label for="endDate">Конечная дата: </label>
+                <input type="date" th:field="*{spisDto.endDate}" id="endDate" />
+                <div style="color:red" th:if="${#fields.hasErrors('spisDto.endDate')}" th:errors="*{spisDto.endDate}">Name Error</div>
             </div>
 
             <input type="submit" value="Сформировать отчёт">

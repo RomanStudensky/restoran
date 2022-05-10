@@ -72,7 +72,9 @@ public class SostavPostavService {
         return sostavPostavDTO;
     }
 
+    @Transactional
     public void delete(Long id) {
-        sostavPostavRepository.deleteById(id);
+        SostavPostav sostavPostav = sostavPostavRepository.findById(id).orElseThrow(() -> new NotFoundException(String.format("Состав с идентификатором - %s не найден", id)));
+        sostavPostavRepository.delete(sostavPostav);
     }
 }

@@ -1,4 +1,4 @@
-package ru.pnzgu.restauran.controller.director;
+package ru.pnzgu.restauran.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
@@ -16,39 +16,38 @@ import ru.pnzgu.restauran.util.excel.dto.ProdDto;
 import ru.pnzgu.restauran.util.excel.dto.SpisDto;
 
 @Controller
-@RequestMapping("/director/documents")
+@RequestMapping("/documents")
 @RequiredArgsConstructor
 public class DocumentController {
 
     private final DocumentService documentService;
     private final PostavshikService postavshikService;
-    private final UserService sotrudnikService;
 
     @GetMapping("/view/postav")
     public String getPostavDocumentView(Model model) {
         model.addAttribute("postavshikDto", new PostavshikDTO());
         model.addAttribute("postavshikList", postavshikService.getAll());
 
-        return "/director/document/documentPostav";
+        return "/documents/documentPostav";
     }
 
     @GetMapping("/view/spis")
     public String getSpisBetweenDateExelDocumentView(Model model) {
         model.addAttribute("spisDto", new SpisDto());
 
-        return "/director/document/documentSpis";
+        return "/documents/documentSpis";
     }
 
     @GetMapping("/view/prodaza")
     public String getProdazaDocumentView(Model model) {
         model.addAttribute("prod", new ProdDto());
 
-        return "/director/document/documentProd";
+        return "/documents/documentProd";
     }
 
     @GetMapping("/view/menu")
     public String getMenuDocumentView(Model model) {
-        return "/director/document/documentMenu";
+        return "/documents/documentMenu";
     }
 
     @PostMapping(value = "/postav", produces = MediaType.TEXT_PLAIN_VALUE)

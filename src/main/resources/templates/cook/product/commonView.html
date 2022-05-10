@@ -139,7 +139,7 @@
                 <th>№ продукта</th>
                 <th>Название</th>
                 <th>Количество на складе</th>
-                <th class="_btn-active-table" colspan="3" style="text-align: center;"><a th:href="@{/cook/product/create/view}">Добавить запись</a></th>
+                <th class="_btn-active-table" colspan="2" style="text-align: center;"><a th:href="@{/cook/product/create/view}">Добавить запись</a></th>
             </tr>
         </thead>
         <div class="scroll-table-body">
@@ -149,7 +149,6 @@
                         <th style="background-color: #d8d8d8" th:text="${product.getId}"></th>
                         <th style="background-color: #d8d8d8" th:text="${product.getNameProd()}"></th>
                         <th style="background-color: #d8d8d8" th:text="${#numbers.formatDecimal(product.getQuantity(), 0, 3)}"></th>
-                        <th style="background-color: #d8d8d8" class="_btn-active-table"><a th:href="@{/cook/product/{id}(id=${product.getId})}">Состав</a></th>
                         <th style="background-color: #d8d8d8" class="_btn-active-table"><a th:href="@{/cook/product/update/view/{id}(id=${product.getId})}">Изменить</a></th>
                         <th style="background-color: #d8d8d8" class="_btn-active-table"><a th:href="@{/cook/product/delete/{id}(id=${product.getId})}">Удалить</a></th>
                     </div>
@@ -158,7 +157,6 @@
                         <th th:text="${product.getId}"></th>
                         <th th:text="${product.getNameProd()}"></th>
                         <th th:text="${#numbers.formatDecimal(product.getQuantity(), 0, 3)}"></th>
-                        <th class="_btn-active-table"><a th:href="@{/cook/product/{id}(id=${product.getId})}">Состав</a></th>
                         <th class="_btn-active-table"><a th:href="@{/cook/product/update/view/{id}(id=${product.getId})}">Изменить</a></th>
                         <th class="_btn-active-table"><a th:href="@{/cook/product/delete/{id}(id=${product.getId})}">Удалить</a></th>
                     </div>

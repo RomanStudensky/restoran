@@ -40,7 +40,7 @@ public class NakladController {
         try {
             nakladService.get(nakladId);
         } catch (NotFoundException e) {
-            return "redirect:/director/naklad";
+            return "redirect:/cook/naklad";
         }
         model.addAttribute("nakladList", nakladService.getAll());
 
