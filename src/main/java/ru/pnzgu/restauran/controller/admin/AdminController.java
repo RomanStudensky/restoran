@@ -110,7 +110,7 @@ public class AdminController {
 
     @GetMapping("/reserv/delete/{id}")
     public String deleteReserv(@PathVariable Long id) {
-        Long stolId = reservService.get(id).getStol().getId();
+        Long stolId = reservService.getStoByReservId(id);
         reservService.delete(id);
 
         return String.format("redirect:/admin/%s", stolId);

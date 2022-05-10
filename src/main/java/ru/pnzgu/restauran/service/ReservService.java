@@ -43,6 +43,7 @@ public class ReservService {
                 .orElseThrow(() -> new NotFoundException(String.format("Бронь с идентификатором - %s не найден", id))));
     }
 
+    @Transactional
     public ReservDTO save(Long stolId, ReservDTO dto) {
 
         Stol stol = stolRepository
@@ -58,6 +59,7 @@ public class ReservService {
                 );
     }
 
+    @Transactional
     public ReservDTO update(Long id, ReservDTO dto) {
         Stol stol = reservRepository
                 .findById(id)
@@ -74,7 +76,13 @@ public class ReservService {
                 );
     }
 
+    @Transactional
     public void delete(Long id) {
         reservRepository.deleteById(id);
+    }
+
+    @Transactional(readOnly = true)
+    public Long getStoByReservId(Long id) {
+        return reservRepository.findStolByReservId(id);
     }
 }

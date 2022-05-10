@@ -22,5 +22,4 @@ public class Stol extends EntityParent {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "stol", fetch = FetchType.LAZY)
     private List<Reserv> reservs;
-
 }

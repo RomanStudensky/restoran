@@ -14,6 +14,8 @@ import java.util.Optional;
 public interface ReservRepository extends JpaRepository<Reserv, Long> {
     List<Reserv> findAllReservByStolId(Long id);
 
-    @Query(nativeQuery = true, value = "select id_reserv from reserv where reserv.stol = ?1")
-    Optional<Long> findStolByReservId(Long id);
+    @Query(nativeQuery = true, value = "select r.stol from reserv r where r.id_reserv = ?1")
+    Long findStolByReservId(Long id);
+
+
 }
