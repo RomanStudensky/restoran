@@ -27,6 +27,8 @@ public class OrdersController {
     private final PostavshikService postavshikService;
     private final ProductService productService;
 
+    private final DocumentService documentService;
+
 
     @GetMapping()
     public String getCommonView(Model model) {
@@ -134,6 +136,5 @@ public class OrdersController {
 
         return String.format(REDIRECT_URL, orderId);
     }
-
 
 }

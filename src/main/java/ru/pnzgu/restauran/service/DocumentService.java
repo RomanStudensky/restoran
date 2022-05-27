@@ -23,9 +23,8 @@ public class DocumentService {
     private final PostavshikService postavshikService;
     private final ProdazaRepository prodazaRepository;
     private final CategoryRepository categoryRepository;
-
     private final AktRepository aktRepository;
-    private final SostavAktRepository sostavAktRepository;
+    private final OrderRepository orderRepository;
 
     public byte[] getPostavDocument(Long postavshikId) throws DocumentExportException {
         List<NakladDTO> nakladList = nakladRepository
@@ -100,5 +99,17 @@ public class DocumentService {
             throw new DocumentExportException("Не удалось сформировать меню");
         }
 
+    }
+
+    public byte[] getOrderDocument(Long id) throws DocumentExportException {
+        Order order = orderRepository.getById(id);
+
+        try {
+            return ExcelExportUtil.createOrderExelDocument(
+                    order, order.getSostavOrders()
+            ).toByteArray();
+        } catch (IOException e) {
+            throw new DocumentExportException("Не удалось сформировать заявку");
+        }
     }
 }

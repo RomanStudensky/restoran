@@ -82,6 +82,11 @@ public class DocumentController {
                 .body(documentService.getMenuExelDocument());
     }
 
-
-
+    @PostMapping(value = "/order/{id}", produces = MediaType.TEXT_PLAIN_VALUE)
+    public ResponseEntity<?> getOrderDocument(@PathVariable Long id) throws DocumentExportException {
+        return ResponseEntity.ok()
+                .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"menu.xlsx\"")
+                .body(documentService.getOrderDocument(id));
+    }
 }

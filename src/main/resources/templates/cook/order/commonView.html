@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml" class="h-100" lang="ru">
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml"
+      class="h-100" lang="ru">
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -41,9 +42,9 @@
             border: 2px solid #6678b1;
         }
         ._btn-active-table:hover {
-            -webkit-box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2) inset;
-            -moz-box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2) inset;
-            box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2) inset;
+            -webkit-box-shadow: 0 5px 10px 2px rgba(34, 60, 80, 0.2) inset;
+            -moz-box-shadow: 0 5px 10px 2px rgba(34, 60, 80, 0.2) inset;
+            box-shadow: 0 5px 10px 2px rgba(34, 60, 80, 0.2) inset;
         }
         td {
             color: #282828;
@@ -53,7 +54,7 @@
         .scroll-table-body {
             max-height: 200px;
             overflow-x: auto;
-            margin-top: 0px;
+            margin-top: 0;
             margin-bottom: 20px;
             border-bottom: 1px solid #eee;
         }
@@ -140,7 +141,7 @@
                 <th>Дата заявки</th>
                 <th>Поставщик</th>
                 <th>Договор</th>
-                <th class="_btn-active-table" colspan="3" style="text-align: center;"><a th:href="@{/cook/order/create/view}">Добавить запись</a></th>
+                <th class="_btn-active-table" colspan="4" style="text-align: center;"><a th:href="@{/cook/order/create/view}">Добавить запись</a></th>
             </tr>
         </thead>
         <div class="scroll-table-body">
@@ -154,6 +155,7 @@
                         <th style="background-color: #d8d8d8" class="_btn-active-table"><a th:href="@{/cook/order/{id}(id=${order.getId})}">Состав</a></th>
                         <th style="background-color: #d8d8d8" class="_btn-active-table"><a th:href="@{/cook/order/update/view/{id}(id=${order.getId})}">Изменить</a></th>
                         <th style="background-color: #d8d8d8" class="_btn-active-table"><a th:href="@{/cook/order/delete/{id}(id=${order.getId})}">Удалить</a></th>
+                        <th style="background-color: #d8d8d8" class="_btn-active-table"><form th:method="POST" th:action="@{/documents/order/{id}(id=${order.getId})}"><input type="submit" value="Печать" style="width: 100%; height: 100%"></form></th>
                     </div>
 
                     <div th:unless="${order.getId == orderId}">
@@ -164,6 +166,7 @@
                         <th class="_btn-active-table"><a th:href="@{/cook/order/{id}(id=${order.getId})}">Состав</a></th>
                         <th class="_btn-active-table"><a th:href="@{/cook/order/update/view/{id}(id=${order.getId})}">Изменить</a></th>
                         <th class="_btn-active-table"><a th:href="@{/cook/order/delete/{id}(id=${order.getId})}">Удалить</a></th>
+                        <th class="_btn-active-table"><form th:method="POST" th:action="@{/documents/order/{id}(id=${order.getId})}"><input type="submit" value="Печать" style="width: 100%; height: 100%"></form></th>
                     </div>
                 </tr>
             </tbody>

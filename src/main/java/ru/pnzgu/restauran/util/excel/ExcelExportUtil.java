@@ -7,20 +7,17 @@ import org.apache.poi.ss.util.RegionUtil;
 import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import ru.pnzgu.restauran.dto.*;
-import ru.pnzgu.restauran.store.entity.Category;
-import ru.pnzgu.restauran.store.entity.Menu;
-import ru.pnzgu.restauran.store.entity.Prodaza;
-import ru.pnzgu.restauran.store.entity.SostavProd;
-import ru.pnzgu.restauran.util.excel.enums.MenuCol;
-import ru.pnzgu.restauran.util.excel.enums.SostavPostavCol;
-import ru.pnzgu.restauran.util.excel.enums.SostavProdCol;
-import ru.pnzgu.restauran.util.excel.enums.SpistProdCol;
+import ru.pnzgu.restauran.store.entity.*;
+import ru.pnzgu.restauran.util.excel.enums.*;
+import ru.pnzgu.restauran.util.mapping.DateOptions;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static org.apache.poi.ss.usermodel.HorizontalAlignment.*;
 
 @UtilityClass
 public class ExcelExportUtil {
@@ -64,18 +61,19 @@ public class ExcelExportUtil {
         return outputStream;
     }
 
-    public static ByteArrayOutputStream createOrderExelDocument(Prodaza prod, LocalDate date, List<SostavProd> sostavProdList) throws IOException {
+    public static ByteArrayOutputStream createOrderExelDocument(Order order, List<SostavOrder> sostavOrders) throws IOException {
 
         XSSFWorkbook workbook = new XSSFWorkbook();
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         XSSFCellStyle cellStyle = workbook.createCellStyle();
 
-//        createOrderReport(prod, date, sostavProdList, workbook, cellStyle);
+        createOrderReport(order, sostavOrders, workbook, cellStyle);
 
         workbook.write(outputStream);
         outputStream.close();
         return outputStream;
     }
+
 
     public static ByteArrayOutputStream createMenuExcelDocument(List<Category> menu) throws IOException {
 
@@ -294,8 +292,8 @@ public class ExcelExportUtil {
         createCellWithBorder(cellStyle, row, sheet, SpistProdCol.LENGTH - 1, String.valueOf(summ));
     }
 
-    private static void createProductsReport(Prodaza prodaza, LocalDate date, List<SostavProd> sostavProdList, XSSFWorkbook order, XSSFCellStyle cellStyle) {
-        Sheet sheet = order.createSheet("Отчёт о продажах в баре");
+    private static void createProductsReport(Prodaza prodaza, LocalDate date, List<SostavProd> sostavProdList, XSSFWorkbook book, XSSFCellStyle cellStyle) {
+        Sheet sheet = book.createSheet("Отчёт о продажах в баре");
         sheet.autoSizeColumn(1);
 
         int rowNum = 0;
@@ -366,11 +364,9 @@ public class ExcelExportUtil {
 
     private static XSSFCellStyle getCellStyleWithBorder(XSSFCellStyle cellStyle) {
 
-        cellStyle.setAlignment(HorizontalAlignment.CENTER);
+        cellStyle.setAlignment(CENTER);
         cellStyle.setVerticalAlignment(VerticalAlignment.CENTER);
-
         cellStyle.setWrapText(true);
-
 
         cellStyle.setBottomBorderColor(IndexedColors.BLACK.getIndex());
         cellStyle.setLeftBorderColor(IndexedColors.BLACK.getIndex());
@@ -381,6 +377,78 @@ public class ExcelExportUtil {
         cellStyle.setBorderRight(BorderStyle.THIN);
         cellStyle.setBorderTop(BorderStyle.THIN);
         return cellStyle;
+    }
+
+    private static void createOrderReport(Order order, List<SostavOrder> sostavOrders, XSSFWorkbook workbook, XSSFCellStyle cellStyle) {
+        Sheet sheet = workbook.createSheet("Отчёт по заявке №" + order.getId());
+        sheet.autoSizeColumn(1);
+
+        int rowNum = 0;
+
+        Row row = sheet.createRow(rowNum);
+        createCellWithoutBorder(cellStyle, row, sheet, 7, "Кому: " + order.getPostavshik().getNamePost());
+        rowNum++;
+        row = sheet.createRow(rowNum);
+        createCellWithoutBorder(cellStyle, row, sheet, 7, order.getPostavshik().getAddress());
+        rowNum++;
+        row = sheet.createRow(rowNum);
+        createCellWithoutBorder(cellStyle, row, sheet, 7, "От ООО \"Экспромт\"");
+        rowNum++;
+        row = sheet.createRow(rowNum);
+        createCellWithoutBorder(cellStyle, row, sheet, 7, "г. Пенза, ул. Московская, 1а");
+        rowNum++;
+        row = sheet.createRow(rowNum);
+        createCellWithoutBorder(cellStyle, row, sheet, 7, order.getDateOrder().format(DateOptions.FORMATTER));
+
+        cellStyle.setAlignment(CENTER);
+        rowNum+=2;
+        row = sheet.createRow(rowNum);
+        createCellWithoutBorder(cellStyle, row, sheet, 0, "ЗАЯВКА");
+        sheet.addMergedRegion(new CellRangeAddress(rowNum, rowNum, 0, 7));
+
+        rowNum++;
+        row = sheet.createRow(rowNum);
+        createCellWithoutBorder(cellStyle, row, sheet, 0, "на поставку продуктов № " + order.getId());
+        sheet.addMergedRegion(new CellRangeAddress(rowNum, rowNum, 0, 7));
+
+        cellStyle.setAlignment(LEFT);
+        rowNum+=2;
+        row = sheet.createRow(rowNum);
+        createCellWithoutBorder(cellStyle, row, sheet, 0,
+                String.format("В целях реализации условий договора № %s от %s прошу осуществить",
+                        order.getDogovor().getId(), order.getDateOrder().format(DateOptions.FORMATTER)))
+        ;
+        sheet.addMergedRegion(new CellRangeAddress(rowNum, rowNum, 0, 7));
+
+        rowNum++;
+        row = sheet.createRow(rowNum);
+        createCellWithoutBorder(cellStyle, row, sheet, 0, "поставку следующих продуктов:");
+        sheet.addMergedRegion(new CellRangeAddress(rowNum, rowNum, 0, 7));
+
+        // Шапка
+        rowNum+=2;
+        row = sheet.createRow(rowNum);
+        row.setHeightInPoints(25.0f);
+        for (int colNum = 0; colNum < SostavOrderCol.LENGTH; colNum++) {
+            createCellWithBorder(cellStyle, row, sheet, SostavOrderCol.values()[colNum].getColNum(), SostavOrderCol.values()[colNum].getColName());
+        }
+
+        for (SostavOrder sostavOrder : sostavOrders) {
+            rowNum++;
+            row = sheet.createRow(rowNum);
+            row.setHeightInPoints(18.0f);
+            createCellWithBorder(cellStyle, row, sheet, SostavProdCol.COLUMN_NUMBER.getColNum(), String.valueOf(sostavOrder.getId()));
+            createCellWithBorder(cellStyle, row, sheet, SostavProdCol.COLUMN_DRINK_NAME.getColNum(), sostavOrder.getProduct().getNameProd());
+            createCellWithBorder(cellStyle, row, sheet, SostavProdCol.COLUMN_QUANTITY.getColNum(), sostavOrder.getQuantity().toString());
+
+        }
+
+        rowNum+=3;
+        row = sheet.createRow(rowNum);
+        createCellWithoutBorder(cellStyle, row, sheet, 0, "Директор ООО\"Экспромт\"");
+        createCellWithoutBorder(cellStyle, row, sheet, 2, "__________");
+        createCellWithoutBorder(cellStyle, row, sheet, 3, "Иванова С.А.");
+        sheet.addMergedRegion(new CellRangeAddress(rowNum, rowNum, 0, 1));
     }
 
     private static XSSFCellStyle getCellStyleWithoutBorder(XSSFCellStyle cellStyle) {
@@ -409,5 +477,4 @@ public class ExcelExportUtil {
         RegionUtil.setLeftBorderColor(IndexedColors.BLACK.getIndex(), cellRangeAddress, sheet);
         RegionUtil.setRightBorderColor(IndexedColors.BLACK.getIndex(), cellRangeAddress, sheet);
     }
-
 }
